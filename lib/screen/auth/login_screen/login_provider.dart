@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+
+import '../../../utils/nav_utils.dart';
+import '../../bottom_nav_bar/bottom_nav_bar.dart';
 // import 'package:lms/data/body_response/auth_body/body_login.dart';
 // import 'package:lms/data/repository/auth_repository/auth_repository.dart';
 // import 'package:lms/utils/shared_preferences.dart';
@@ -48,6 +51,7 @@ class LogInProvider extends ChangeNotifier {
     //       fontSize: 16.0);
     // }
 
+    NavUtil.pushAndRemoveUntil(context,const BottomNavBar());
     notifyListeners();
   }
 }

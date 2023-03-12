@@ -21,6 +21,7 @@ class AppColors {
   static const Color webButtonColor = Color(0xff468DFF);
 
   static const Color subTiltle = Color(0xFF33383F);
+  static const Color non_select = Color(0xFF6F767E);
 
   static const Color secondary = Color(0xFFFF8000);
   static const Color hintTextColor = Color(0xFF6F767E);

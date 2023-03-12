@@ -3,5 +3,18 @@
   "@helloWorld": {
     "description": "The conventional newborn programmer greeting"
   },
-  "login": "Login"
+  "login": "Login",
+  "tutorCategory_all": "ALL",
+  "tutorCategory_eng4kids": "English for kids",
+  "tutorCategory_eng4business": "English for business",
+  "tutorCategory_conversational": "Conversational",
+  "tutorCategory_starter": "STARTER",
+  "tutorCategory_mover": "MOVER",
+  "tutorCategory_ket": "KET",
+  "tutorCategory_pet": "PET",
+  "tutorCategory_flyer": "FLYER",
+  "tutorCategory_ielts": "IELTS",
+  "tutorCategory_toefl": "TOEFL",
+  "tutorCategory_toeic": "TOEIC"
+
 }

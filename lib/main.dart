@@ -6,6 +6,7 @@ import 'package:lettutor_flutter/screen/auth/login_screen/login_provider.dart';
 import 'package:lettutor_flutter/screen/auth/splash_screen.dart';
 import 'package:lettutor_flutter/utils/app_consts.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() {
   runApp(const MyApp());
@@ -28,6 +29,8 @@ class MyApp extends StatelessWidget {
             ],
             child: MaterialApp(
               debugShowCheckedModeBanner: false,
+              localizationsDelegates: AppLocalizations.localizationsDelegates,
+              supportedLocales: AppLocalizations.supportedLocales,
               theme: ThemeData(
                 textTheme: GoogleFonts.interTextTheme(
                   Theme
