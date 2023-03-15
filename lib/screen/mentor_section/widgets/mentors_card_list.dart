@@ -35,7 +35,7 @@ class MentorCardList extends StatelessWidget {
         : GridView.builder(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 1,
-                mainAxisExtent: 180.h,
+                mainAxisExtent: 230.h,
                 crossAxisSpacing: 5,
                 mainAxisSpacing: 5),
             itemCount: mentorSumaries.length ?? 0,

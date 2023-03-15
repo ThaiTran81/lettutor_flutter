@@ -11,6 +11,7 @@ import '../../../l10n/l10nUtils.dart';
 import '../../../model/mentor/TypeMentorCategory.dart';
 import '../../../utils/app_consts.dart';
 import '../../../widgets/custom_text.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MentorsDesignCard extends StatelessWidget {
   final String? image, name, summary;
@@ -127,6 +128,20 @@ class MentorsDesignCard extends StatelessWidget {
                   summary ?? '',
                   maxLines: 3,
                   overflow: TextOverflow.ellipsis,
+                ),
+                const Spacer(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    OutlinedButton.icon(
+                      onPressed: () {},
+                      icon: const Icon(
+                        Icons.edit_calendar_outlined,
+                      ),
+                      label: Text(AppLocalizations.of(context).btn_book_tutor),
+                      style: OutlinedButton.styleFrom(shape: StadiumBorder()),
+                    )
+                  ],
                 )
               ],
             ),

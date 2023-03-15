@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:lettutor_flutter/screen/schedule/schedule_screen.dart';
 
 import '../../drawer/drawer_screen/drawer_screen.dart';
 import '../../utils/app_consts.dart';
@@ -25,18 +26,13 @@ class _BottomNavBarState extends State<BottomNavBar> {
   String? barName = "Home";
   int currentScreenIndex = 0;
   static const List<Widget> _widgetOptions = <Widget>[
-    // HomeScreen(),
+    AllCoursesScreen(),
     MentorsScreen(),
-    // DashboardScreen(),
-    // AllCoursesScreen(),
+    ScheduleScreen(),
     AllCoursesScreen(),
     AllCoursesScreen(),
-    AllCoursesScreen(),
-    AllCoursesScreen(),
-
 
     // MyProfileScreen(isBottomNav: true),
-
   ];
 
   void _onItemTapped(int index) {
@@ -52,10 +48,10 @@ class _BottomNavBarState extends State<BottomNavBar> {
         barName = "Home";
         break;
       case 1:
-        barName = "mentors";
+        barName = "Mentors";
         break;
       case 2:
-        barName = "Dashboard";
+        barName = "Schedule";
         break;
       case 3:
         barName = "All Courses";
@@ -98,7 +94,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) =>  const NotificationScreen(),
+                    builder: (context) => const NotificationScreen(),
                   ));
             },
             onPressed: () {
@@ -152,52 +148,23 @@ class _BottomNavBarState extends State<BottomNavBar> {
               ),
               BottomNavigationBarItem(
                 icon: selectedIndex == 1
-                    ? Image.asset(
-                        'assets/home_page/bottom_mentor_two.png',
-                        height: 24.h,
-                        width: 24.w,
-                      )
-                    : Image.asset(
-                        'assets/home_page/bottom_mentor_one.png',
-                        height: 24.h,
-                        width: 24.w,
-                      ),
-                // Image.asset(
-                //   'assets/images/bottomnavbar/Search.png',
-                //   height: 24.h,
-                //   width: 24.w,
-                // ),
+                    ? Icon(Icons.groups, color: AppColors.primary)
+                    : Icon(Icons.groups_outlined, color: AppColors.non_select),
                 label: 'Mentors',
               ),
               BottomNavigationBarItem(
                 icon: selectedIndex == 2
-                    ? Image.asset(
-                        'assets/home_page/bottom_dashboard_two.png',
-                        height: 24.h,
-                        width: 24.w,
-                      )
-                    : Image.asset(
-                        'assets/home_page/bottom_dashboard_one.png',
-                        height: 24.h,
-                        width: 24.w,
-                      ),
-                // Image.asset(
-                //   'assets/images/bottomnavbar/heart.png',
-                //   height: 24.h,
-                //   width: 24.w,
-                // ),
-                label: 'Dashboard',
+                    ? Icon(Icons.watch_later, color: AppColors.primary)
+                    : Icon(Icons.watch_later_outlined, color: AppColors.non_select),
+                label: 'Schedule',
               ),
               BottomNavigationBarItem(
                 icon: selectedIndex == 3
                     ? const Icon(
-                  Icons.class_,
-                  color: AppColors.primary,
-                )
-                    : Icon(
-                  Icons.class_outlined,
-                  color: AppColors.non_select
-                ),
+                        Icons.class_,
+                        color: AppColors.primary,
+                      )
+                    : Icon(Icons.class_outlined, color: AppColors.non_select),
                 label: 'Courses',
               ),
               BottomNavigationBarItem(
