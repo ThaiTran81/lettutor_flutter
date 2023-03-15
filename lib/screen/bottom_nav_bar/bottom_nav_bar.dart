@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:lettutor_flutter/screen/course/course_screen.dart';
+import 'package:lettutor_flutter/screen/history/history_screen.dart';
 import 'package:lettutor_flutter/screen/schedule/schedule_screen.dart';
 
-import '../../drawer/drawer_screen/drawer_screen.dart';
 import '../../utils/app_consts.dart';
 import '../../widgets/new_app_bar.dart';
-import '../home/all_courses/all_courses_screen.dart';
-import '../home/cart/cart_screen/cart_screen.dart';
 import '../home/notification/notification_screen.dart';
 import '../mentor_section/mentors_screen/mentors_screen.dart';
 
@@ -26,11 +25,11 @@ class _BottomNavBarState extends State<BottomNavBar> {
   String? barName = "Home";
   int currentScreenIndex = 0;
   static const List<Widget> _widgetOptions = <Widget>[
-    AllCoursesScreen(),
+    CourseScreen(),
     MentorsScreen(),
     ScheduleScreen(),
-    AllCoursesScreen(),
-    AllCoursesScreen(),
+    HistoryScreen(),
+    ScheduleScreen(),
 
     // MyProfileScreen(isBottomNav: true),
   ];
@@ -45,7 +44,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
   void appBarName(int radians) {
     switch (radians) {
       case 0:
-        barName = "Home";
+        barName = "All Courses";
         break;
       case 1:
         barName = "Mentors";
@@ -54,7 +53,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
         barName = "Schedule";
         break;
       case 3:
-        barName = "All Courses";
+        barName = "History";
         break;
       case 4:
         barName = "Profile";
@@ -85,7 +84,6 @@ class _BottomNavBarState extends State<BottomNavBar> {
         }
       },
       child: Scaffold(
-        drawer: const AppDrawer(),
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(70.h),
           child: NewAppBar(
@@ -97,13 +95,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
                     builder: (context) => const NotificationScreen(),
                   ));
             },
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const CartScreen(),
-                  ));
-            },
+            onPressed: () {},
           ),
         ),
         body: Center(
@@ -134,17 +126,12 @@ class _BottomNavBarState extends State<BottomNavBar> {
             items: <BottomNavigationBarItem>[
               BottomNavigationBarItem(
                 icon: selectedIndex == 0
-                    ? Image.asset(
-                        'assets/home_page/bottom_home_two.png',
-                        height: 24.h,
-                        width: 24.w,
+                    ? const Icon(
+                        Icons.class_,
+                        color: AppColors.primary,
                       )
-                    : Image.asset(
-                        'assets/home_page/bottom_home_one.png',
-                        height: 24.h,
-                        width: 24.w,
-                      ),
-                label: 'Home',
+                    : Icon(Icons.class_outlined, color: AppColors.non_select),
+                label: 'Courses',
               ),
               BottomNavigationBarItem(
                 icon: selectedIndex == 1
@@ -154,18 +141,20 @@ class _BottomNavBarState extends State<BottomNavBar> {
               ),
               BottomNavigationBarItem(
                 icon: selectedIndex == 2
-                    ? Icon(Icons.watch_later, color: AppColors.primary)
-                    : Icon(Icons.watch_later_outlined, color: AppColors.non_select),
+                    ? Icon(Icons.event_note, color: AppColors.primary)
+                    : Icon(Icons.event_note_outlined,
+                        color: AppColors.non_select),
                 label: 'Schedule',
               ),
               BottomNavigationBarItem(
                 icon: selectedIndex == 3
-                    ? const Icon(
-                        Icons.class_,
+                    ? Icon(
+                        Icons.watch_later_rounded,
                         color: AppColors.primary,
                       )
-                    : Icon(Icons.class_outlined, color: AppColors.non_select),
-                label: 'Courses',
+                    : Icon(Icons.watch_later_outlined,
+                        color: AppColors.non_select),
+                label: 'History',
               ),
               BottomNavigationBarItem(
                 icon: selectedIndex == 4
@@ -179,11 +168,6 @@ class _BottomNavBarState extends State<BottomNavBar> {
                         height: 24.h,
                         width: 24.w,
                       ),
-                // Image.asset(
-                //   'assets/images/profile (1).png',
-                //   height: 24.h,
-                //   width: 24.w,
-                // ),
                 label: 'Profile',
               ),
             ],
