@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:lettutor_flutter/screen/mentor_section/utils/mentor_section_utils.dart';
 import 'package:provider/provider.dart';
 
-import '../../../drawer/drawer_screen/drawer_screen.dart';
 import '../../../utils/app_consts.dart';
 import '../widgets/mentors_card_list.dart';
 import 'mentors_screen_provider.dart';
@@ -33,7 +31,6 @@ class _MentorsScreenState extends State<MentorsScreen>
       child: Consumer<MentorsScreenProvider>(
         builder: (context, provider, _) {
           return Scaffold(
-            drawer: const AppDrawer(),
             body: Padding(
               padding: EdgeInsets.symmetric(horizontal: 24.0.w, vertical: 10.h),
               child: Column(

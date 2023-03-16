@@ -60,6 +60,10 @@ dependencies:
   webview_flutter: ^4.0.1
   flag: ^6.0.0
   country_codes: ^2.2.0
+  scrollable_positioned_list: ^0.3.5
+  syncfusion_flutter_pdfviewer: ^20.4.54
+  chewie: ^1.4.0
+  flutter_tts: ^3.6.3
 
 dev_dependencies:
   flutter_test:
