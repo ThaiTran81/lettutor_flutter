@@ -64,6 +64,8 @@ dependencies:
   syncfusion_flutter_pdfviewer: ^20.4.54
   chewie: ^1.4.0
   flutter_tts: ^3.6.3
+  get_it: ^7.2.0
+
 
 dev_dependencies:
   flutter_test:
