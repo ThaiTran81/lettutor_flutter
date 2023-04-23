@@ -1,5 +1,5 @@
+import 'package:lettutor_flutter/data/model/user/UserData.dart';
 import 'package:lettutor_flutter/data/network/constants/endpoints.dart';
-import 'package:lettutor_flutter/model/user/UserData.dart';
 
 import '../../dio_client.dart';
 
@@ -11,11 +11,12 @@ class AuthApi {
 
   Future<UserData> login(String email, String password) async {
     try {
-      final res = await _dioClient.get(Endpoints.login);
+      var data = {'email': email, 'password': password};
+      final res = await _dioClient.post(Endpoints.login, data: data);
       return UserData.fromJson(res);
     } catch (e) {
       print(e.toString());
-      throw e;
+      rethrow;
     }
   }
 }

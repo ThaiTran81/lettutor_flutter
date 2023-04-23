@@ -1,16 +1,12 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 import '../../../utils/app_consts.dart';
-
-// import '../../home/bottom_nav_bar/bottom_nav_bar.dart';
 import '../../onboarding/widgets/social_login_widget.dart';
 import '../forget_password.dart';
 import '../sign_up_screen/sign_up_screen.dart';
 import '../widgets/elevated_button_widget.dart';
-import '../widgets/text_form_field.dart';
 import 'login_provider.dart';
 
 class LogInScreen extends StatefulWidget {

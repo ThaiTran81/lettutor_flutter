@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:lettutor_flutter/data/model/mentor/MentorSummary.dart';
 import 'package:lettutor_flutter/mock/userData.dart';
 
-import '../../../model/mentor/MentorSummary.dart';
 // import 'package:lms/data/model/mentors_response/mentors_response.dart';
 // import 'package:lms/data/repository/metors_repository/mentors_repository.dart';
 

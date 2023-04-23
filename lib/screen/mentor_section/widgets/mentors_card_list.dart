@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:lettutor_flutter/mock/userData.dart';
-import 'package:lettutor_flutter/model/mentor/TypeMentorCategory.dart';
+import 'package:lettutor_flutter/data/model/mentor/MentorSummary.dart';
 
-import '../../../model/mentor/MentorSummary.dart';
 import '../mentors_profile_details/mentors_profile_details.dart';
 import 'mentors_design_card.dart';
+
 class MentorCardList extends StatelessWidget {
   // final MentorsResponse? mentorsResponse;
   List<MentorSummary> mentorSumaries;

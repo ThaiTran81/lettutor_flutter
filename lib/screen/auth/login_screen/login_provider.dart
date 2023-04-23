@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:lettutor_flutter/data/repository/user_repository.dart';
+import 'package:lettutor_flutter/di/components/service_locator.dart';
+import 'package:lettutor_flutter/utils/simple_worker.dart';
 
-import '../../../utils/nav_utils.dart';
-import '../../bottom_nav_bar/bottom_nav_bar.dart';
 // import 'package:lms/data/body_response/auth_body/body_login.dart';
 // import 'package:lms/data/repository/auth_repository/auth_repository.dart';
 // import 'package:lms/utils/shared_preferences.dart';
@@ -13,6 +13,8 @@ import '../../bottom_nav_bar/bottom_nav_bar.dart';
 class LogInProvider extends ChangeNotifier {
   TextEditingController nameController = TextEditingController();
   TextEditingController passController = TextEditingController();
+
+  final UserRepository _userRepository = getIt<UserRepository>();
 
   // void setDataSharePreferences(ResponseLogin? responseLogin) {
   //   SPUtill.setValue(SPUtill.keyAuthToken, responseLogin?.data?.token);
@@ -25,8 +27,7 @@ class LogInProvider extends ChangeNotifier {
   // }
 
   void loginApi(context) async {
-    // var bodyLogin =
-    //     BodyLogin(email: nameController.text, password: passController.text);
+    // var
     // var apiResponse = await AuthRepository.getLogin(bodyLogin);
     //
     // if (apiResponse.success == true) {
@@ -51,7 +52,13 @@ class LogInProvider extends ChangeNotifier {
     //       fontSize: 16.0);
     // }
 
-    NavUtil.pushAndRemoveUntil(context,const BottomNavBar());
-    notifyListeners();
+    // NavUtils.pushAndRemoveUntil(context,const BottomNavBar());
+    // notifyListeners();
+    SimpleWorker(
+        task: () =>
+            _userRepository.login(nameController.text, passController.text),
+        onCompleted: <UserData>(res) {
+          return null;
+        }).start();
   }
 }

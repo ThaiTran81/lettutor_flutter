@@ -1,7 +1,7 @@
 
 
 
-import 'package:lettutor_flutter/model/mentor/TypeMentorCategory.dart';
+import 'package:lettutor_flutter/data/model/mentor/TypeMentorCategory.dart';
 
 class MentorCategory {
   final String name;

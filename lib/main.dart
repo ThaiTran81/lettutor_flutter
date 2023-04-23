@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lettutor_flutter/di/components/service_locator.dart';
 import 'package:lettutor_flutter/screen/auth/login_screen/login_provider.dart';
 import 'package:lettutor_flutter/screen/auth/splash_screen.dart';
 import 'package:lettutor_flutter/utils/app_consts.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await setupLocator();
+  configLoading();
   runApp(const MyApp());
 }
 
