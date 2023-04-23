@@ -1,8 +1,10 @@
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
-class SimpleWorker {
+typedef Callback<T> = Function(T data);
+
+class SimpleWorker<T> {
   final Function() task;
-  Function<R>(R res)? onCompleted;
+  Callback<T>? onCompleted;
   Function(Exception)? onError;
 
   SimpleWorker({required this.task, this.onCompleted, this.onError});

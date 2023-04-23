@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lettutor_flutter/provider/auth_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../../../utils/app_consts.dart';
@@ -7,7 +8,6 @@ import '../../onboarding/widgets/social_login_widget.dart';
 import '../forget_password.dart';
 import '../sign_up_screen/sign_up_screen.dart';
 import '../widgets/elevated_button_widget.dart';
-import 'login_provider.dart';
 
 class LogInScreen extends StatefulWidget {
   const LogInScreen({Key? key}) : super(key: key);
@@ -20,12 +20,14 @@ class _LogInScreenState extends State<LogInScreen> {
   final _formKey = GlobalKey<FormState>();
 
   bool _isObscure = true;
+  TextEditingController nameController = TextEditingController();
+  TextEditingController passController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => LogInProvider(),
-      child: Consumer<LogInProvider>(
+      create: (context) => AuthProvider(),
+      child: Consumer<AuthProvider>(
         builder: (context, provider, _) {
           return Scaffold(
             resizeToAvoidBottomInset: false,
@@ -76,7 +78,7 @@ class _LogInScreenState extends State<LogInScreen> {
                             height: 8.h,
                           ),
                           TextFormField(
-                            controller: provider.nameController,
+                            controller: nameController,
                             decoration: InputDecoration(
                                 filled: true,
                                 fillColor: AppColors.white,
@@ -118,7 +120,7 @@ class _LogInScreenState extends State<LogInScreen> {
                             height: 8.h,
                           ),
                           TextFormField(
-                            controller: provider.passController,
+                            controller: passController,
                             obscureText: _isObscure,
                             decoration: InputDecoration(
                                 focusedBorder: const OutlineInputBorder(
@@ -183,7 +185,8 @@ class _LogInScreenState extends State<LogInScreen> {
                       ElevatedbuttonWidget(
                         text: 'LOGIN',
                         onPressed: () {
-                          provider.loginApi(context);
+                          provider.loginApi(context, nameController.text,
+                              passController.text);
                         },
                       ),
                       SizedBox(

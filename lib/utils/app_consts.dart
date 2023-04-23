@@ -1,12 +1,6 @@
 import 'package:flutter/material.dart';
 
 class AppConst {
-
-  /// This is Dummy URL
-  static const String _baseUrlTest = "https://olearn.onesttech.com";
-
-  /// Make sure you are in live server or test server by base url
-  static String baseUrlApi = "$_baseUrlTest/api/dev";
   static String bearerToken = "Bearer";
 
 }
@@ -22,6 +16,8 @@ class AppColors {
 
   static const Color subTiltle = Color(0xFF33383F);
   static const Color non_select = Color(0xFF6F767E);
+
+  static const Color divider = Color(0xFF6F767E);
 
   static const Color secondary = Color(0xFFFF8000);
   static const Color hintTextColor = Color(0xFF6F767E);
