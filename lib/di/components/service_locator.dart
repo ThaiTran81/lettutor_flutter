@@ -4,6 +4,7 @@ import 'package:lettutor_flutter/data/network/apis/authentication/auth_api.dart'
 import 'package:lettutor_flutter/data/network/dio_client.dart';
 import 'package:lettutor_flutter/data/repository/user_repository.dart';
 import 'package:lettutor_flutter/di/module/network_module.dart';
+import 'package:lettutor_flutter/provider/auth_provider.dart';
 
 final getIt = GetIt.instance;
 
@@ -17,4 +18,7 @@ Future<void> setupLocator() async {
 
   // repository
   getIt.registerSingleton(UserRepository(getIt<AuthApi>()));
+
+  // provider
+  getIt.registerSingleton(AuthProvider());
 }

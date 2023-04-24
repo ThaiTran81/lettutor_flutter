@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:lettutor_flutter/screen/course/course_screen.dart';
 import 'package:lettutor_flutter/screen/history/history_screen.dart';
+import 'package:lettutor_flutter/screen/profile/my_profile_screen.dart';
 import 'package:lettutor_flutter/screen/schedule/schedule_screen.dart';
 
 import '../../utils/app_consts.dart';
@@ -29,7 +30,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
     MentorsScreen(),
     ScheduleScreen(),
     HistoryScreen(),
-    ScheduleScreen(),
+    MyProfileScreen(),
 
     // MyProfileScreen(isBottomNav: true),
   ];

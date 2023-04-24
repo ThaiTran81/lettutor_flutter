@@ -4,6 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lettutor_flutter/di/components/service_locator.dart';
+import 'package:lettutor_flutter/provider/auth_provider.dart';
 import 'package:lettutor_flutter/screen/auth/login_screen/login_provider.dart';
 import 'package:lettutor_flutter/screen/auth/splash_screen.dart';
 import 'package:lettutor_flutter/utils/app_consts.dart';
@@ -14,11 +15,13 @@ void main() async {
 
   await setupLocator();
   configLoading();
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  MyApp({super.key});
+
+  final AuthProvider _authProvider = getIt.get<AuthProvider>();
 
   // This widget is the root of your application.
   @override
@@ -27,11 +30,11 @@ class MyApp extends StatelessWidget {
       designSize: const Size(375, 812),
       minTextAdapt: true,
       splitScreenMode: true,
-      builder: (context, child) =>
-          MultiProvider(
-            providers: [
+      builder: (context, child) => MultiProvider(
+        providers: [
               ChangeNotifierProvider(create: (_) => LogInProvider()),
-            ],
+              ChangeNotifierProvider(create: (_) => _authProvider)
+        ],
             child: MaterialApp(
               debugShowCheckedModeBanner: false,
               localizationsDelegates: AppLocalizations.localizationsDelegates,
