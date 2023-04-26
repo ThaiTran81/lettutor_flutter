@@ -29,6 +29,9 @@ class _LogInScreenState extends State<LogInScreen> {
   @override
   Widget build(BuildContext context) {
     _authProvider = Provider.of<AuthProvider>(context);
+
+    nameController.text = 'phhai@ymail.com';
+    passController.text = '123456';
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SafeArea(

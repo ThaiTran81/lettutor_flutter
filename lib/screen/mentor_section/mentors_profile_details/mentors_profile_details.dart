@@ -78,30 +78,30 @@ class _MentorsProfileState extends State<MentorsProfile>
                               fontWeight: FontWeight.w700,
                               color: AppColors.title,
                             ),
-                            WidgetUtils.vSpace(5),
+                            SpaceUtils.vSpace(5),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Flag.fromString("VN", height: 24, width: 24),
-                                WidgetUtils.hSpace(10),
+                                SpaceUtils.hSpace(10),
                                 CustomText(
                                   text: "Vietnam",
                                 )
                               ],
                             ),
-                            WidgetUtils.vSpace10(),
+                            SpaceUtils.vSpace10(),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Icon(Icons.star, color: AppColors.warning),
-                                WidgetUtils.hSpace10(),
+                                SpaceUtils.hSpace10(),
                                 CustomText(
                                   text: "5.0 • 235 ratings",
                                   color: AppColors.hintTextColor,
                                 )
                               ],
                             ),
-                            WidgetUtils.vSpace(30),
+                            SpaceUtils.vSpace(30),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
@@ -125,7 +125,7 @@ class _MentorsProfileState extends State<MentorsProfile>
                                     color: AppColors.primary),
                               ],
                             ),
-                            WidgetUtils.vSpace10(),
+                            SpaceUtils.vSpace10(),
                             CustomTextButton(
                               text: CustomText(
                                 text: "Add to favorite",

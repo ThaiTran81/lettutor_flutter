@@ -41,7 +41,7 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
                       children: [
                         Container(
                           decoration: BoxDecoration(
-                              borderRadius: WidgetUtils.commonRadius,
+                              borderRadius: SpaceUtils.commonRadius,
                               color: AppColors.white),
                           height: 300.h,
                           child: ClipRRect(
@@ -73,15 +73,16 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
                                 fontSize: 24.sp,
                                 color: AppColors.primary,
                               ),
-                              WidgetUtils.vSpace(30),
+                              SpaceUtils.vSpace(30),
                               _buildSectionIntroduce("Overview",
                                   "Our world is rapidly changing thanks to new technology, and the vocabulary needed to discuss modern life is evolving almost daily. In this course you will learn the most up-to-date terminology from expertly crafted lessons as well from your native-speaking tutor."),
-                              WidgetUtils.vSpace(20),
+                              SpaceUtils.vSpace(20),
                               _buildSectionIntroduce("Experience",
                                   "Our world is rapidly changing thanks to new technology, and the vocabulary needed to discuss modern life is evolving almost daily. In this course you will learn the most up-to-date terminology from expertly crafted lessons as well from your native-speaking tutor."),
-                              WidgetUtils.vSpace(20),
+                              SpaceUtils.vSpace(20),
                               _buildSectionIntroduce("List topics", ""),
-                              ..._mockTopic.map((e) => _buildLessonItem(e)).toList()
+                              ..._mockTopic.map((e) => _buildLessonItem(e))
+                                  .toList()
                             ],
                           ),
                         )
@@ -103,7 +104,7 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
           fontWeight: FontWeight.bold,
           color: AppColors.subTiltle,
         ),
-        if (content != null && content.isNotEmpty) WidgetUtils.vSpace(10),
+        if (content != null && content.isNotEmpty) SpaceUtils.vSpace(10),
         CustomText(
           text: content ?? '',
           color: AppColors.hintTextColor,
@@ -119,7 +120,7 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
       child: Row(
         children: [
           Icon(Icons.picture_as_pdf_rounded, color: AppColors.subTiltle),
-          WidgetUtils.hSpace10(),
+          SpaceUtils.hSpace10(),
           CustomText(text: lessonName, color: AppColors.subTiltle,)
         ],
       ),

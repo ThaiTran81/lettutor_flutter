@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lettutor_flutter/utils/app_consts.dart';
@@ -22,7 +21,7 @@ class CourseCard extends StatelessWidget {
         padding: EdgeInsets.fromLTRB(0, 0, 0, 5),
         margin: EdgeInsets.all(5),
         decoration: BoxDecoration(
-          borderRadius: WidgetUtils.commonRadius,
+          borderRadius: SpaceUtils.commonRadius,
           color: AppColors.white,
         ),
         child: Column(
@@ -30,7 +29,7 @@ class CourseCard extends StatelessWidget {
           children: [
             Stack(children: [
               ClipRRect(
-                borderRadius: WidgetUtils.commonRadius,
+                borderRadius: SpaceUtils.commonRadius,
                 child: CachedNetworkImage(
                   imageUrl:
                       "https://camblycurriculumicons.s3.amazonaws.com/5e0e8b212ac750e7dc9886ac?h=d41d8cd98f00b204e9800998ecf8427e",
@@ -52,7 +51,7 @@ class CourseCard extends StatelessWidget {
                     ),
                   ))
             ]),
-            WidgetUtils.vSpace10(),
+            SpaceUtils.vSpace10(),
             Container(
               margin: EdgeInsets.all(10),
               child: Column(
@@ -64,13 +63,14 @@ class CourseCard extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                     maxLine: 2,
                   ),
-                  WidgetUtils.vSpace10(),
+                  SpaceUtils.vSpace10(),
                   CustomText(
-                    text: "This is description of course This is description of course  This is description of course",
+                    text:
+                        "This is description of course This is description of course  This is description of course",
                     maxLine: 3,
                     color: AppColors.hintTextColor,
                   ),
-                  WidgetUtils.vSpace(20),
+                  SpaceUtils.vSpace(20),
                   CustomText(
                     text: "9 lessons",
                   )

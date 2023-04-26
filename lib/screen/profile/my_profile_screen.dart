@@ -3,13 +3,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lettutor_flutter/data/model/user/User.dart';
 import 'package:lettutor_flutter/provider/auth_provider.dart';
+import 'package:lettutor_flutter/screen/auth/login_screen/login_screen.dart';
+import 'package:lettutor_flutter/screen/profile/edit_profile_screen/edit_profile_screen.dart';
 import 'package:lettutor_flutter/screen/profile/widget/profile_avatar.dart';
-import 'package:lettutor_flutter/screen/profile/widget/profile_text_option.dart';
-import 'package:lettutor_flutter/screen/profile/widget/text_outlined_button.dart';
+import 'package:lettutor_flutter/screen/profile/widget/setting_item.dart';
 import 'package:lettutor_flutter/utils/app_consts.dart';
+import 'package:lettutor_flutter/utils/nav_utils.dart';
+import 'package:lettutor_flutter/utils/simple_worker.dart';
 import 'package:lettutor_flutter/utils/widget_utils.dart';
 import 'package:lettutor_flutter/widgets/custom_app_bar.dart';
-import 'package:lettutor_flutter/widgets/light_background/darkRadialBackground.dart';
+import 'package:lettutor_flutter/widgets/custom_button.dart';
 import 'package:provider/provider.dart';
 
 class MyProfileScreen extends StatefulWidget {
@@ -53,75 +56,87 @@ class _MyProfileScreenState extends State<MyProfileScreen>
               preferredSize: Size.fromHeight(0)),
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
+          child: SafeArea(
+        child: SingleChildScrollView(
           child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 24.0.w, vertical: 10.h),
-              child: Stack(children: [
-                LightRadialBackground(
-                  color: AppColors.primaryBg,
-                  position: "topLeft",
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                ListTile(
+                  leading: ProfileAvatar(
+                      color: AppColors.primary,
+                      image: _authProvider.getUserAvatarUrl()),
+                  title: Text(_authProvider.getUserFullname()!,
+                      style: GoogleFonts.lato(
+                          color: AppColors.primary,
+                          fontSize: 25.sp,
+                          fontWeight: FontWeight.bold)),
+                  subtitle: Text(_userData?.email ?? '',
+                      style: GoogleFonts.lato(
+                          color: AppColors.textColor, fontSize: 14.sp)),
+                  onTap: () {
+                    NavUtil.navigateScreen(context, EditProfileScreen());
+                  },
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 20.0, right: 20.0),
-                  child: SafeArea(
-                    child: SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          SizedBox(height: 30),
-                          ProfileAvatar(
-                              color: AppColors.primary,
-                              scale: 4.0,
-                              image: _authProvider.getUserAvatarUrl()),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(_authProvider.getUserFullname()!,
-                                style: GoogleFonts.lato(
-                                    color: AppColors.primary,
-                                    fontSize: 40,
-                                    fontWeight: FontWeight.bold)),
-                          ),
-                          Text(_userData?.email ?? '',
-                              style: GoogleFonts.lato(
-                                  color: AppColors.textColor, fontSize: 17)),
-                          Padding(
-                            padding: const EdgeInsets.all(15.0),
-                            child: OutlinedButtonWithText(
-                                width: 75, content: "Edit", onPressed: () {}),
-                          ),
-                          WidgetUtils.vSpace10(),
-                          Column(
-                            children: [
-                              WidgetUtils.vSpace10(),
-                              ProfileTextOption(
-                                label: '$tabSpace My Projects',
-                                icon: Icons.cast,
-                                margin: 5.0,
-                              ),
-                              WidgetUtils.vSpace10(),
-                              ProfileTextOption(
-                                label: '$tabSpace Join A Team',
-                                icon: Icons.group_add,
-                                margin: 5.0,
-                              ),
-                              WidgetUtils.vSpace10(),
-                              ProfileTextOption(
-                                label: '$tabSpace Share Profile',
-                                icon: Icons.shape_line_outlined,
-                                margin: 5.0,
-                              ),
-                              WidgetUtils.vSpace10(),
-                              ProfileTextOption(
-                                label: '$tabSpace All My Task',
-                                icon: Icons.check_circle_outline,
-                                margin: 5.0,
-                              )
-                            ],
-                          ),
-                        ],
-                      ),
+                SpaceUtils.vSpace10(),
+                Column(
+                  children: [
+                    SpaceUtils.vSpace10(),
+                    SettingItem(
+                      label: 'View Feedbacks',
+                      icon: Icons.person_outline_rounded,
+                      margin: 5.0,
+                      onTap: () {
+                        print('on tapp');
+                      },
                     ),
-                  ),
+                    SpaceUtils.vSpace10(),
+                    SettingItem(
+                      label: 'Booking History',
+                      icon: Icons.history_toggle_off_rounded,
+                      margin: 5.0,
+                    ),
+                    SpaceUtils.vSpace10(),
+                    SettingItem(
+                      label: 'Session History',
+                      icon: Icons.history_rounded,
+                      margin: 5.0,
+                    ),
+                    SpaceUtils.vSpace10(),
+                    SettingItem(
+                      label: 'Advanced Setting',
+                      icon: Icons.settings_outlined,
+                      margin: 5.0,
+                    ),
+                    SpaceUtils.vSpace(40),
+                    SettingItem(
+                      label: 'Our Website',
+                      icon: Icons.language_rounded,
+                      margin: 5.0,
+                    ),
+                    SpaceUtils.vSpace10(),
+                    SettingItem(
+                      label: 'Facebook',
+                      icon: Icons.facebook_rounded,
+                      margin: 5.0,
+                    ),
+                    SpaceUtils.vSpace(20),
+                    CustomTextButton.withText(
+                        text: "Log out",
+                        onPressed: () {
+                          SimpleWorker(
+                                  task: NavUtil.pushAndRemoveUntil(
+                                      context, LogInScreen()))
+                              .start();
+                        })
+                  ],
                 ),
-              ]))),
+              ],
+            ),
+          ),
+        ),
+      )),
     );
   }
 }

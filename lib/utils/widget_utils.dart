@@ -1,16 +1,14 @@
 
 import 'package:flutter/cupertino.dart';
 
-class WidgetUtils {
-
+class SpaceUtils {
   static SizedBox hSpace5 = hSpace(5);
   static BorderRadius commonRadius = BorderRadius.circular(10);
 
   static SizedBox vSpace10() {
-    return const SizedBox(
-      height: 10
-    );
+    return const SizedBox(height: 10);
   }
+
   static SizedBox vSpace(double height) {
     return SizedBox(
       height: height

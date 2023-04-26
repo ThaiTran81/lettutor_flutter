@@ -57,7 +57,7 @@ class _HistoryCardState extends State<HistoryCard> {
                       children: [
                         Flag.fromString('VN',
                             height: 25, width: 25, borderRadius: 10),
-                        WidgetUtils.hSpace5,
+                        SpaceUtils.hSpace5,
                         CustomText(
                           text: "Vietnam",
                           color: AppColors.hintTextColor,
@@ -97,7 +97,7 @@ class _HistoryCardState extends State<HistoryCard> {
                                       decoration: BoxDecoration(
                                           color: AppColors.fillGrey,
                                           borderRadius:
-                                              WidgetUtils.commonRadius),
+                                              SpaceUtils.commonRadius),
                                     ),
                                     SizedBox(
                                         height: 300,
@@ -238,7 +238,7 @@ class _HistoryCardState extends State<HistoryCard> {
           child: Text('Send request'),
         )
       ],
-      shape: RoundedRectangleBorder(borderRadius: WidgetUtils.commonRadius),
+      shape: RoundedRectangleBorder(borderRadius: SpaceUtils.commonRadius),
     );
   }
 }

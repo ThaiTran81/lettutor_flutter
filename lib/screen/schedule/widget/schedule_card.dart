@@ -168,7 +168,7 @@ class ScheduleCard extends StatelessWidget {
           child: Text('Send request'),
         )
       ],
-      shape: RoundedRectangleBorder(borderRadius: WidgetUtils.commonRadius),
+      shape: RoundedRectangleBorder(borderRadius: SpaceUtils.commonRadius),
     );
   }
 }

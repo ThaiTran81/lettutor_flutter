@@ -1,16 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProfileAvatar extends StatelessWidget {
-  final double scale;
   final String? image;
   final Color? color;
   final IconData? icon;
 
   ProfileAvatar(
       {Key? key,
-      required this.scale,
       required this.color,
       this.icon,
       this.image})
@@ -18,18 +15,20 @@ class ProfileAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ClipOval(
-      child: CachedNetworkImage(
-        height: 100.h,
-        width: 100.h,
-        fit: BoxFit.cover,
-        imageUrl: image!,
-        placeholder: (context, url) => Center(
-          child: Image.asset("assets/home_page/ic_no_image.png"),
+    return ClipRRect(
+        borderRadius: BorderRadius.all(
+          Radius.circular(10),
         ),
-        errorWidget: (context, url, error) =>
-            Image.asset("assets/home_page/ic_no_image.png"),
-      ),
-    );
+        child: CachedNetworkImage(
+          height: 60,
+          width: 60,
+          fit: BoxFit.cover,
+          imageUrl: image!,
+          placeholder: (context, url) => Center(
+            child: Image.asset("assets/home_page/ic_no_image.png"),
+          ),
+          errorWidget: (context, url, error) =>
+              Image.asset("assets/home_page/ic_no_image.png"),
+        ));
   }
 }
