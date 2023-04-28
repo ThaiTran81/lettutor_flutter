@@ -10,4 +10,8 @@ class UserRepository {
     var userData = await _authApi.login(email, password);
     return userData;
   }
+
+  void signUp(String email, String password) async {
+    await _authApi.signUp(email, password);
+  }
 }

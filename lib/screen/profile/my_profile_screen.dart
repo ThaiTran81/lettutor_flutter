@@ -9,7 +9,6 @@ import 'package:lettutor_flutter/screen/profile/widget/profile_avatar.dart';
 import 'package:lettutor_flutter/screen/profile/widget/setting_item.dart';
 import 'package:lettutor_flutter/utils/app_consts.dart';
 import 'package:lettutor_flutter/utils/nav_utils.dart';
-import 'package:lettutor_flutter/utils/simple_worker.dart';
 import 'package:lettutor_flutter/utils/widget_utils.dart';
 import 'package:lettutor_flutter/widgets/custom_app_bar.dart';
 import 'package:lettutor_flutter/widgets/custom_button.dart';
@@ -125,10 +124,7 @@ class _MyProfileScreenState extends State<MyProfileScreen>
                     CustomTextButton.withText(
                         text: "Log out",
                         onPressed: () {
-                          SimpleWorker(
-                                  task: NavUtil.pushAndRemoveUntil(
-                                      context, LogInScreen()))
-                              .start();
+                          NavUtil.pushAndRemoveUntil(context, LogInScreen());
                         })
                   ],
                 ),

@@ -18,4 +18,12 @@ class Endpoints {
 
   // register
   static const String register = "$baseUrl/auth/register";
+
+  /**
+   * tutor api
+   */
+
+  static String getListTutorWithPagination(int limitNumber, int pageNumber) {
+    return "$baseUrl/tutor/more?perPage=$limitNumber&page=$pageNumber";
+  }
 }

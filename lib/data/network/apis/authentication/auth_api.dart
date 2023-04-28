@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:lettutor_flutter/data/model/user/UserData.dart';
 import 'package:lettutor_flutter/data/network/constants/endpoints.dart';
 
@@ -15,7 +16,21 @@ class AuthApi {
       final res = await _dioClient.post(Endpoints.login, data: data);
       return UserData.fromJson(res);
     } catch (e) {
-      print(e.toString());
+      if (kDebugMode) {
+        print(e.toString());
+      }
+      rethrow;
+    }
+  }
+
+  Future<void> signUp(String email, String password) async {
+    var dataBody = {'email': email, 'password': password, 'source': null};
+    try {
+      await _dioClient.post(Endpoints.register, data: dataBody);
+    } catch (e) {
+      if (kDebugMode) {
+        print(e.toString());
+      }
       rethrow;
     }
   }

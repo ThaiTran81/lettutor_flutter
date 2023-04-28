@@ -63,11 +63,12 @@ void configLoading() {
     ..indicatorSize = 45.0
     ..radius = 10.0
     ..progressColor = AppColors.primary
-    ..backgroundColor = Colors.transparent
+    ..backgroundColor = Colors.white
     ..indicatorColor = AppColors.primary
     ..textColor = AppColors.primary
     ..maskColor = Colors.blue.withOpacity(0.5)
     ..userInteractions = true
     ..dismissOnTap = false
+    ..userInteractions = false
     ..boxShadow = <BoxShadow>[];
 }

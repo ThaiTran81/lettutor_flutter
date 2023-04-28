@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lettutor_flutter/provider/auth_provider.dart';
 import 'package:lettutor_flutter/screen/auth/sign_up_screen/sign_up_provider.dart';
+import 'package:lettutor_flutter/utils/dialog_utils.dart';
+import 'package:lettutor_flutter/utils/nav_utils.dart';
 import 'package:provider/provider.dart';
 
 import '../../../utils/app_consts.dart';
@@ -17,8 +20,16 @@ class SignUpScreen extends StatefulWidget {
 
 class _SignUpScreenState extends State<SignUpScreen> {
   bool _isObscure = true;
+  late AuthProvider _authProvider;
+
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passController = TextEditingController();
+  TextEditingController confirmPasswordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
+    _authProvider = Provider.of<AuthProvider>(context);
+
     return ChangeNotifierProvider(
       create: (context) => SignUpProvider(),
       child: Consumer<SignUpProvider>(
@@ -52,20 +63,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       SizedBox(
                         height: 30.h,
                       ),
-                      //user name///
-                      FromField(
-                        controller: provider.nameController,
-                        title: "User Name",
-                        hintText: 'Write your full Name',
-                      ),
-                      SizedBox(
-                        height: 16.h,
-                      ),
                       ////Email/phone from field////
                       FromField(
-                        controller: provider.emailController,
-                        title: "Email / Phone",
-                        hintText: 'Write your email or phone',
+                        controller: emailController,
+                        title: "Email",
+                        hintText: 'Write your email',
                       ),
                       SizedBox(
                         height: 16.h,
@@ -86,7 +88,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             height: 8.h,
                           ),
                           TextFormField(
-                            controller: provider.passController,
+                            controller: passController,
                             obscureText: _isObscure,
                             decoration: InputDecoration(
                                 focusedBorder: const OutlineInputBorder(
@@ -100,7 +102,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 hintText: 'Password',
                                 enabledBorder: const OutlineInputBorder(
                                   borderSide:
-                                      BorderSide(color: AppColors.border),
+                                  BorderSide(color: AppColors.border),
                                 ),
                                 suffixIcon: IconButton(
                                     icon: Icon(
@@ -140,7 +142,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             height: 8.h,
                           ),
                           TextFormField(
-                            controller: provider.confirmPasswordController,
+                            controller: confirmPasswordController,
                             obscureText: _isObscure,
                             decoration: InputDecoration(
                                 focusedBorder: const OutlineInputBorder(
@@ -154,7 +156,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 hintText: 'Confirm Password',
                                 enabledBorder: const OutlineInputBorder(
                                   borderSide:
-                                      BorderSide(color: AppColors.border),
+                                  BorderSide(color: AppColors.border),
                                 ),
                                 suffixIcon: IconButton(
                                     icon: Icon(
@@ -186,7 +188,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ElevatedbuttonWidget(
                         text: 'SIGN UP',
                         onPressed: () {
-                          provider.signUpApi(context);
+                          _authProvider.signUp(context, emailController.text,
+                              passController.text, () {
+                            DialogUtils.showInform(
+                                context: context,
+                                msgBody:
+                                    'Your account was created successfully!');
+                            NavUtil.pushAndRemoveUntil(context, LogInScreen());
+                          });
                         },
                       ),
                       SizedBox(
@@ -206,11 +215,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           ),
                           InkWell(
                             onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => const LogInScreen(),
-                                  ));
+                              NavUtil.pushAndRemoveUntil(
+                                  context, LogInScreen());
                             },
                             child: Text(
                               'Sign In',

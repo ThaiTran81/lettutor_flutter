@@ -246,11 +246,7 @@ class _LogInScreenState extends State<LogInScreen> {
                         ),
                         InkWell(
                           onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const SignUpScreen(),
-                                ));
+                            NavUtil.navigateScreen(context, SignUpScreen());
                           },
                           child: Text(
                             'Register Now',

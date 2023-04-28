@@ -1,4 +1,7 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
+import 'package:lettutor_flutter/data/local/utils/SecureStorageUtils.dart';
+import 'package:lettutor_flutter/utils/app_consts.dart';
 
 class DioClient {
   // dio instance
@@ -6,6 +9,46 @@ class DioClient {
 
   // injecting dio instance
   DioClient(this._dio);
+
+  Dio _getDio() {
+    _dio.interceptors
+        .add(InterceptorsWrapper(onRequest: (options, handler) async {
+      if (kDebugMode) {
+        print('Base Url : ${options.baseUrl}');
+        print('End Point : ${options.path}');
+        print('Method : ${options.method}');
+        print('Data : ${options.data}');
+      }
+
+      var token =
+          await SecureStorageUtils.getValue(SecureStorageUtils.keyAuthToken);
+      if (token != null) {
+        if (kDebugMode) {
+          print(("token :: $token"));
+        }
+        options.headers = {
+          'Content-Type': 'application/json;charset=UTF-8',
+          'Charset': 'utf-8',
+          'Authorization': "${AppConst.bearerToken} $token"
+        };
+      }
+      return handler.next(options);
+    }, onResponse: (response, handler) {
+      if (kDebugMode) {
+        print('response data : ${response.data}');
+      }
+      return handler.next(response);
+    }, onError: (DioError e, handler) {
+      if (kDebugMode) {
+        print('Error Response : ${e.response}');
+        print('Error message : ${e.message}');
+        print('Error type : ${e.type.name}');
+      }
+      return handler.next(e);
+    }));
+
+    return _dio;
+  }
 
   // Get:-----------------------------------------------------------------------
   Future<dynamic> get(
@@ -16,7 +59,7 @@ class DioClient {
     ProgressCallback? onReceiveProgress,
   }) async {
     try {
-      final Response response = await _dio.get(
+      final Response response = await _getDio().get(
         uri,
         queryParameters: queryParameters,
         options: options,
@@ -26,7 +69,7 @@ class DioClient {
       return response.data;
     } catch (e) {
       print(e.toString());
-      throw e;
+      rethrow;
     }
   }
 
@@ -41,7 +84,7 @@ class DioClient {
     ProgressCallback? onReceiveProgress,
   }) async {
     try {
-      final Response response = await _dio.post(
+      final Response response = await _getDio().post(
         uri,
         data: data,
         queryParameters: queryParameters,
@@ -52,7 +95,7 @@ class DioClient {
       );
       return response.data;
     } catch (e) {
-      throw e;
+      rethrow;
     }
   }
 
@@ -67,7 +110,7 @@ class DioClient {
     ProgressCallback? onReceiveProgress,
   }) async {
     try {
-      final Response response = await _dio.put(
+      final Response response = await _getDio().put(
         uri,
         data: data,
         queryParameters: queryParameters,
@@ -78,7 +121,7 @@ class DioClient {
       );
       return response.data;
     } catch (e) {
-      throw e;
+      rethrow;
     }
   }
 
@@ -93,7 +136,7 @@ class DioClient {
     ProgressCallback? onReceiveProgress,
   }) async {
     try {
-      final Response response = await _dio.delete(
+      final Response response = await _getDio().delete(
         uri,
         data: data,
         queryParameters: queryParameters,
@@ -102,7 +145,7 @@ class DioClient {
       );
       return response.data;
     } catch (e) {
-      throw e;
+      rethrow;
     }
   }
 }

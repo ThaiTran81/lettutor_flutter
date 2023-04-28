@@ -12,8 +12,12 @@ class SimpleWorker<T> {
   void start() async {
     try {
       EasyLoading.show(status: 'loading...');
-      var res = await task();
-      onCompleted!(res);
+      if (T == Null) {
+        await task();
+      } else {
+        var res = await task();
+        onCompleted!(res);
+      }
       EasyLoading.dismiss();
     } on Exception catch (e) {
       EasyLoading.dismiss();

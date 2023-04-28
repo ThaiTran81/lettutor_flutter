@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lettutor_flutter/widgets/base_screen.dart';
 
 class NavUtil {
   static navigateScreen(BuildContext context, Widget screen) {
@@ -9,7 +10,7 @@ class NavUtil {
             BuildContext context,
             Animation<double> animation,
             Animation<double> secondaryAnimation) {
-          return screen;
+          return BaseScreen(child: screen);
         },
         transitionsBuilder: (
             BuildContext context,

@@ -65,6 +65,7 @@ dependencies:
   chewie: ^1.4.0
   flutter_tts: ^3.6.3
   get_it: ^7.2.0
+  flutter_secure_storage: ^8.0.0
 
 
 dev_dependencies:
