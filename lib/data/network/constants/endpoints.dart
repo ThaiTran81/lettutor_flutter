@@ -26,4 +26,6 @@ class Endpoints {
   static String getListTutorWithPagination(int limitNumber, int pageNumber) {
     return "$baseUrl/tutor/more?perPage=$limitNumber&page=$pageNumber";
   }
+
+  static const String searchTutor = "$baseUrl/tutor/search";
 }

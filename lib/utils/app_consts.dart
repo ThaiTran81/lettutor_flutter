@@ -1,8 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class AppConst {
   static String bearerToken = "Bearer";
 
+  static const _regular = FontWeight.w400;
+  static const _medium = FontWeight.w500;
+  static const _semiBold = FontWeight.w600;
+  static const _bold = FontWeight.w700;
+
+  static final TextTheme textTheme = TextTheme(
+    headlineMedium: GoogleFonts.montserrat(fontWeight: _bold, fontSize: 20.0),
+    bodySmall: GoogleFonts.oswald(fontWeight: _semiBold, fontSize: 16.0),
+    headlineSmall: GoogleFonts.oswald(fontWeight: _medium, fontSize: 16.0),
+    titleMedium: GoogleFonts.montserrat(fontWeight: _medium, fontSize: 16.0),
+    labelSmall: GoogleFonts.montserrat(fontWeight: _medium, fontSize: 12.0),
+    bodyLarge: GoogleFonts.montserrat(fontWeight: _regular, fontSize: 14.0),
+    titleSmall: GoogleFonts.montserrat(fontWeight: _medium, fontSize: 14.0),
+    bodyMedium: GoogleFonts.montserrat(fontWeight: _regular, fontSize: 16.0),
+    titleLarge: GoogleFonts.montserrat(fontWeight: _bold, fontSize: 16.0),
+    labelLarge: GoogleFonts.montserrat(fontWeight: _semiBold, fontSize: 14.0),
+  );
 }
 
 class AppColors {
@@ -37,6 +55,4 @@ class AppColors {
   static const Color backgrounColor = Colors.white;
   static const Color productBackGroundColor = Color(0xffF6F6F6);
   static const Color fillGrey = Color(0xffE2EAF4);
-
-
 }

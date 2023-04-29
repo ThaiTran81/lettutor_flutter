@@ -8,8 +8,11 @@ import '../../../utils/app_consts.dart';
 class ElevatedbuttonWidget extends StatelessWidget {
   String? text;
   final Function()? onPressed;
+  Color? backgorundColor;
 
-  ElevatedbuttonWidget({Key? key, this.text, this.onPressed}) : super(key: key);
+  ElevatedbuttonWidget(
+      {Key? key, this.text, this.onPressed, this.backgorundColor})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +22,8 @@ class ElevatedbuttonWidget extends StatelessWidget {
       child: ElevatedButton(
           style: ElevatedButton.styleFrom(
             shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8.0)), backgroundColor: AppColors.primary,
+                borderRadius: BorderRadius.circular(8.0)),
+            backgroundColor: this.backgorundColor ?? AppColors.primary,
             elevation: 4,
           ),
           onPressed: onPressed,

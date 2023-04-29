@@ -2,6 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:lettutor_flutter/data/model/mentor/MentorSummary.dart';
+import 'package:lettutor_flutter/data/model/mentor/TypeMentorCategory.dart';
+import 'package:lettutor_flutter/data/model/tutor/CriteriaSearchRequest.dart';
+import 'package:lettutor_flutter/data/model/tutor/Filters.dart';
 import 'package:lettutor_flutter/data/model/tutor/Rows.dart';
 import 'package:lettutor_flutter/data/model/tutor/TutorResponse.dart';
 import 'package:lettutor_flutter/data/repository/tutor_repository.dart';
@@ -19,8 +22,11 @@ class MentorsScreenProvider extends ChangeNotifier {
   List<Tutor> tutors = List.empty(growable: true);
   int currentPage = 1;
   bool isLoadingMore = false;
-  bool isLoadedMore = true;
   int? totalTutors = null;
+  TutorSpecialty selectedSpecialtyFilter = TutorSpecialty.ALL;
+  TextEditingController searchTextFieldController = TextEditingController();
+
+  late CriteriaSearchRequest criteria;
 
   var tutorRepository = getIt<TutorRepository>();
 
@@ -28,11 +34,14 @@ class MentorsScreenProvider extends ChangeNotifier {
     getTutorList(currentPage);
   }
 
-  void getSearchValue(String? searchCode) {
-    search = searchCode ?? "";
+  void getSearchValue() {
+    search = searchTextFieldController.text ?? "";
     if (timeHandle != null) {
       timeHandle!.cancel();
     }
+    timeHandle = Timer(const Duration(seconds: 1), () {
+      getTutorListByCriteria();
+    });
   }
 
   void getTutorList(int pageNumber) async {
@@ -52,7 +61,7 @@ class MentorsScreenProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> getTutorListFrom(bool isAppend) async {
+  Future<void> loadMoreTutorListResult(bool isAppend) async {
     if (totalTutors != null && tutors.length >= totalTutors!) {
       setLoadingMoreIs(false);
       return;
@@ -60,8 +69,8 @@ class MentorsScreenProvider extends ChangeNotifier {
     if (isLoadingMore) {
       currentPage++;
     }
-    TutorResponse? res =
-        await tutorRepository.getTutorList(LIMIT_PER_PAGE, currentPage);
+    criteria.page = currentPage;
+    TutorResponse? res = await tutorRepository.getTutorListBy(criteria);
     if (res != null && res.tutors != null) {
       totalTutors = res.tutors?.count ?? 0;
       addTutors(res.tutors?.rows);
@@ -79,5 +88,44 @@ class MentorsScreenProvider extends ChangeNotifier {
   setLoadingMoreIs(bool value) {
     isLoadingMore = value;
     notifyListeners();
+  }
+
+  setSelectedSpecialtyFilter(TutorSpecialty tutorSpecialty) {
+    selectedSpecialtyFilter = tutorSpecialty;
+    notifyListeners();
+  }
+
+  void getTutorListByCriteria() {
+    List<String>? specialties;
+    if (selectedSpecialtyFilter == TutorSpecialty.ALL) {
+      specialties = null;
+    } else {
+      var code = selectedSpecialtyFilter.toCode();
+      specialties = [code];
+    }
+    var searchValue = search.isEmpty ? null : search;
+    criteria = CriteriaSearchRequest(
+        filters: Filters(specialties: specialties),
+        search: searchValue,
+        perPage: LIMIT_PER_PAGE,
+        page: 1);
+
+    SimpleWorker<TutorResponse?>(
+      task: () => tutorRepository.getTutorListBy(criteria),
+      onCompleted: (res) {
+        if (res != null && res.tutors != null) {
+          totalTutors = res.tutors?.count ?? 0;
+          setTutors(res.tutors?.rows);
+        }
+      },
+    ).start();
+  }
+
+  void resetCriteria() {
+    selectedSpecialtyFilter = TutorSpecialty.ALL;
+    search = '';
+    currentPage = 1;
+    searchTextFieldController.clear();
+    getTutorListByCriteria();
   }
 }

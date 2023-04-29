@@ -95,7 +95,7 @@ class _MentorCardListState extends State<MentorCardList> {
             _scrollCotroller.position.maxScrollExtent &&
         _mentorsScreenProvider.isLoadingMore == false) {
       _mentorsScreenProvider.setLoadingMoreIs(true);
-      _mentorsScreenProvider.getTutorListFrom(true);
+      _mentorsScreenProvider.loadMoreTutorListResult(true);
     }
   }
 }

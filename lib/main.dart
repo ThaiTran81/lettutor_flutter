@@ -7,6 +7,7 @@ import 'package:lettutor_flutter/di/components/service_locator.dart';
 import 'package:lettutor_flutter/provider/auth_provider.dart';
 import 'package:lettutor_flutter/screen/auth/login_screen/login_provider.dart';
 import 'package:lettutor_flutter/screen/auth/splash_screen.dart';
+import 'package:lettutor_flutter/screen/mentor_section/mentors_screen/mentors_screen_provider.dart';
 import 'package:lettutor_flutter/utils/app_consts.dart';
 import 'package:provider/provider.dart';
 
@@ -22,6 +23,8 @@ class MyApp extends StatelessWidget {
   MyApp({super.key});
 
   final AuthProvider _authProvider = getIt.get<AuthProvider>();
+  final MentorsScreenProvider _mentorsScreenProvider =
+      getIt.get<MentorsScreenProvider>();
 
   // This widget is the root of your application.
   @override
@@ -32,25 +35,24 @@ class MyApp extends StatelessWidget {
       splitScreenMode: true,
       builder: (context, child) => MultiProvider(
         providers: [
-              ChangeNotifierProvider(create: (_) => LogInProvider()),
-              ChangeNotifierProvider(create: (_) => _authProvider)
+          ChangeNotifierProvider(create: (_) => LogInProvider()),
+          ChangeNotifierProvider(create: (_) => _authProvider),
+          ChangeNotifierProvider(create: (_) => _mentorsScreenProvider),
         ],
-            child: MaterialApp(
-              debugShowCheckedModeBanner: false,
-              localizationsDelegates: AppLocalizations.localizationsDelegates,
-              supportedLocales: AppLocalizations.supportedLocales,
-              theme: ThemeData(
-                textTheme: GoogleFonts.interTextTheme(
-                  Theme
-                      .of(context)
-                      .textTheme,
-                ),
-                primarySwatch: Colors.blue,
-              ),
-              home: const SplashScreen(),
-              builder: EasyLoading.init(),
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          theme: ThemeData(
+            textTheme: GoogleFonts.interTextTheme(
+              Theme.of(context).textTheme,
             ),
+            primarySwatch: Colors.blue,
           ),
+          home: const SplashScreen(),
+          builder: EasyLoading.init(),
+        ),
+      ),
     );
   }
 }

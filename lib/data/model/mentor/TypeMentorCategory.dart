@@ -30,4 +30,10 @@ enum TutorSpecialty {
   static TutorSpecialty? from(String specialtyCode) {
     return tutorSpecialtyOfCodeMap[specialtyCode];
   }
+
+  String toCode() {
+    return tutorSpecialtyOfCodeMap.keys
+        .where((key) => tutorSpecialtyOfCodeMap[key] == this)
+        .first;
+  }
 }

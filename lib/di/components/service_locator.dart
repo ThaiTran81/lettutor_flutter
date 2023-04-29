@@ -7,6 +7,7 @@ import 'package:lettutor_flutter/data/repository/tutor_repository.dart';
 import 'package:lettutor_flutter/data/repository/user_repository.dart';
 import 'package:lettutor_flutter/di/module/network_module.dart';
 import 'package:lettutor_flutter/provider/auth_provider.dart';
+import 'package:lettutor_flutter/screen/mentor_section/mentors_screen/mentors_screen_provider.dart';
 
 final getIt = GetIt.instance;
 
@@ -25,4 +26,5 @@ Future<void> setupLocator() async {
 
   // provider
   getIt.registerSingleton(AuthProvider());
+  getIt.registerSingleton(MentorsScreenProvider());
 }

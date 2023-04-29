@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lettutor_flutter/widgets/custom_text.dart';
@@ -47,7 +46,7 @@ class CustomTextButton extends StatelessWidget {
   CustomTextButton.withText({super.key, required String text, this.onPressed}) {
     this.text = CustomText(
       text: text,
-      fontSize: 12.sp,
+      fontSize: 16.sp,
       color: AppColors.primary,
     );
   }
