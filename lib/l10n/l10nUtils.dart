@@ -10,32 +10,35 @@ class I10nUtils {
   //   }
   //   return "";
   // }
-  static String translateFrom(TypeMentorCategory typeMentorCategory, BuildContext context) {
+  static String translateFrom(
+      TutorSpecialty typeMentorCategory, BuildContext context) {
     switch (typeMentorCategory) {
-      case TypeMentorCategory.ALL:
+      case TutorSpecialty.ALL:
         return AppLocalizations.of(context).tutorCategory_all;
-      case TypeMentorCategory.E_4_KIDS:
+      case TutorSpecialty.E_4_KIDS:
         return AppLocalizations.of(context).tutorCategory_eng4kids;
-      case TypeMentorCategory.E_4_BUSINESS:
+      case TutorSpecialty.E_4_BUSINESS:
         return AppLocalizations.of(context).tutorCategory_eng4business;
-      case TypeMentorCategory.CONVERSATIONAL:
+      case TutorSpecialty.CONVERSATIONAL:
         return AppLocalizations.of(context).tutorCategory_conversational;
-      case TypeMentorCategory.STARTERS:
+      case TutorSpecialty.STARTERS:
         return AppLocalizations.of(context).tutorCategory_starter;
-      case TypeMentorCategory.MOVERS:
+      case TutorSpecialty.MOVERS:
         return AppLocalizations.of(context).tutorCategory_mover;
-      case TypeMentorCategory.FLYERS:
+      case TutorSpecialty.FLYERS:
         return AppLocalizations.of(context).tutorCategory_flyer;
-      case TypeMentorCategory.KET:
+      case TutorSpecialty.KET:
         return AppLocalizations.of(context).tutorCategory_ket;
-      case TypeMentorCategory.PET:
+      case TutorSpecialty.PET:
         return AppLocalizations.of(context).tutorCategory_pet;
-      case TypeMentorCategory.IELTS:
+      case TutorSpecialty.IELTS:
         return AppLocalizations.of(context).tutorCategory_ielts;
-      case TypeMentorCategory.TOELF:
+      case TutorSpecialty.TOELF:
         return AppLocalizations.of(context).tutorCategory_toefl;
-      case TypeMentorCategory.TOEIC:
+      case TutorSpecialty.TOEIC:
         return AppLocalizations.of(context).tutorCategory_toeic;
+      default:
+        return '';
     }
   }
 }
