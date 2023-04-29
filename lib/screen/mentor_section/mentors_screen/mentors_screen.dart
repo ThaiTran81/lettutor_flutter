@@ -78,8 +78,7 @@ class _MentorsScreenState extends State<MentorsScreen>
                   ),
                   SizedBox(height: 24.h),
                   Expanded(
-                    child: MentorCardList(mentorSumaries: provider.mentorSumaries)
-                  ),
+                    child: MentorCardList(onScrollToEnd: onScrollToEnd)),
                 ],
               ),
             ),
@@ -89,4 +88,5 @@ class _MentorsScreenState extends State<MentorsScreen>
     );
   }
 
+  onScrollToEnd() {}
 }

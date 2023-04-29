@@ -1,18 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:lettutor_flutter/data/model/mentor/MentorSummary.dart';
+import 'package:lettutor_flutter/screen/mentor_section/mentors_screen/mentors_screen_provider.dart';
+import 'package:provider/provider.dart';
 
 import '../mentors_profile_details/mentors_profile_details.dart';
 import 'mentors_design_card.dart';
 
-class MentorCardList extends StatelessWidget {
-  // final MentorsResponse? mentorsResponse;
-  List<MentorSummary> mentorSumaries;
-  MentorCardList({Key? key, required this.mentorSumaries}) : super(key: key);
+class MentorCardList extends StatefulWidget {
+  Function()? onScrollToEnd;
+
+  MentorCardList({Key? key, this.onScrollToEnd}) : super(key: key);
+
+  @override
+  State<MentorCardList> createState() => _MentorCardListState();
+}
+
+class _MentorCardListState extends State<MentorCardList> {
+  final _scrollCotroller = ScrollController();
+  late MentorsScreenProvider _mentorsScreenProvider;
 
   @override
   Widget build(BuildContext context) {
-    return  mentorSumaries.isEmpty
+    return _mentorsScreenProvider.tutors.isEmpty
         ? Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
@@ -22,7 +30,7 @@ class MentorCardList extends StatelessWidget {
                 child: Align(
                     alignment: Alignment.center,
                     child: Text(
-                      "Instructors not found",
+                      "Tutors not found",
                       style: TextStyle(
                           fontSize: 26,
                           fontWeight: FontWeight.bold,
@@ -31,31 +39,63 @@ class MentorCardList extends StatelessWidget {
               )
             ],
           )
-        : GridView.builder(
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 1,
-                mainAxisExtent: 230.h,
-                crossAxisSpacing: 5,
-                mainAxisSpacing: 5),
-            itemCount: mentorSumaries.length ?? 0,
+        : ListView.builder(
+            controller: _scrollCotroller,
+            itemCount: _mentorsScreenProvider.isLoadingMore
+                ? _mentorsScreenProvider.tutors.length + 1
+                : _mentorsScreenProvider.tutors.length,
             itemBuilder: (context, index) {
-              final data = mentorSumaries[index];
-              return MentorsDesignCard(
-                image: data.avatar,
-                name: data.name,
-                summary: data.summary,
-                rating: double.parse("${data.rating}"),
-                countryCode: data.country,
-                types: data.types,
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => MentorsProfile(users: data),
-                      ));
-                },
-              );
+              if (index < _mentorsScreenProvider.tutors.length) {
+                final data = _mentorsScreenProvider.tutors[index];
+                return MentorsDesignCard(
+                  image: data.avatar,
+                  name: data.name,
+                  summary: data.bio,
+                  rating: double.parse("${data.rating ?? 0}"),
+                  countryCode: data.country ?? 'VN',
+                  specialties: data.specialties ?? List.empty(),
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => MentorsProfile(users: data),
+                        ));
+                  },
+                );
+              } else if (_mentorsScreenProvider.tutors.length >=
+                  _mentorsScreenProvider.totalTutors!) {
+                return Container(
+                  height: 100,
+                  alignment: Alignment.center,
+                  child: const Text("-- End --"),
+                );
+              } else {
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 20),
+                  child: Container(
+                      alignment: Alignment.center,
+                      child: CircularProgressIndicator()),
+                );
+              }
             },
           );
+  }
+
+  @override
+  void didChangeDependencies() {
+    _mentorsScreenProvider = Provider.of<MentorsScreenProvider>(context);
+    _scrollCotroller.addListener(_onScrollListener);
+  }
+
+  @override
+  void initState() {}
+
+  void _onScrollListener() async {
+    if (_scrollCotroller.position.pixels ==
+            _scrollCotroller.position.maxScrollExtent &&
+        _mentorsScreenProvider.isLoadingMore == false) {
+      _mentorsScreenProvider.setLoadingMoreIs(true);
+      _mentorsScreenProvider.getTutorListFrom(true);
+    }
   }
 }

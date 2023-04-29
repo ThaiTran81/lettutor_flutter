@@ -92,7 +92,8 @@ class Tutor {
     targetStudent = json['targetStudent'];
     interests = json['interests'];
     languages = json['languages'];
-    specialties = json['specialties'];
+    String specialtiesString = json['specialties'];
+    specialties = specialtiesString.split(',');
     resume = json['resume'];
     rating = json['rating'];
     isNative = json['isNative'];
@@ -138,7 +139,7 @@ class Tutor {
   String? targetStudent;
   String? interests;
   String? languages;
-  String? specialties;
+  List<String>? specialties;
   dynamic resume;
   double? rating;
   dynamic isNative;

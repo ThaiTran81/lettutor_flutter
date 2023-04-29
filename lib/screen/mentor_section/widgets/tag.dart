@@ -11,7 +11,6 @@ class Tag extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: margin,
       child: Chip(
         label:
             Text(text ?? '', style: const TextStyle(color: AppColors.primary)),

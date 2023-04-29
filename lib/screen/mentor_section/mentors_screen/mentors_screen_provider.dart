@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:lettutor_flutter/data/model/mentor/MentorSummary.dart';
 import 'package:lettutor_flutter/data/model/tutor/Rows.dart';
+import 'package:lettutor_flutter/data/model/tutor/TutorResponse.dart';
 import 'package:lettutor_flutter/data/repository/tutor_repository.dart';
 import 'package:lettutor_flutter/di/components/service_locator.dart';
 import 'package:lettutor_flutter/mock/userData.dart';
@@ -15,12 +16,16 @@ class MentorsScreenProvider extends ChangeNotifier {
   Timer? timeHandle;
   String? type = "instractors";
   List<MentorSummary> mentorSumaries = UserMock.mentorSummary;
-  List<Tutor>? tutors = List.empty(growable: true);
+  List<Tutor> tutors = List.empty(growable: true);
+  int currentPage = 1;
+  bool isLoadingMore = false;
+  bool isLoadedMore = true;
+  int? totalTutors = null;
 
   var tutorRepository = getIt<TutorRepository>();
 
   MentorsScreenProvider() {
-    getTutorList(1);
+    getTutorList(currentPage);
   }
 
   void getSearchValue(String? searchCode) {
@@ -28,28 +33,51 @@ class MentorsScreenProvider extends ChangeNotifier {
     if (timeHandle != null) {
       timeHandle!.cancel();
     }
-
-    // timeHandle = Timer(const Duration(seconds: 1), () {
-    //   getTutorList(LIMIT_PER_PAGE, 1);
-    //   notifyListeners();
-    // });
-
-    //print("controller page $searchCode");
   }
 
   void getTutorList(int pageNumber) async {
-    SimpleWorker<List<Tutor>?>(
+    SimpleWorker<TutorResponse?>(
       task: () => tutorRepository.getTutorList(LIMIT_PER_PAGE, pageNumber),
       onCompleted: (res) {
-        if (res != null) {
-          setTutors(res);
+        if (res != null && res.tutors != null) {
+          totalTutors = res.tutors?.count ?? 0;
+          setTutors(res.tutors?.rows);
         }
       },
     ).start();
   }
 
-  setTutors(List<Tutor> tutors) {
-    this.tutors = tutors;
+  setTutors(List<Tutor>? tutors) {
+    this.tutors = tutors ?? List.empty(growable: true);
+    notifyListeners();
+  }
+
+  Future<void> getTutorListFrom(bool isAppend) async {
+    if (totalTutors != null && tutors.length >= totalTutors!) {
+      setLoadingMoreIs(false);
+      return;
+    }
+    if (isLoadingMore) {
+      currentPage++;
+    }
+    TutorResponse? res =
+        await tutorRepository.getTutorList(LIMIT_PER_PAGE, currentPage);
+    if (res != null && res.tutors != null) {
+      totalTutors = res.tutors?.count ?? 0;
+      addTutors(res.tutors?.rows);
+      setLoadingMoreIs(false);
+    }
+  }
+
+  addTutors(List<Tutor>? res) {
+    if (res != null) {
+      tutors.addAll(res);
+    }
+    notifyListeners();
+  }
+
+  setLoadingMoreIs(bool value) {
+    isLoadingMore = value;
     notifyListeners();
   }
 }

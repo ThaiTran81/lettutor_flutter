@@ -5,7 +5,7 @@ class MentorSummary {
   String name;
   String country;
   double rating;
-  List<TypeMentorCategory> types;
+  List<TutorSpecialty> types;
   String summary;
 
   MentorSummary(this.avatar, this.name, this.country, this.rating, this.types,

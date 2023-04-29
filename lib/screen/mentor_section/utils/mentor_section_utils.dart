@@ -18,17 +18,19 @@ class MentorSectionUtils {
   static List<MentorCategory> initCategories(BuildContext context) {
     var of = AppLocalizations.of(context);
     return [
-      MentorCategory(of.tutorCategory_all, TypeMentorCategory.ALL),
-      MentorCategory(of.tutorCategory_eng4kids, TypeMentorCategory.E_4_KIDS),
-      MentorCategory(of.tutorCategory_eng4business, TypeMentorCategory.E_4_BUSINESS),
-      MentorCategory(of.tutorCategory_conversational, TypeMentorCategory.CONVERSATIONAL),
-      MentorCategory(of.tutorCategory_starter, TypeMentorCategory.STARTERS),
-      MentorCategory(of.tutorCategory_mover, TypeMentorCategory.MOVERS),
-      MentorCategory(of.tutorCategory_flyer, TypeMentorCategory.FLYERS),
-      MentorCategory(of.tutorCategory_ket, TypeMentorCategory.PET),
-      MentorCategory(of.tutorCategory_ielts, TypeMentorCategory.IELTS),
-      MentorCategory(of.tutorCategory_toefl, TypeMentorCategory.TOELF),
-      MentorCategory(of.tutorCategory_toeic, TypeMentorCategory.TOEIC)
+      MentorCategory(of.tutorCategory_all, TutorSpecialty.ALL),
+      MentorCategory(of.tutorCategory_eng4kids, TutorSpecialty.E_4_KIDS),
+      MentorCategory(
+          of.tutorCategory_eng4business, TutorSpecialty.E_4_BUSINESS),
+      MentorCategory(
+          of.tutorCategory_conversational, TutorSpecialty.CONVERSATIONAL),
+      MentorCategory(of.tutorCategory_starter, TutorSpecialty.STARTERS),
+      MentorCategory(of.tutorCategory_mover, TutorSpecialty.MOVERS),
+      MentorCategory(of.tutorCategory_flyer, TutorSpecialty.FLYERS),
+      MentorCategory(of.tutorCategory_ket, TutorSpecialty.PET),
+      MentorCategory(of.tutorCategory_ielts, TutorSpecialty.IELTS),
+      MentorCategory(of.tutorCategory_toefl, TutorSpecialty.TOELF),
+      MentorCategory(of.tutorCategory_toeic, TutorSpecialty.TOEIC)
     ];
   }
 }
