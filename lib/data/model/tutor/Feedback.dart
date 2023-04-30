@@ -1,7 +1,7 @@
 import 'FirstInfo.dart';
 
-class Feedbacks {
-  Feedbacks({
+class FeedbackData {
+  FeedbackData({
     this.id,
     this.bookingId,
     this.firstId,
@@ -13,12 +13,14 @@ class Feedbacks {
     this.firstInfo,
   });
 
-  Feedbacks.fromJson(dynamic json) {
+  FeedbackData.fromJson(dynamic json) {
     id = json['id'];
     bookingId = json['bookingId'];
     firstId = json['firstId'];
     secondId = json['secondId'];
-    rating = json['rating'];
+
+    rating =
+        json['rating'] == null ? 0.0 : double.parse(json['rating'].toString());
     content = json['content'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
@@ -31,7 +33,7 @@ class Feedbacks {
   String? bookingId;
   String? firstId;
   String? secondId;
-  int? rating;
+  double? rating;
   String? content;
   String? createdAt;
   String? updatedAt;

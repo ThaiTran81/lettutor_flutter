@@ -1,4 +1,4 @@
-import 'Feedbacks.dart';
+import 'Feedback.dart';
 
 class Tutor {
   Tutor({
@@ -56,7 +56,9 @@ class Tutor {
     apple = json['apple'];
     avatar = json['avatar'];
     name = json['name'];
-    country = json['country'];
+    if (json['country'] != null) {
+      country = json['country'];
+    }
     phone = json['phone'];
     language = json['language'];
     birthday = json['birthday'];
@@ -78,7 +80,7 @@ class Tutor {
     if (json['feedbacks'] != null) {
       feedbacks = [];
       json['feedbacks'].forEach((v) {
-        feedbacks?.add(Feedbacks.fromJson(v));
+        feedbacks?.add(FeedbackData.fromJson(v));
       });
     }
     id = json['id'];
@@ -92,8 +94,8 @@ class Tutor {
     targetStudent = json['targetStudent'];
     interests = json['interests'];
     languages = json['languages'];
-    String specialtiesString = json['specialties'];
-    specialties = specialtiesString.split(',');
+    String? specialtiesString = json['specialties'];
+    specialties = specialtiesString?.split(',');
     resume = json['resume'];
     rating = json['rating'];
     isNative = json['isNative'];
@@ -127,7 +129,7 @@ class Tutor {
   String? updatedAt;
   dynamic deletedAt;
   dynamic studentGroupId;
-  List<Feedbacks>? feedbacks;
+  List<FeedbackData>? feedbacks;
   String? id;
   String? userId;
   String? video;

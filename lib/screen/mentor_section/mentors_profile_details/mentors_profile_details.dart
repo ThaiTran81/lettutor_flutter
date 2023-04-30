@@ -1,22 +1,27 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flag/flag_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lettutor_flutter/data/model/mentor/TypeMentorCategory.dart';
+import 'package:lettutor_flutter/data/model/tutor/Tutor.dart';
+import 'package:lettutor_flutter/l10n/l10nUtils.dart';
+import 'package:lettutor_flutter/screen/mentor_section/mentors_profile_details/feedback_view.dart';
+import 'package:lettutor_flutter/screen/mentor_section/widgets/tag.dart';
 import 'package:lettutor_flutter/widgets/custom_button.dart';
 import 'package:provider/provider.dart';
 
 import '../../../utils/app_consts.dart';
 import '../../../utils/widget_utils.dart';
-import '../../../widgets/calendar_timeline/calendar_timeline.dart';
 import '../../../widgets/custom_app_bar.dart';
 import '../../../widgets/custom_text.dart';
 import 'mentors_profile_details_provider.dart';
 
 class MentorsProfile extends StatefulWidget {
   // final User? users;
-  final users;
+  final Tutor tutorInfo;
 
-  const MentorsProfile({Key? key, this.users}) : super(key: key);
+  const MentorsProfile({Key? key, required this.tutorInfo}) : super(key: key);
 
   @override
   State<MentorsProfile> createState() => _MentorsProfileState();
@@ -35,7 +40,9 @@ class _MentorsProfileState extends State<MentorsProfile>
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => MentorsProfileDetailsProvider(widget.users),
+      create: (context) {
+        return MentorsProfileDetailsProvider(widget.tutorInfo);
+      },
       child: Consumer<MentorsProfileDetailsProvider>(
         builder: (context, provider, _) {
           return Scaffold(
@@ -57,10 +64,10 @@ class _MentorsProfileState extends State<MentorsProfile>
                             ClipRRect(
                               borderRadius: BorderRadius.circular(100),
                               child: CachedNetworkImage(
-                                height: 90.h,
+                                height: 90,
+                                width: 90,
                                 fit: BoxFit.cover,
-                                imageUrl:
-                                    "https://api.app.lettutor.com/avatar/4d54d3d7-d2a9-42e5-97a2-5ed38af5789aavatar1627913015850.00",
+                                imageUrl: provider.tutor?.avatar ?? '',
                                 placeholder: (context, url) => Center(
                                   child: Image.asset(
                                       "assets/home_page/ic_no_image.png"),
@@ -73,7 +80,7 @@ class _MentorsProfileState extends State<MentorsProfile>
                               height: 20.h,
                             ),
                             CustomText(
-                              text: 'Keegan',
+                              text: provider.tutor?.name,
                               fontSize: 18.sp,
                               fontWeight: FontWeight.w700,
                               color: AppColors.title,
@@ -82,10 +89,12 @@ class _MentorsProfileState extends State<MentorsProfile>
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Flag.fromString("VN", height: 24, width: 24),
+                                Flag.fromString(provider.tutor?.country ?? '',
+                                    height: 24, width: 24),
                                 SpaceUtils.hSpace(10),
                                 CustomText(
-                                  text: "Vietnam",
+                                  text: I10nUtils.getCountryName(
+                                      provider.tutor?.country ?? ''),
                                 )
                               ],
                             ),
@@ -95,9 +104,29 @@ class _MentorsProfileState extends State<MentorsProfile>
                               children: [
                                 Icon(Icons.star, color: AppColors.warning),
                                 SpaceUtils.hSpace10(),
-                                CustomText(
-                                  text: "5.0 • 235 ratings",
-                                  color: AppColors.hintTextColor,
+                                InkWell(
+                                  onTap: () {
+                                    showModalBottomSheet(
+                                      context: context,
+                                      builder: (context) {
+                                        return FeedbackView(
+                                            userId:
+                                                provider.tutor?.userId ?? '');
+                                      },
+                                      isScrollControlled: true,
+                                      shape: const RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(30.0),
+                                            topRight: Radius.circular(30.0)),
+                                      ),
+                                      backgroundColor: Colors.white,
+                                    );
+                                  },
+                                  child: Text(
+                                    "${provider.tutorInforDetail?.rating?.toStringAsFixed(2) ?? 'No ratings'} • ${provider.tutorInforDetail?.totalFeedback ?? 0} ratings",
+                                    style: AppConst.textTheme.labelSmall
+                                        ?.apply(color: AppColors.primary),
+                                  ),
                                 )
                               ],
                             ),
@@ -125,10 +154,14 @@ class _MentorsProfileState extends State<MentorsProfile>
                                     color: AppColors.primary),
                               ],
                             ),
+                            Text(
+                              provider.tutor?.bio ?? '',
+                              style: AppConst.textTheme.bodyMedium,
+                            ),
                             SpaceUtils.vSpace10(),
                             CustomTextButton(
                               text: CustomText(
-                                text: "Add to favorite",
+                                text: "Book",
                               ),
                               onPressed: () {},
                               styleButton: StyleButton(
@@ -136,34 +169,19 @@ class _MentorsProfileState extends State<MentorsProfile>
                                   width: double.infinity),
                               alignment: Alignment.center,
                             ),
-                            Container(
-                              decoration: ShapeDecoration(
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10)),
-                                  color: AppColors.lightBleu),
-                              child: Padding(
-                                padding: EdgeInsets.all(10),
-                                child: CalendarTimeline(
-                                    showYears: true,
-                                    initialDate: DateTime.now(),
-                                    firstDate: DateTime.now()
-                                        .subtract(Duration(days: 3)),
-                                    lastDate: DateTime.now()
-                                        .add(const Duration(days: 365 * 1)),
-                                    onDateSelected: (date) => {},
-                                    selectableDayPredicate: (day) {
-                                      return !day.isBefore(DateTime.now()
-                                          .subtract(Duration(days: 1)));
-                                    },
-                                    leftMargin: 20,
-                                    monthColor: AppColors.title,
-                                    dayColor: AppColors.primary,
-                                    dayNameColor: AppColors.white,
-                                    activeDayColor: Colors.white,
-                                    activeBackgroundDayColor: AppColors.primary,
-                                    dotsColor: const Color(0xFF333A47),
-                                    locale: 'vi'),
-                              ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                buildLanguageSection(context, provider),
+                                SpaceUtils.vSpace10(),
+                                buildSpecialtiesSection(provider),
+                                SpaceUtils.vSpace10(),
+                                buildInterestSection(provider),
+                                SpaceUtils.vSpace10(),
+                                buildSuggestedCourseSection(provider),
+                                SpaceUtils.vSpace10(),
+                                buildTechingExperienceSection(provider)
+                              ],
                             ),
                           ],
                         ),
@@ -177,5 +195,106 @@ class _MentorsProfileState extends State<MentorsProfile>
         },
       ),
     );
+  }
+
+  Column buildTechingExperienceSection(MentorsProfileDetailsProvider provider) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text("Teaching experience", style: AppConst.textTheme.headlineMedium),
+        Row(
+          children: [
+            SpaceUtils.hSpace5,
+            Flexible(
+              child: Text(
+                provider.tutor?.experience ?? '',
+                style: AppConst.textTheme.bodyMedium,
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Column buildSuggestedCourseSection(MentorsProfileDetailsProvider provider) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text("Suggested courses", style: AppConst.textTheme.headlineMedium),
+        if (provider.tutorInforDetail != null)
+          ...?provider.tutorInforDetail?.user?.courses
+              ?.map((course) => Row(
+                    children: [
+                      SpaceUtils.hSpace5,
+                      InkWell(
+                          child: Text(
+                        course.name ?? '',
+                        style: AppConst.textTheme.bodyMedium
+                            ?.apply(color: AppColors.primary),
+                      )),
+                    ],
+                  ))
+              .toList()
+      ],
+    );
+  }
+
+  Column buildInterestSection(MentorsProfileDetailsProvider provider) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text("Interests", style: AppConst.textTheme.headlineMedium),
+        Row(
+          children: [
+            SpaceUtils.hSpace5,
+            Flexible(
+              child: Text(
+                provider.tutor?.interests ?? '',
+                style: AppConst.textTheme.bodyMedium,
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Column buildSpecialtiesSection(MentorsProfileDetailsProvider provider) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text("Specialties", style: AppConst.textTheme.headlineMedium),
+        buildSectionSpecialties(provider.tutor),
+      ],
+    );
+  }
+
+  Column buildLanguageSection(
+      BuildContext context, MentorsProfileDetailsProvider provider) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text("Languages", style: AppConst.textTheme.headlineMedium),
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Tag(
+              text: LocaleNames.of(context)
+                  ?.nameOf(provider.tutor?.languages ?? '')),
+        ),
+      ],
+    );
+  }
+
+  Wrap buildSectionSpecialties(Tutor? tutorInfo) {
+    return Wrap(direction: Axis.horizontal, children: [
+      ...?tutorInfo?.specialties
+          ?.map((specialty) => tagSpecialty(TutorSpecialty.from(specialty)))
+          .toList()
+    ]);
+  }
+
+  Widget tagSpecialty(TutorSpecialty tutorSpecialty) {
+    return Tag(text: I10nUtils.translateFrom(tutorSpecialty, context));
   }
 }

@@ -1,3 +1,4 @@
+import 'package:country_codes/country_codes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:lettutor_flutter/data/model/mentor/TypeMentorCategory.dart';
@@ -10,6 +11,18 @@ class I10nUtils {
   //   }
   //   return "";
   // }
+
+  static final List<CountryDetails?> _countryList = CountryCodes.countryCodes();
+
+  static String getCountryName(String code) {
+    for (int i = 0; i < _countryList.length; i++) {
+      if (_countryList[i]?.alpha2Code == code.toUpperCase()) {
+        return _countryList[i]?.name ?? '';
+      }
+    }
+    return "";
+  }
+
   static String translateFrom(
       TutorSpecialty typeMentorCategory, BuildContext context) {
     switch (typeMentorCategory) {

@@ -58,7 +58,7 @@ class _MentorCardListState extends State<MentorCardList> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => MentorsProfile(users: data),
+                          builder: (context) => MentorsProfile(tutorInfo: data),
                         ));
                   },
                 );

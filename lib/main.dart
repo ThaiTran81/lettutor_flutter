@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lettutor_flutter/di/components/service_locator.dart';
@@ -41,7 +42,10 @@ class MyApp extends StatelessWidget {
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
-          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          localizationsDelegates: [
+            ...AppLocalizations.localizationsDelegates,
+            LocaleNamesLocalizationsDelegate(),
+          ],
           supportedLocales: AppLocalizations.supportedLocales,
           theme: ThemeData(
             textTheme: GoogleFonts.interTextTheme(

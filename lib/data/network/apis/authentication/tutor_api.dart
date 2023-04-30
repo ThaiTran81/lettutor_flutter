@@ -1,5 +1,7 @@
 import 'package:lettutor_flutter/data/model/tutor/CriteriaSearchRequest.dart';
+import 'package:lettutor_flutter/data/model/tutor/TutorInforDetailResponse.dart';
 import 'package:lettutor_flutter/data/model/tutor/TutorResponse.dart';
+import 'package:lettutor_flutter/data/model/tutor/feedback/FeedbackResponse.dart';
 import 'package:lettutor_flutter/data/network/constants/endpoints.dart';
 
 import '../../dio_client.dart';
@@ -10,17 +12,32 @@ class TutorApi {
 
   TutorApi(this._dioClient);
 
-  Future<TutorResponse?> getListTutorWithPagination(int limit, int page) async {
+  Future<TutorListResponse?> getListTutorWithPagination(
+      int limit, int page) async {
     final res =
         await _dioClient.get(Endpoints.getListTutorWithPagination(limit, page));
-    return TutorResponse.fromJson(res);
+    return TutorListResponse.fromJson(res);
   }
 
-  Future<TutorResponse?> getTutorListByCriteriaSearch(
+  Future<TutorListResponse?> getTutorListByCriteriaSearch(
       CriteriaSearchRequest request) async {
     final res =
         await _dioClient.post(Endpoints.searchTutor, data: request.toJson());
 
-    return TutorResponse.fromJson({"tutors": res});
+    return TutorListResponse.fromJson({"tutors": res});
+  }
+
+  Future<TutorInforDetailResponse> getTutorInformationBy(String id) async {
+    final res = await _dioClient.get(Endpoints.getTutorInformationById(id));
+
+    return TutorInforDetailResponse.fromJson(res);
+  }
+
+  Future<FeedbackResponse> getFeedbackOfTutor(
+      String userId, int perPage, int page) async {
+    final res =
+        await _dioClient.get(Endpoints.getTutorFeedback(userId, perPage, page));
+
+    return FeedbackResponse.fromJson(res);
   }
 }

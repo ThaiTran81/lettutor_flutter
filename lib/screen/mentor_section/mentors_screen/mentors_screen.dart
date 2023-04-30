@@ -90,11 +90,11 @@ class _MentorsScreenState extends State<MentorsScreen>
                           mentorsScreenProvider: _provider,
                         ),
                               isScrollControlled: true,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(30.0),
-                                    topRight: Radius.circular(30.0)),
-                              ),
+                              shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(30.0),
+                              topRight: Radius.circular(30.0)),
+                        ),
                               backgroundColor: Colors.white,
                             );
                           },

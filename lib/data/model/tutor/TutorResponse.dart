@@ -1,13 +1,13 @@
 import 'FavoriteTutor.dart';
 import 'Tutors.dart';
 
-class TutorResponse {
-  TutorResponse({
+class TutorListResponse {
+  TutorListResponse({
     this.tutors,
     this.favoriteTutor,
   });
 
-  TutorResponse.fromJson(dynamic json) {
+  TutorListResponse.fromJson(dynamic json) {
     tutors = json['tutors'] != null ? Tutors.fromJson(json['tutors']) : null;
     if (json['favoriteTutor'] != null) {
       favoriteTutor = [];

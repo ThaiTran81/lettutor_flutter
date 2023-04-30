@@ -5,7 +5,7 @@ import 'package:lettutor_flutter/data/model/mentor/MentorSummary.dart';
 import 'package:lettutor_flutter/data/model/mentor/TypeMentorCategory.dart';
 import 'package:lettutor_flutter/data/model/tutor/CriteriaSearchRequest.dart';
 import 'package:lettutor_flutter/data/model/tutor/Filters.dart';
-import 'package:lettutor_flutter/data/model/tutor/Rows.dart';
+import 'package:lettutor_flutter/data/model/tutor/Tutor.dart';
 import 'package:lettutor_flutter/data/model/tutor/TutorResponse.dart';
 import 'package:lettutor_flutter/data/repository/tutor_repository.dart';
 import 'package:lettutor_flutter/di/components/service_locator.dart';
@@ -30,7 +30,11 @@ class MentorsScreenProvider extends ChangeNotifier {
 
   var tutorRepository = getIt<TutorRepository>();
 
+  // not found feedback property from api -> temporily read all tutors for getting feedbacks
+  List<Tutor> tutorsCache = List.empty(growable: true);
+
   MentorsScreenProvider() {
+    initializeTutors();
   }
 
   void getSearchValue() {
@@ -44,7 +48,7 @@ class MentorsScreenProvider extends ChangeNotifier {
   }
 
   void getTutorList(int pageNumber) async {
-    SimpleWorker<TutorResponse?>(
+    SimpleWorker<TutorListResponse?>(
       task: () => tutorRepository.getTutorList(LIMIT_PER_PAGE, pageNumber),
       onCompleted: (res) {
         if (res != null && res.tutors != null) {
@@ -69,7 +73,7 @@ class MentorsScreenProvider extends ChangeNotifier {
 
     buildCriteria();
     criteria.page = currentPage;
-    TutorResponse? res = await tutorRepository.getTutorListBy(criteria);
+    TutorListResponse? res = await tutorRepository.getTutorListBy(criteria);
     if (res != null && res.tutors != null) {
       totalTutors = res.tutors?.count ?? 0;
       addTutors(res.tutors?.rows);
@@ -97,7 +101,7 @@ class MentorsScreenProvider extends ChangeNotifier {
   void getTutorListByCriteria() {
     buildCriteria();
 
-    SimpleWorker<TutorResponse?>(
+    SimpleWorker<TutorListResponse?>(
       task: () => tutorRepository.getTutorListBy(criteria),
       onCompleted: (res) {
         if (res != null && res.tutors != null) {
@@ -130,5 +134,12 @@ class MentorsScreenProvider extends ChangeNotifier {
     currentPage = 1;
     searchTextFieldController.clear();
     getTutorListByCriteria();
+  }
+
+  void initializeTutors() async {
+    var res = await tutorRepository.getTutorList(1000, 1);
+    if (res != null && res.tutors != null) {
+      tutorsCache = res.tutors?.rows ?? List.empty();
+    }
   }
 }

@@ -1,28 +1,28 @@
-import 'Tutor.dart';
+import 'package:lettutor_flutter/data/model/tutor/Feedback.dart';
 
-class Tutors {
-  Tutors({
+class Data {
+  Data({
     this.count,
-    this.rows,
+    this.feedbacks,
   });
 
-  Tutors.fromJson(dynamic json) {
+  Data.fromJson(dynamic json) {
     count = json['count'];
     if (json['rows'] != null) {
-      rows = [];
+      feedbacks = [];
       json['rows'].forEach((v) {
-        rows?.add(Tutor.fromJson(v));
+        feedbacks?.add(FeedbackData.fromJson(v));
       });
     }
   }
 
   int? count;
-  List<Tutor>? rows;
+  List<FeedbackData>? feedbacks;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['count'] = count;
-    final rows = this.rows;
+    final rows = this.feedbacks;
     if (rows != null) {
       map['rows'] = rows.map((v) => v.toJson()).toList();
     }

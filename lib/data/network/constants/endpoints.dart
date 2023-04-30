@@ -29,6 +29,10 @@ class Endpoints {
 
   static const String searchTutor = "$baseUrl/tutor/search";
 
+  static String getTutorFeedback(String userId, int perPage, int pageNumber) {
+    return "$baseUrl/feedback/v2/$userId?page=$pageNumber&perPage=$perPage";
+  }
+
   /**
    * course api
    */
@@ -38,5 +42,9 @@ class Endpoints {
 
   static String getEbookWithpagination(int numPerPage, int pageNumber) {
     return "$baseUrl/e-book?page=$pageNumber&size=$numPerPage";
+  }
+
+  static String getTutorInformationById(String id) {
+    return "$baseUrl/tutor/$id";
   }
 }

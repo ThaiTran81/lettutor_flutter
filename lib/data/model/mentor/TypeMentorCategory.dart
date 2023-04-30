@@ -27,8 +27,11 @@ enum TutorSpecialty {
     'toeic': TutorSpecialty.TOEIC
   };
 
-  static TutorSpecialty? from(String specialtyCode) {
-    return tutorSpecialtyOfCodeMap[specialtyCode];
+  static TutorSpecialty from(String? specialtyCode) {
+    if (specialtyCode == null) {
+      return TutorSpecialty.NULL;
+    }
+    return tutorSpecialtyOfCodeMap[specialtyCode] ?? TutorSpecialty.NULL;
   }
 
   String toCode() {
