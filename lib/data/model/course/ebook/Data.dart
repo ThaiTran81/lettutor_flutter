@@ -3,26 +3,26 @@ import 'EbookInfo.dart';
 class Data {
   Data({
     this.count,
-    this.rows,
+    this.ebookList,
   });
 
   Data.fromJson(dynamic json) {
     count = json['count'];
     if (json['rows'] != null) {
-      rows = [];
+      ebookList = [];
       json['rows'].forEach((v) {
-        rows?.add(EbookInfo.fromJson(v));
+        ebookList?.add(EbookInfo.fromJson(v));
       });
     }
   }
 
   int? count;
-  List<EbookInfo>? rows;
+  List<EbookInfo>? ebookList;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['count'] = count;
-    final rows = this.rows;
+    final rows = this.ebookList;
     if (rows != null) {
       map['rows'] = rows.map((v) => v.toJson()).toList();
     }

@@ -72,7 +72,7 @@ class CourseScreenProvider extends ChangeNotifier {
           () => _courseRepository.getEbookListByPagination(
               LIMIT_PER_PAGE, tabData.currentPage), (res) {
         var data = res.data;
-        tabData.dataList = data?.rows ?? List.empty();
+        tabData.dataList = data?.ebookList ?? List.empty();
         tabData.resultCount = data?.count ?? 0;
         notifyListeners();
       }, false);
