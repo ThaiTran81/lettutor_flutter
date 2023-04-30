@@ -7,11 +7,22 @@ import 'package:lettutor_flutter/widgets/custom_text.dart';
 import '../../../utils/widget_utils.dart';
 
 class CourseCard extends StatelessWidget {
-
   final Function()? onTap;
+  String? title = '';
+  String? imageUrl = '';
+  String? description = '';
+  String? bottomInfo = '';
+  String? tag = '';
 
-
-  const CourseCard({Key? key, this.onTap}) : super(key: key);
+  CourseCard(
+      {Key? key,
+      this.onTap,
+      this.title,
+      this.imageUrl,
+      this.description,
+      this.bottomInfo,
+      this.tag})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,8 +42,7 @@ class CourseCard extends StatelessWidget {
               ClipRRect(
                 borderRadius: SpaceUtils.commonRadius,
                 child: CachedNetworkImage(
-                  imageUrl:
-                      "https://camblycurriculumicons.s3.amazonaws.com/5e0e8b212ac750e7dc9886ac?h=d41d8cd98f00b204e9800998ecf8427e",
+                  imageUrl: imageUrl ?? "assets/home_page/ic_no_image.png",
                   // fit: BoxFit.cover,
                   height: 120.h,
                   placeholder: (context, url) => Center(
@@ -42,14 +52,13 @@ class CourseCard extends StatelessWidget {
                       Image.asset("assets/home_page/ic_no_image.png"),
                 ),
               ),
-              Positioned(
-                  bottom: -5,
-                  right: 0,
-                  child: Chip(
-                    label: CustomText(
-                      text: "Intermediate",
-                    ),
-                  ))
+              if (tag != null && tag!.isNotEmpty)
+                Positioned(
+                    bottom: -5,
+                    right: 0,
+                    child: Chip(
+                      label: CustomText(text: tag),
+                    ))
             ]),
             SpaceUtils.vSpace10(),
             Container(
@@ -58,21 +67,19 @@ class CourseCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   CustomText(
-                    text:
-                        "Course tiltle Course tiltleCourse tiltleCourse tiltleCourse tiltleCourse tiltle",
+                    text: title,
                     fontWeight: FontWeight.bold,
                     maxLine: 2,
                   ),
                   SpaceUtils.vSpace10(),
                   CustomText(
-                    text:
-                        "This is description of course This is description of course  This is description of course",
+                    text: description,
                     maxLine: 3,
                     color: AppColors.hintTextColor,
                   ),
                   SpaceUtils.vSpace(20),
                   CustomText(
-                    text: "9 lessons",
+                    text: bottomInfo,
                   )
                 ],
               ),

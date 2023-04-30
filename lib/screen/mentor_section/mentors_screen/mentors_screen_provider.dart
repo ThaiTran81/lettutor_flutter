@@ -31,7 +31,6 @@ class MentorsScreenProvider extends ChangeNotifier {
   var tutorRepository = getIt<TutorRepository>();
 
   MentorsScreenProvider() {
-    getTutorList(currentPage);
   }
 
   void getSearchValue() {
@@ -66,9 +65,9 @@ class MentorsScreenProvider extends ChangeNotifier {
       setLoadingMoreIs(false);
       return;
     }
-    if (isLoadingMore) {
-      currentPage++;
-    }
+    currentPage++;
+
+    buildCriteria();
     criteria.page = currentPage;
     TutorResponse? res = await tutorRepository.getTutorListBy(criteria);
     if (res != null && res.tutors != null) {
@@ -96,6 +95,20 @@ class MentorsScreenProvider extends ChangeNotifier {
   }
 
   void getTutorListByCriteria() {
+    buildCriteria();
+
+    SimpleWorker<TutorResponse?>(
+      task: () => tutorRepository.getTutorListBy(criteria),
+      onCompleted: (res) {
+        if (res != null && res.tutors != null) {
+          totalTutors = res.tutors?.count ?? 0;
+          setTutors(res.tutors?.rows);
+        }
+      },
+    ).start();
+  }
+
+  void buildCriteria() {
     List<String>? specialties;
     if (selectedSpecialtyFilter == TutorSpecialty.ALL) {
       specialties = null;
@@ -109,16 +122,6 @@ class MentorsScreenProvider extends ChangeNotifier {
         search: searchValue,
         perPage: LIMIT_PER_PAGE,
         page: 1);
-
-    SimpleWorker<TutorResponse?>(
-      task: () => tutorRepository.getTutorListBy(criteria),
-      onCompleted: (res) {
-        if (res != null && res.tutors != null) {
-          totalTutors = res.tutors?.count ?? 0;
-          setTutors(res.tutors?.rows);
-        }
-      },
-    ).start();
   }
 
   void resetCriteria() {

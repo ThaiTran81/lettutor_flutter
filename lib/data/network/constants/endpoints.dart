@@ -28,4 +28,15 @@ class Endpoints {
   }
 
   static const String searchTutor = "$baseUrl/tutor/search";
+
+  /**
+   * course api
+   */
+  static String getCourseWithpagination(int numPerPage, int pageNumber) {
+    return "$baseUrl/course?page=$pageNumber&size=$numPerPage";
+  }
+
+  static String getEbookWithpagination(int numPerPage, int pageNumber) {
+    return "$baseUrl/e-book?page=$pageNumber&size=$numPerPage";
+  }
 }

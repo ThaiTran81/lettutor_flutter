@@ -1,8 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lettutor_flutter/screen/course/course_screen_provider.dart';
 import 'package:lettutor_flutter/screen/course/widget/course_list_view.dart';
+import 'package:lettutor_flutter/screen/course/widget/ebook_list_view.dart';
 import 'package:provider/provider.dart';
 
 import '../../utils/app_consts.dart';
@@ -16,7 +16,7 @@ class CourseScreen extends StatefulWidget {
 
 class _CourseScreenState extends State<CourseScreen>
     with SingleTickerProviderStateMixin {
-  TabController? _tabController;
+  late TabController _tabController;
 
   @override
   void initState() {
@@ -118,9 +118,9 @@ class _CourseScreenState extends State<CourseScreen>
                         physics: const NeverScrollableScrollPhysics(),
                         controller: _tabController,
                         children: [
-                          CourseListView(),
-                          CourseListView(),
-                          CourseListView(),
+                          CourseTabContent(),
+                          EbookTabContent(),
+                          CourseTabContent(),
                         ]),
                   ),
                 ],

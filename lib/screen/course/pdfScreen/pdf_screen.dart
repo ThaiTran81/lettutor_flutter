@@ -7,7 +7,10 @@ import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 import '../../../widgets/custom_app_bar.dart';
 
 class PdfScreen extends StatefulWidget {
-  const PdfScreen({Key? key}) : super(key: key);
+  const PdfScreen({Key? key, required this.nameFile, required this.url})
+      : super(key: key);
+  final String nameFile;
+  final String url;
 
   @override
   State<PdfScreen> createState() => _PdfScreenState();
@@ -24,12 +27,10 @@ class _PdfScreenState extends State<PdfScreen> {
                   appBar: PreferredSize(
                     preferredSize: Size.fromHeight(70.h),
                     child: CustomAppBar(
-                        appBarName: 'The Internet',
+                        appBarName: widget.nameFile,
                         backgroundColor: Colors.transparent),
                   ),
-                  body: Container(
-                      child: SfPdfViewer.network(
-                          'https://api.app.lettutor.com/file/be4c3df8-3b1b-4c8f-a5cc-75a8e2e6626afileThe%20Internet.pdf'))));
+                  body: Container(child: SfPdfViewer.network(widget.url))));
         }));
   }
 }

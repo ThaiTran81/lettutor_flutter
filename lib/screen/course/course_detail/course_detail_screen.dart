@@ -1,6 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lettutor_flutter/data/model/course/course/CourseInfo.dart';
+import 'package:lettutor_flutter/data/model/course/course/Topics.dart';
+import 'package:lettutor_flutter/l10n/l10nUtils.dart';
 import 'package:lettutor_flutter/screen/course/course_detail/course_detail_screen_provider.dart';
 import 'package:lettutor_flutter/screen/course/pdfScreen/pdf_screen.dart';
 import 'package:lettutor_flutter/utils/app_consts.dart';
@@ -12,7 +15,9 @@ import '../../../utils/widget_utils.dart';
 import '../../../widgets/custom_app_bar.dart';
 
 class CourseDetailScreen extends StatefulWidget {
-  const CourseDetailScreen({Key? key}) : super(key: key);
+  final CourseInfo courseInfo;
+
+  const CourseDetailScreen(this.courseInfo, {Key? key}) : super(key: key);
 
   @override
   State<CourseDetailScreen> createState() => _CourseDetailScreenState();
@@ -21,6 +26,7 @@ class CourseDetailScreen extends StatefulWidget {
 class _CourseDetailScreenState extends State<CourseDetailScreen> {
   @override
   Widget build(BuildContext context) {
+    var courseInfo = widget.courseInfo;
     return ChangeNotifierProvider(
         create: (context) => CourseDetailScreenProvider(),
         child: Consumer<CourseDetailScreenProvider>(
@@ -32,25 +38,24 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
                   child: CustomAppBar(
                       appBarName: '', backgroundColor: Colors.transparent),
                 ),
-                extendBodyBehindAppBar: true,
-                body: SingleChildScrollView(
-                  child: Padding(
-                    padding: EdgeInsets.all(0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
+                    extendBodyBehindAppBar: true,
+                    body: SingleChildScrollView(
+                      child: Padding(
+                        padding: EdgeInsets.all(0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
                               borderRadius: SpaceUtils.commonRadius,
-                              color: AppColors.white),
+                              color: AppColors.bg2),
                           height: 300.h,
                           child: ClipRRect(
                             borderRadius: BorderRadius.only(
                               bottomRight: Radius.circular(100),
                             ),
                             child: CachedNetworkImage(
-                              imageUrl:
-                                  "https://images.pexels.com/photos/15954341/pexels-photo-15954341.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load",
+                              imageUrl: courseInfo.imageUrl ?? '',
                               fit: BoxFit.cover,
                               height: 300.h,
                               placeholder: (context, url) => Center(
@@ -60,38 +65,57 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
                               errorWidget: (context, url, error) => Image.asset(
                                   "assets/home_page/ic_no_image.png"),
                             ),
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.all(10),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.all(10),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                children: [
                               CustomText(
-                                text: "This is course title",
+                                text: courseInfo.name,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 24.sp,
                                 color: AppColors.primary,
                               ),
+                              Text(
+                                courseInfo.description ?? '',
+                                style: AppConst.textTheme.displaySmall,
+                              ),
                               SpaceUtils.vSpace(30),
-                              _buildSectionIntroduce("Overview",
-                                  "Our world is rapidly changing thanks to new technology, and the vocabulary needed to discuss modern life is evolving almost daily. In this course you will learn the most up-to-date terminology from expertly crafted lessons as well from your native-speaking tutor."),
+                              // -- Overview --
+                              Text("Overview",
+                                  style: AppConst.textTheme.headlineMedium),
+                              _buildSectionIntroduce(
+                                  "Why take this course?", courseInfo.reason),
                               SpaceUtils.vSpace(20),
-                              _buildSectionIntroduce("Experience",
-                                  "Our world is rapidly changing thanks to new technology, and the vocabulary needed to discuss modern life is evolving almost daily. In this course you will learn the most up-to-date terminology from expertly crafted lessons as well from your native-speaking tutor."),
+                              // -- Experience Level --
+                              Text("Experience Level",
+                                  style: AppConst.textTheme.headlineMedium),
+                              Text(
+                                  I10nUtils.translateExperienceLevel(
+                                      courseInfo.level ?? 0),
+                                  style: AppConst.textTheme.labelMedium),
+
                               SpaceUtils.vSpace(20),
-                              _buildSectionIntroduce("List topics", ""),
-                              ..._mockTopic.map((e) => _buildLessonItem(e))
-                                  .toList()
+                              // -- list topic
+                              Text("List topics",
+                                  style: AppConst.textTheme.headlineMedium),
+                              if (courseInfo.topics != null)
+                                ...courseInfo.topics!
+                                    .map((topic) => _buildLessonItem(topic))
+                                    .toList(),
+                              // ..._mockTopic.map((e) => _buildLessonItem(e))
+                              //     .toList()
                             ],
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                )),
-          );
-        }));
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    )),
+              );
+            }));
   }
 
   Widget _buildSectionIntroduce(String? title, String? content) {
@@ -115,26 +139,30 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
     );
   }
 
-  Widget _buildLessonItem(String lessonName) {
+  Widget _buildLessonItem(CourseTopic courseTopic) {
     return CustomButton(
       child: Row(
         children: [
           Icon(Icons.picture_as_pdf_rounded, color: AppColors.subTiltle),
           SpaceUtils.hSpace10(),
-          CustomText(text: lessonName, color: AppColors.subTiltle,)
+          CustomText(
+            text: courseTopic.name,
+            color: AppColors.subTiltle,
+          )
         ],
       ),
       onPressed: () {
         Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => PdfScreen(),
+              builder: (context) => PdfScreen(
+                nameFile: courseTopic.name ?? '',
+                url: courseTopic.nameFile ?? '',
+              ),
             ));
       },
       styleButton: StyleButton(
-        outlineColor: Colors.transparent,
-        fillColor: AppColors.fillGrey
-      ),
+          outlineColor: Colors.transparent, fillColor: AppColors.fillGrey),
     );
   }
 

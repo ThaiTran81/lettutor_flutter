@@ -41,4 +41,20 @@ class I10nUtils {
         return '';
     }
   }
+
+  static String translateExperienceLevel(int level) {
+    switch (level) {
+      case 0:
+        return "Any level";
+      case 1:
+        return "Beginner";
+      case 2:
+        return "Upper-beginner";
+      case 3:
+      case 4:
+        return "Intermediate";
+      default:
+        return "Advanced";
+    }
+  }
 }
