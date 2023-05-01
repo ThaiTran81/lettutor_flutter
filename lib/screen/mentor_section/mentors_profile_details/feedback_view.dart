@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lettutor_flutter/screen/mentor_section/mentors_profile_details/components/feedback_card.dart';
+import 'package:lettutor_flutter/screen/mentor_section/mentors_profile_details/widget/feedback_card.dart';
 import 'package:lettutor_flutter/utils/app_consts.dart';
 import 'package:provider/provider.dart';
 
@@ -18,7 +18,8 @@ class _FeedbackViewState extends State<FeedbackView> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (BuildContext context) => FeedbackViewProvider(widget.userId),
+      create: (BuildContext context) =>
+          FeedbackViewProvider(widget.userId, context),
       child: Consumer<FeedbackViewProvider>(
         builder: (context, provider, child) {
           return Container(

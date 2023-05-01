@@ -1,52 +1,52 @@
 import 'Feedback.dart';
 
 class Tutor {
-  Tutor({
-    this.level,
-    this.email,
-    this.google,
-    this.facebook,
-    this.apple,
-    this.avatar,
-    this.name,
-    this.country,
-    this.phone,
-    this.language,
-    this.birthday,
-    this.requestPassword,
-    this.isActivated,
-    this.isPhoneActivated,
-    this.requireNote,
-    this.timezone,
-    this.phoneAuth,
-    this.isPhoneAuthActivated,
-    this.studySchedule,
-    this.canSendMessage,
-    this.isPublicRecord,
-    this.caredByStaffId,
-    this.createdAt,
-    this.updatedAt,
-    this.deletedAt,
-    this.studentGroupId,
-    this.feedbacks,
-    this.id,
-    this.userId,
-    this.video,
-    this.bio,
-    this.education,
-    this.experience,
-    this.profession,
-    this.accent,
-    this.targetStudent,
-    this.interests,
-    this.languages,
-    this.specialties,
-    this.resume,
-    this.rating,
-    this.isNative,
-    this.price,
-    this.isOnline,
-  });
+  Tutor(
+      {this.level,
+      this.email,
+      this.google,
+      this.facebook,
+      this.apple,
+      this.avatar,
+      this.name,
+      this.country,
+      this.phone,
+      this.language,
+      this.birthday,
+      this.requestPassword,
+      this.isActivated,
+      this.isPhoneActivated,
+      this.requireNote,
+      this.timezone,
+      this.phoneAuth,
+      this.isPhoneAuthActivated,
+      this.studySchedule,
+      this.canSendMessage,
+      this.isPublicRecord,
+      this.caredByStaffId,
+      this.createdAt,
+      this.updatedAt,
+      this.deletedAt,
+      this.studentGroupId,
+      this.feedbacks,
+      this.id,
+      this.userId,
+      this.video,
+      this.bio,
+      this.education,
+      this.experience,
+      this.profession,
+      this.accent,
+      this.targetStudent,
+      this.interests,
+      this.languages,
+      this.specialties,
+      this.resume,
+      this.rating,
+      this.isNative,
+      this.price,
+      this.isOnline,
+      this.isfavoritetutor});
 
   Tutor.fromJson(dynamic json) {
     level = json['level'];
@@ -101,6 +101,7 @@ class Tutor {
     isNative = json['isNative'];
     price = json['price'];
     isOnline = json['isOnline'];
+    isfavoritetutor = json['isfavoritetutor'] == '1' ? true : false;
   }
 
   String? level;
@@ -147,6 +148,7 @@ class Tutor {
   dynamic isNative;
   int? price;
   bool? isOnline;
+  bool? isfavoritetutor;
 
   Map<String?, dynamic> toJson() {
     final map = <String?, dynamic>{};
@@ -197,6 +199,7 @@ class Tutor {
     map['isNative'] = isNative;
     map['price'] = price;
     map['isOnline'] = isOnline;
+    map['isfavoritetutor'] = isfavoritetutor;
     return map;
   }
 }

@@ -7,6 +7,7 @@ import 'package:lettutor_flutter/data/model/mentor/TypeMentorCategory.dart';
 import 'package:lettutor_flutter/data/model/tutor/Tutor.dart';
 import 'package:lettutor_flutter/l10n/l10nUtils.dart';
 import 'package:lettutor_flutter/screen/mentor_section/mentors_profile_details/feedback_view.dart';
+import 'package:lettutor_flutter/screen/mentor_section/mentors_profile_details/widget/report_dialog.dart';
 import 'package:lettutor_flutter/screen/mentor_section/widgets/tag.dart';
 import 'package:lettutor_flutter/widgets/custom_button.dart';
 import 'package:provider/provider.dart';
@@ -41,14 +42,35 @@ class _MentorsProfileState extends State<MentorsProfile>
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (context) {
-        return MentorsProfileDetailsProvider(widget.tutorInfo);
+        return MentorsProfileDetailsProvider(widget.tutorInfo, context);
       },
       child: Consumer<MentorsProfileDetailsProvider>(
         builder: (context, provider, _) {
           return Scaffold(
             appBar: PreferredSize(
               preferredSize: Size.fromHeight(70.h),
-              child: CustomAppBar(appBarName: ''),
+              child: CustomAppBar(
+                appBarName: '',
+                trailingChildren: [
+                  IconButton(
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return ReportDialog(
+                            title: "Report ${provider.tutor?.name}",
+                            onSubmit: (message) {
+                              provider.reportTutor(message);
+                            },
+                          );
+                        },
+                      );
+                    },
+                    icon: Icon(Icons.outlined_flag_rounded),
+                    color: AppColors.danger,
+                  )
+                ],
+              ),
             ),
             body: SingleChildScrollView(
               child: Container(
@@ -135,11 +157,16 @@ class _MentorsProfileState extends State<MentorsProfile>
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 IconButton(
-                                    icon: const Icon(
-                                        Icons.manage_search_rounded,
-                                        size: 30),
-                                    onPressed: () {},
-                                    color: AppColors.primary),
+                                  onPressed: () {
+                                    provider.sendFavoriteTutor();
+                                  },
+                                  icon: Icon(
+                                    provider.tutor?.isfavoritetutor ?? false
+                                        ? Icons.favorite_rounded
+                                        : Icons.favorite_border_outlined,
+                                    color: AppColors.danger,
+                                  ),
+                                ),
                                 IconButton(
                                     icon: const Icon(
                                         Icons.chat_bubble_outline_rounded,

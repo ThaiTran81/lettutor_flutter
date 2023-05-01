@@ -15,19 +15,23 @@ class MentorsDesignCard extends StatelessWidget {
   final String? image, name, summary;
   final double? rating;
   final String countryCode;
+  final bool isFavorite;
   final List<String> specialties;
   final Function()? onTap;
+  final Function()? onFavoritePressed;
 
-  const MentorsDesignCard(
-      {Key? key,
-      this.image,
-      this.name,
-      this.summary,
-      this.onTap,
-      this.rating,
-      required this.countryCode,
-      required this.specialties})
-      : super(key: key);
+  const MentorsDesignCard({
+    Key? key,
+    this.image,
+    this.name,
+    this.summary,
+    this.onTap,
+    this.onFavoritePressed,
+    this.rating,
+    required this.countryCode,
+    required this.specialties,
+    required this.isFavorite,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -102,9 +106,11 @@ class MentorsDesignCard extends StatelessWidget {
                     ],
                   ),
                   IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.favorite_border_outlined,
+                    onPressed: onFavoritePressed,
+                    icon: Icon(
+                      isFavorite ?? false
+                          ? Icons.favorite_rounded
+                          : Icons.favorite_border_outlined,
                       color: AppColors.danger,
                     ),
                   )

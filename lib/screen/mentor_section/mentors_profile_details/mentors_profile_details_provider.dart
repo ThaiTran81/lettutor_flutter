@@ -1,17 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:lettutor_flutter/data/model/tutor/Tutor.dart';
 import 'package:lettutor_flutter/data/model/tutor/TutorInforDetailResponse.dart';
 import 'package:lettutor_flutter/data/repository/tutor_repository.dart';
 import 'package:lettutor_flutter/di/components/service_locator.dart';
+import 'package:lettutor_flutter/screen/mentor_section/mentors_screen/mentors_screen_provider.dart';
+import 'package:lettutor_flutter/utils/dialog_utils.dart';
 import 'package:lettutor_flutter/utils/simple_worker.dart';
 
 class MentorsProfileDetailsProvider extends ChangeNotifier {
   TutorRepository _tutorRepository = getIt.get<TutorRepository>();
+  MentorsScreenProvider _mentorsScreenProvider =
+      getIt.get<MentorsScreenProvider>();
   String? tutorId;
   Tutor? tutor;
   TutorInforDetailResponse? tutorInforDetail;
+  BuildContext context;
 
-  MentorsProfileDetailsProvider(Tutor tutor) {
+  MentorsProfileDetailsProvider(Tutor tutor, this.context) {
     this.tutorId = tutor.userId;
     this.tutor = tutor;
     getTutorInformationDetail();
@@ -32,5 +38,33 @@ class MentorsProfileDetailsProvider extends ChangeNotifier {
     this.tutorInforDetail = tutorInforDetailResponse;
 
     notifyListeners();
+  }
+
+  void sendFavoriteTutor() {
+    _tutorRepository.setFavoriteTutor(tutor?.userId ?? '').then((value) {
+      tutor?.isfavoritetutor = value.result ?? false;
+      notifyListeners();
+      _mentorsScreenProvider.notifyListeners();
+      var msg = value.result ?? false
+          ? "added to favorite successfully"
+          : "Removed from favorite";
+      Fluttertoast.showToast(msg: msg);
+    }, onError: (e) {
+      DialogUtils.showInform(
+          context: context,
+          msgBody: "Oops!! Something go wrong! please try again!");
+    });
+  }
+
+  void reportTutor(String message) {
+    _tutorRepository.reportTutor(tutor?.userId ?? '', message).then((value) {
+      notifyListeners();
+      var msg = value.message ?? '';
+      Fluttertoast.showToast(msg: msg);
+    }, onError: (e) {
+      DialogUtils.showInform(
+          context: context,
+          msgBody: "Oops!! Something go wrong! please try again!");
+    });
   }
 }

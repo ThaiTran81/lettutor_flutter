@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:lettutor_flutter/data/model/mentor/MentorSummary.dart';
 import 'package:lettutor_flutter/data/model/mentor/TypeMentorCategory.dart';
 import 'package:lettutor_flutter/data/model/tutor/CriteriaSearchRequest.dart';
@@ -10,6 +11,7 @@ import 'package:lettutor_flutter/data/model/tutor/TutorResponse.dart';
 import 'package:lettutor_flutter/data/repository/tutor_repository.dart';
 import 'package:lettutor_flutter/di/components/service_locator.dart';
 import 'package:lettutor_flutter/mock/userData.dart';
+import 'package:lettutor_flutter/utils/dialog_utils.dart';
 import 'package:lettutor_flutter/utils/simple_worker.dart';
 
 class MentorsScreenProvider extends ChangeNotifier {
@@ -34,7 +36,7 @@ class MentorsScreenProvider extends ChangeNotifier {
   List<Tutor> tutorsCache = List.empty(growable: true);
 
   MentorsScreenProvider() {
-    initializeTutors();
+    // initializeTutors();
   }
 
   void getSearchValue() {
@@ -141,5 +143,22 @@ class MentorsScreenProvider extends ChangeNotifier {
     if (res != null && res.tutors != null) {
       tutorsCache = res.tutors?.rows ?? List.empty();
     }
+  }
+
+  void sendFavoriteTutor(String userId, BuildContext context) {
+    tutorRepository.setFavoriteTutor(userId).then((value) {
+      var processTutor =
+          tutors.where((element) => element.userId == userId).first;
+      processTutor.isfavoritetutor = value.result ?? false;
+      notifyListeners();
+      var msg = value.result ?? false
+          ? "added to favorite successfully"
+          : "Removed from favorite";
+      Fluttertoast.showToast(msg: msg);
+    }, onError: (e) {
+      DialogUtils.showInform(
+          context: context,
+          msgBody: "Oops!! Something go wrong! please try again!");
+    });
   }
 }

@@ -25,13 +25,9 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                 child: SingleChildScrollView(
                     child: Column(
                   children: [
-                    ScheduleCard(),
-                    ScheduleCard(),
-                    ScheduleCard(),
-                    ScheduleCard(),
-                    ScheduleCard(),
-                    ScheduleCard(),
-                    ScheduleCard(),
+                    ...provider.bookedClasses
+                        .map((bookedClass) => ScheduleCard(bookedClass))
+                        .toList()
                   ],
                 )),
               ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lettutor_flutter/di/components/service_locator.dart';
 import 'package:lettutor_flutter/screen/mentor_section/mentors_screen/mentors_screen_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -16,7 +17,8 @@ class MentorCardList extends StatefulWidget {
 
 class _MentorCardListState extends State<MentorCardList> {
   final _scrollCotroller = ScrollController();
-  late MentorsScreenProvider _mentorsScreenProvider;
+  late MentorsScreenProvider _mentorsScreenProvider =
+      getIt.get<MentorsScreenProvider>();
 
   @override
   Widget build(BuildContext context) {
@@ -54,12 +56,17 @@ class _MentorCardListState extends State<MentorCardList> {
                   rating: double.parse("${data.rating ?? 0}"),
                   countryCode: data.country ?? 'VN',
                   specialties: data.specialties ?? List.empty(),
+                  isFavorite: data.isfavoritetutor ?? false,
                   onTap: () {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) => MentorsProfile(tutorInfo: data),
                         ));
+                  },
+                  onFavoritePressed: () {
+                    _mentorsScreenProvider.sendFavoriteTutor(
+                        data.userId ?? '', context);
                   },
                 );
               } else if (_mentorsScreenProvider.tutors.length >=

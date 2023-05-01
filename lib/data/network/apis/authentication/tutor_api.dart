@@ -1,4 +1,6 @@
 import 'package:lettutor_flutter/data/model/tutor/CriteriaSearchRequest.dart';
+import 'package:lettutor_flutter/data/model/tutor/FavoriteTutorResponse.dart';
+import 'package:lettutor_flutter/data/model/tutor/ReportReponse.dart';
 import 'package:lettutor_flutter/data/model/tutor/TutorInforDetailResponse.dart';
 import 'package:lettutor_flutter/data/model/tutor/TutorResponse.dart';
 import 'package:lettutor_flutter/data/model/tutor/feedback/FeedbackResponse.dart';
@@ -39,5 +41,19 @@ class TutorApi {
         await _dioClient.get(Endpoints.getTutorFeedback(userId, perPage, page));
 
     return FeedbackResponse.fromJson(res);
+  }
+
+  Future<FavoriteTutorResponse> setFavoriteTutor(String userId) async {
+    final res = await _dioClient
+        .post(Endpoints.manageFavoriteTutor, data: {'tutorId': userId});
+
+    return FavoriteTutorResponse.fromJson(res);
+  }
+
+  Future<ReportReponse> reportTutor(String userId, String message) async {
+    final res = await _dioClient.post(Endpoints.reportTutor,
+        data: {'tutorId': userId, 'content': message});
+
+    return ReportReponse.fromJson(res);
   }
 }

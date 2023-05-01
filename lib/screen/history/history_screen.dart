@@ -26,13 +26,9 @@ class _HistoryScreenState extends State<HistoryScreen> {
                 child: SingleChildScrollView(
                     child: Column(
                   children: [
-                    HistoryCard(),
-                    HistoryCard(),
-                    HistoryCard(),
-                    HistoryCard(),
-                    HistoryCard(),
-                    HistoryCard(),
-                    HistoryCard(),
+                    ...provider.bookedClassHistory
+                        .map((bookedClass) => HistoryCard(bookedClass))
+                        .toList()
                   ],
                 )),
               ),

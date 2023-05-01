@@ -16,9 +16,9 @@ class FeedbackViewProvider extends ChangeNotifier {
   TutorInforDetailResponse? tutorInforDetail;
   List<FeedbackData> feedbacks = List.empty();
   int currentPage = 1;
+  BuildContext context;
 
-  FeedbackViewProvider(String userId) {
-    this.userId = userId;
+  FeedbackViewProvider(String this.userId, this.context) {
     getFeedbackOfTutor();
   }
 

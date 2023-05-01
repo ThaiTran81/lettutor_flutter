@@ -24,9 +24,11 @@ class CustomAppBar extends StatelessWidget {
       child: AppBar(
         leading: Visibility(
           visible: isBackButton ?? true,
-          child: Padding(
-            padding: const EdgeInsets.only(left: 24.0, top: 8, bottom: 8),
+          child: Container(
+            margin: const EdgeInsets.symmetric(horizontal: 12),
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisSize: MainAxisSize.min,
               children: [
                 InkWell(
                   onTap: () {
@@ -36,15 +38,16 @@ class CustomAppBar extends StatelessWidget {
                     'assets/app_bar_icon/back_vector.png',
                   ),
                 ),
-                buildTailingWidgets()
+                // buildTailingWidgets()
               ],
             ),
           ),
         ),
-        leadingWidth: 65,
+        leadingWidth: MediaQuery.of(context).size.width * 0.2,
         automaticallyImplyLeading: false,
         backgroundColor: backgroundColor ?? Colors.white,
         elevation: 0,
+        centerTitle: true,
         title: Text(
           '$appBarName',
           style: TextStyle(
@@ -57,6 +60,8 @@ class CustomAppBar extends StatelessWidget {
   }
 
   Row buildTailingWidgets() {
-    return Row(children: <Widget>[...?trailingChildren]);
+    return Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [...?trailingChildren]);
   }
 }

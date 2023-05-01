@@ -33,6 +33,10 @@ class Endpoints {
     return "$baseUrl/feedback/v2/$userId?page=$pageNumber&perPage=$perPage";
   }
 
+  static const String manageFavoriteTutor = "$baseUrl/user/manageFavoriteTutor";
+
+  static const String reportTutor = "$baseUrl/report";
+
   /**
    * course api
    */
@@ -46,5 +50,20 @@ class Endpoints {
 
   static String getTutorInformationById(String id) {
     return "$baseUrl/tutor/$id";
+  }
+
+  /**
+   * meeting api
+   */
+  static String historyMeeting(int numPerPage, int page, bool? isTutor) {
+    return "$baseUrl/call/history?page=$page&perPage=$numPerPage&isTutor=$isTutor";
+  }
+
+  static String getBookedClass(int perPage, int page, int datetimeGte) {
+    return "$baseUrl/booking/list/student?page=$page&perPage=$perPage&dateTimeGte=$datetimeGte&orderBy=meeting&sortBy=asc";
+  }
+
+  static String getHistoryBookedClass(int perPage, int page, int datetimeGte) {
+    return "$baseUrl/booking/list/student?page=$page&perPage=$perPage&dateTimeGte=$datetimeGte&orderBy=meeting&sortBy=desc";
   }
 }

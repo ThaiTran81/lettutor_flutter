@@ -1,4 +1,6 @@
 import 'package:lettutor_flutter/data/model/tutor/CriteriaSearchRequest.dart';
+import 'package:lettutor_flutter/data/model/tutor/FavoriteTutorResponse.dart';
+import 'package:lettutor_flutter/data/model/tutor/ReportReponse.dart';
 import 'package:lettutor_flutter/data/model/tutor/TutorInforDetailResponse.dart';
 import 'package:lettutor_flutter/data/model/tutor/TutorResponse.dart';
 import 'package:lettutor_flutter/data/model/tutor/feedback/FeedbackResponse.dart';
@@ -32,6 +34,17 @@ class TutorRepository {
   Future<FeedbackResponse> getFeedbackOfTutor(
       String userId, int perPage, int page) async {
     final res = await _tutorApi.getFeedbackOfTutor(userId, perPage, page);
+    return res;
+  }
+
+  Future<FavoriteTutorResponse> setFavoriteTutor(String userId) async {
+    final res = await _tutorApi.setFavoriteTutor(userId);
+    return res;
+  }
+
+  Future<ReportReponse> reportTutor(String userId, String message) async {
+    final res = await _tutorApi.reportTutor(userId, message);
+
     return res;
   }
 }

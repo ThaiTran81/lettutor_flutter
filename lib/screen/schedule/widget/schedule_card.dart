@@ -1,7 +1,12 @@
 import 'package:flag/flag_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lettutor_flutter/data/model/schedule/ScheduleData.dart';
+import 'package:lettutor_flutter/screen/meeting_screen/meeting_screen.dart';
+import 'package:lettutor_flutter/utils/date_utils.dart';
+import 'package:lettutor_flutter/utils/nav_utils.dart';
 import 'package:lettutor_flutter/utils/widget_utils.dart';
+import 'package:lettutor_flutter/widgets/cache_image.dart';
 import 'package:lettutor_flutter/widgets/custom_button.dart';
 
 import '../../../utils/app_consts.dart';
@@ -9,10 +14,14 @@ import '../../../widgets/custom_text.dart';
 import '../schedule_screen.dart';
 
 class ScheduleCard extends StatelessWidget {
-  const ScheduleCard({super.key});
+  ScheduleData bookedClass;
+
+  ScheduleCard(this.bookedClass, {super.key});
 
   @override
   Widget build(BuildContext context) {
+    var scheduleDetailInfo = bookedClass.scheduleDetailInfo;
+    var tutor = scheduleDetailInfo?.scheduleInfo?.tutorInfo;
     return Card(
       elevation: 0,
       shape: RoundedRectangleBorder(
@@ -25,10 +34,11 @@ class ScheduleCard extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  const CircleAvatar(
-                    radius: 30,
-                    backgroundImage: NetworkImage(
-                      'https://api.app.lettutor.com/avatar/4d54d3d7-d2a9-42e5-97a2-5ed38af5789aavatar1627913015850.00',
+                  ClipOval(
+                    child: CacheImage(
+                      url: tutor?.avatar ?? '',
+                      width: 40,
+                      height: 40,
                     ),
                   ),
                   const SizedBox(
@@ -38,12 +48,13 @@ class ScheduleCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       CustomText(
-                        text: "Keegan",
+                        text: tutor?.name ?? '',
                         color: AppColors.title,
                         fontSize: 14.sp,
                         fontWeight: FontWeight.bold,
                       ),
-                      Flag.fromString('VN', height: 25, width: 25),
+                      Flag.fromString(tutor?.country ?? '',
+                          height: 25, width: 25),
                     ],
                   ),
                   Spacer(),
@@ -93,7 +104,11 @@ class ScheduleCard extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           CustomText(
-                            text: 'Monday, 15th March, 2023',
+                            text: scheduleDetailInfo?.startPeriodTimestamp !=
+                                    null
+                                ? DateTimeUtils.formatDateFrom(
+                                    scheduleDetailInfo?.startPeriodTimestamp)
+                                : '',
                             fontSize: 14.sp,
                             color: AppColors.body,
                           ),
@@ -101,7 +116,8 @@ class ScheduleCard extends StatelessWidget {
                             height: 10,
                           ),
                           CustomText(
-                            text: '7:00',
+                            text: DateTimeUtils.formatToHour(
+                                scheduleDetailInfo?.startPeriodTimestamp),
                             fontSize: 14.sp,
                             color: AppColors.body,
                           ),
@@ -109,7 +125,8 @@ class ScheduleCard extends StatelessWidget {
                             height: 10,
                           ),
                           CustomText(
-                            text: '10:00',
+                            text: DateTimeUtils.formatToHour(
+                                scheduleDetailInfo?.endPeriodTimestamp),
                             fontSize: 14.sp,
                             color: AppColors.body,
                           ),
@@ -132,7 +149,7 @@ class ScheduleCard extends StatelessWidget {
                             text: "Go meeting",
                           ),
                           alignment: Alignment.center,
-                          onPressed: () {},
+                          onPressed: () => _goMeeting(context),
                           styleButton:
                               StyleButton(outlineColor: Colors.transparent))),
                   SizedBox(width: 5),
@@ -170,5 +187,103 @@ class ScheduleCard extends StatelessWidget {
       ],
       shape: RoundedRectangleBorder(borderRadius: SpaceUtils.commonRadius),
     );
+  }
+
+  _goMeeting(BuildContext context) async {
+    var meetingLink = bookedClass.studentMeetingLink;
+    NavUtil.navigateScreen(
+        context,
+        VideoMeeting(
+          studentMeetingLink: meetingLink!,
+        ));
+    //   final base64Decoded = base64.decode(base64.normalize(
+    //       bookedClass.studentMeetingLink?.split('token=')[1].split('.')[1] ??
+    //           ''));
+    //   final urlObject = utf8.decode(base64Decoded);
+    //   final jsonRes = json.decode(urlObject);
+    //   final String roomId = jsonRes['room'];
+    //
+    //   if (bookedClass.studentMeetingLink == null) return;
+    //   await JitsiMeetWrapper.joinMeeting(
+    //     options: JitsiMeetingOptions(
+    //         roomNameOrUrl: bookedClass.userId!,
+    //         serverUrl: 'https://meet.lettutor.com/',
+    //         token: meetingLink?.split('token=')[1]),
+    //     listener: JitsiMeetingListener(
+    //       onConferenceWillJoin: (url) => print("onConferenceWillJoin: url: $url"),
+    //       onConferenceJoined: (url) => print("onConferenceJoined: url: $url"),
+    //       onConferenceTerminated: (url, error) =>
+    //           print("onConferenceTerminated: url: $url, error: $error"),
+    //     ),
+    //   );
+    // }
+    //
+    // _joinMeeting() async {
+    //   var meetingLink = bookedClass.studentMeetingLink;
+    //   var token = meetingLink?.split('token=')[1];
+    //   AuthProvider authProvider = getIt.get<AuthProvider>();
+    //   var userData = authProvider.userData;
+    //   var options = JitsiMeetingOptions(
+    //     roomNameOrUrl: bookedClass.userId!,
+    //     serverUrl: 'https://meet.lettutor.com',
+    //     token: token,
+    //     userAvatarUrl: userData?.user?.avatar,
+    //     // isAudioMuted: isAudioMuted,
+    //     // isAudioOnly: isAudioOnly,
+    //     // isVideoMuted: isVideoMuted,
+    //     // userDisplayName: name,
+    //   );
+    //
+    //   debugPrint("JitsiMeetingOptions: $options");
+    //   await JitsiMeetWrapper.joinMeeting(
+    //     options: options,
+    //     listener: JitsiMeetingListener(
+    //       onOpened: () => debugPrint("onOpened"),
+    //       onConferenceWillJoin: (url) {
+    //         debugPrint("onConferenceWillJoin: url: $url");
+    //       },
+    //       onConferenceJoined: (url) {
+    //         debugPrint("onConferenceJoined: url: $url");
+    //       },
+    //       onConferenceTerminated: (url, error) {
+    //         debugPrint("onConferenceTerminated: url: $url, error: $error");
+    //       },
+    //       onAudioMutedChanged: (isMuted) {
+    //         debugPrint("onAudioMutedChanged: isMuted: $isMuted");
+    //       },
+    //       onVideoMutedChanged: (isMuted) {
+    //         debugPrint("onVideoMutedChanged: isMuted: $isMuted");
+    //       },
+    //       onScreenShareToggled: (participantId, isSharing) {
+    //         debugPrint(
+    //           "onScreenShareToggled: participantId: $participantId, "
+    //               "isSharing: $isSharing",
+    //         );
+    //       },
+    //       onParticipantJoined: (email, name, role, participantId) {
+    //         debugPrint(
+    //           "onParticipantJoined: email: $email, name: $name, role: $role, "
+    //               "participantId: $participantId",
+    //         );
+    //       },
+    //       onParticipantLeft: (participantId) {
+    //         debugPrint("onParticipantLeft: participantId: $participantId");
+    //       },
+    //       onParticipantsInfoRetrieved: (participantsInfo, requestId) {
+    //         debugPrint(
+    //           "onParticipantsInfoRetrieved: participantsInfo: $participantsInfo, "
+    //               "requestId: $requestId",
+    //         );
+    //       },
+    //       onChatMessageReceived: (senderId, message, isPrivate) {
+    //         debugPrint(
+    //           "onChatMessageReceived: senderId: $senderId, message: $message, "
+    //               "isPrivate: $isPrivate",
+    //         );
+    //       },
+    //       onChatToggled: (isOpen) => debugPrint("onChatToggled: isOpen: $isOpen"),
+    //       onClosed: () => debugPrint("onClosed"),
+    //     ),
+    //   );
   }
 }
