@@ -6,9 +6,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lettutor_flutter/data/model/mentor/TypeMentorCategory.dart';
 import 'package:lettutor_flutter/data/model/tutor/Tutor.dart';
 import 'package:lettutor_flutter/l10n/l10nUtils.dart';
+import 'package:lettutor_flutter/screen/mentor_section/mentor_booking/mentor_booking_screen.dart';
 import 'package:lettutor_flutter/screen/mentor_section/mentors_profile_details/feedback_view.dart';
 import 'package:lettutor_flutter/screen/mentor_section/mentors_profile_details/widget/report_dialog.dart';
 import 'package:lettutor_flutter/screen/mentor_section/widgets/tag.dart';
+import 'package:lettutor_flutter/utils/nav_utils.dart';
 import 'package:lettutor_flutter/widgets/custom_button.dart';
 import 'package:provider/provider.dart';
 
@@ -190,7 +192,14 @@ class _MentorsProfileState extends State<MentorsProfile>
                               text: CustomText(
                                 text: "Book",
                               ),
-                              onPressed: () {},
+                              onPressed: () {
+                                NavUtil.navigateScreen(
+                                    context,
+                                    MentorBookingScreen(
+                                      name: "Teacher",
+                                      tutorId: "skjlhdkj",
+                                    ));
+                              },
                               styleButton: StyleButton(
                                   outlineColor: Colors.transparent,
                                   width: double.infinity),

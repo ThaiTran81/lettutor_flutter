@@ -16,5 +16,12 @@
   "tutorCategory_ielts": "IELTS",
   "tutorCategory_toefl": "TOEFL",
   "tutorCategory_toeic": "TOEIC",
-  "btn_book_tutor": "Book"
+  "btn_book_tutor": "Book",
+  "studyLevel_beginer": "Pre A1 (Beginner)",
+  "studyLevel_higher_beginer": "A1 (Higher Beginner)",
+  "studyLevel_pre_intermediate": "A2 (Pre-lntermediate)",
+  "studyLevel_intermediate": "B1 (Intermediate)",
+  "studyLevel_upper_intermediate": "B2 (Upper-Intermediate)",
+  "studyLevel_advanced": "C1 (Advanced)",
+  "studyLevel_proficiency": "C2 (Proficiency)"
 }

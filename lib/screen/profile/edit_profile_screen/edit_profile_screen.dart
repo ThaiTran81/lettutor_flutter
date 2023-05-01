@@ -101,7 +101,7 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                   indicatorSize: TabBarIndicatorSize.tab),
               SizedBox(
                 height: 470.h,
-                child: TabBarView(controller: _tabController, children: const [
+                child: TabBarView(controller: _tabController, children: [
                   BasicInfoContent(),
                   PasswordContent(),
                 ]),

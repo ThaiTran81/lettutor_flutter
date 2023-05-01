@@ -71,6 +71,8 @@ dependencies:
   flutter_localized_locales: ^2.0.4
   jitsi_meet_wrapper: ^0.0.6
   jwt_decoder: ^2.0.1
+  horizontal_data_table: ^4.2.0
+  country_code_picker: ^3.0.0
 
 
 dev_dependencies:
