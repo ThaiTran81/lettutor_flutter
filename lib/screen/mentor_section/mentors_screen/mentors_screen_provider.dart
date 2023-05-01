@@ -4,11 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:lettutor_flutter/data/model/mentor/MentorSummary.dart';
 import 'package:lettutor_flutter/data/model/mentor/TypeMentorCategory.dart';
+import 'package:lettutor_flutter/data/model/schedule/ScheduleData.dart';
+import 'package:lettutor_flutter/data/model/schedule/ScheduleResponse.dart';
 import 'package:lettutor_flutter/data/model/tutor/CriteriaSearchRequest.dart';
 import 'package:lettutor_flutter/data/model/tutor/Filters.dart';
 import 'package:lettutor_flutter/data/model/tutor/Tutor.dart';
 import 'package:lettutor_flutter/data/model/tutor/TutorResponse.dart';
+import 'package:lettutor_flutter/data/repository/schedule_repository.dart';
 import 'package:lettutor_flutter/data/repository/tutor_repository.dart';
+import 'package:lettutor_flutter/data/repository/user_repository.dart';
 import 'package:lettutor_flutter/di/components/service_locator.dart';
 import 'package:lettutor_flutter/mock/userData.dart';
 import 'package:lettutor_flutter/utils/dialog_utils.dart';
@@ -16,27 +20,40 @@ import 'package:lettutor_flutter/utils/simple_worker.dart';
 
 class MentorsScreenProvider extends ChangeNotifier {
   static const int LIMIT_PER_PAGE = 10;
+
   var mentorsResponse = UserMock.users;
+
   String search = "";
+
   Timer? timeHandle;
+
   String? type = "instractors";
+
   List<MentorSummary> mentorSumaries = UserMock.mentorSummary;
+
   List<Tutor> tutors = List.empty(growable: true);
+
   int currentPage = 1;
+
   bool isLoadingMore = false;
+
   int? totalTutors = null;
   TutorSpecialty selectedSpecialtyFilter = TutorSpecialty.ALL;
+
   TextEditingController searchTextFieldController = TextEditingController();
 
   late CriteriaSearchRequest criteria;
 
-  var tutorRepository = getIt<TutorRepository>();
+  ScheduleData? upcomingMeeting;
 
-  // not found feedback property from api -> temporily read all tutors for getting feedbacks
-  List<Tutor> tutorsCache = List.empty(growable: true);
+  int totalLessonHour = 0;
+
+  var tutorRepository = getIt<TutorRepository>();
+  ScheduleRepository _scheduleRepository = getIt.get<ScheduleRepository>();
+  UserRepository _userRepository = getIt.get<UserRepository>();
 
   MentorsScreenProvider() {
-    // initializeTutors();
+    // initializeData();
   }
 
   void getSearchValue() {
@@ -138,11 +155,21 @@ class MentorsScreenProvider extends ChangeNotifier {
     getTutorListByCriteria();
   }
 
-  void initializeTutors() async {
-    var res = await tutorRepository.getTutorList(1000, 1);
-    if (res != null && res.tutors != null) {
-      tutorsCache = res.tutors?.rows ?? List.empty();
-    }
+  void initializeData() {
+    getTutorListByCriteria();
+
+    SimpleWorker<ScheduleResponse?>(
+        task: () => _scheduleRepository.getBookedClass(1, 1),
+        onCompleted: (res) {
+          if (res != null) {
+            ScheduleData? scheduleData = res.data?.rows?.first;
+            if (scheduleData != null) setUpcomingMeeting(scheduleData);
+          }
+        }).start();
+
+    _userRepository.getTotalHour().then((value) {
+      setTotalLessonHour(value);
+    });
   }
 
   void sendFavoriteTutor(String userId, BuildContext context) {
@@ -160,5 +187,15 @@ class MentorsScreenProvider extends ChangeNotifier {
           context: context,
           msgBody: "Oops!! Something go wrong! please try again!");
     });
+  }
+
+  void setUpcomingMeeting(ScheduleData scheduleData) {
+    upcomingMeeting = scheduleData;
+    notifyListeners();
+  }
+
+  void setTotalLessonHour(int value) {
+    totalLessonHour = value;
+    notifyListeners();
   }
 }

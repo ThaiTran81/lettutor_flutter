@@ -12,7 +12,7 @@ class DateTimeUtils {
     if (timestamp == null) return '';
     DateTime date = DateTime.fromMillisecondsSinceEpoch(timestamp, isUtc: true);
 
-    String formattedDate = DateFormat('HH:mm a').format(date.toLocal());
+    String formattedDate = DateFormat('HH:mm').format(date.toLocal());
     return formattedDate;
   }
 }

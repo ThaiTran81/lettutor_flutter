@@ -19,6 +19,8 @@ class Endpoints {
   // register
   static const String register = "$baseUrl/auth/register";
 
+  static const String getTotalHour = "$baseUrl/call/total";
+
   /**
    * tutor api
    */
@@ -66,4 +68,6 @@ class Endpoints {
   static String getHistoryBookedClass(int perPage, int page, int datetimeGte) {
     return "$baseUrl/booking/list/student?page=$page&perPage=$perPage&dateTimeGte=$datetimeGte&orderBy=meeting&sortBy=desc";
   }
+
+  static const String getScheduleByTutorId = "$baseUrl/schedule";
 }

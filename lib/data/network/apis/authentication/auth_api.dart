@@ -34,4 +34,9 @@ class AuthApi {
       rethrow;
     }
   }
+
+  Future<int> getTotalHour() async {
+    var res = await _dioClient.get(Endpoints.getTotalHour);
+    return res['total'] ?? 0;
+  }
 }

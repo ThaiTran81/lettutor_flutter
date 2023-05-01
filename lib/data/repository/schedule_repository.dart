@@ -15,4 +15,9 @@ class ScheduleRepository {
     final res = await _scheduleApi.getHistoryBookedClass(perPage, page);
     return res;
   }
+
+  Future<ScheduleResponse> getScheduleByTutorId(String tutorId) async {
+    final res = await _scheduleApi.getScheduleByTutorId(tutorId);
+    return res;
+  }
 }

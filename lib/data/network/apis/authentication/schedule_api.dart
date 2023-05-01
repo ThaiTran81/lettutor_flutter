@@ -21,4 +21,10 @@ class ScheduleApi {
         page, (DateTime.now().microsecondsSinceEpoch ~/ 1000000).toInt()));
     return ScheduleResponse.fromJson(res);
   }
+
+  Future<ScheduleResponse> getScheduleByTutorId(String tutorId) async {
+    final res = await _dioClient
+        .post(Endpoints.getScheduleByTutorId, data: {"tutorId": tutorId});
+    return ScheduleResponse.fromJson(res);
+  }
 }

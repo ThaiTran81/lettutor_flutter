@@ -7,9 +7,9 @@ import '../mentors_profile_details/mentors_profile_details.dart';
 import 'mentors_design_card.dart';
 
 class MentorCardList extends StatefulWidget {
-  Function()? onScrollToEnd;
+  Function(ScrollController scrollController)? onScroll;
 
-  MentorCardList({Key? key, this.onScrollToEnd}) : super(key: key);
+  MentorCardList({Key? key, this.onScroll}) : super(key: key);
 
   @override
   State<MentorCardList> createState() => _MentorCardListState();
@@ -104,5 +104,7 @@ class _MentorCardListState extends State<MentorCardList> {
       _mentorsScreenProvider.setLoadingMoreIs(true);
       _mentorsScreenProvider.loadMoreTutorListResult(true);
     }
+
+    // widget.onScroll!(_scrollCotroller);
   }
 }

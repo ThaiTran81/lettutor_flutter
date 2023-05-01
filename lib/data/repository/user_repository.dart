@@ -14,4 +14,9 @@ class UserRepository {
   void signUp(String email, String password) async {
     await _authApi.signUp(email, password);
   }
+
+  Future<int> getTotalHour() async {
+    var res = await _authApi.getTotalHour();
+    return res ?? 0;
+  }
 }
