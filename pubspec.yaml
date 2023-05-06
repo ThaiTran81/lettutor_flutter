@@ -73,6 +73,9 @@ dependencies:
   jwt_decoder: ^2.0.1
   horizontal_data_table: ^4.2.0
   country_code_picker: ^3.0.0
+  image_picker: ^0.8.7+4
+  path_provider: ^2.0.14
+  dropdown_button2: ^2.1.0
 
 
 dev_dependencies:
@@ -112,6 +115,7 @@ flutter:
     - assets/web/home_page/
     - assets/most_popular_courses/
     - assets/most_popular_courses/
+    - bundle/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

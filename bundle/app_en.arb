@@ -1,0 +1,27 @@
+{
+  "helloWorld": "Hello World!",
+  "@helloWorld": {
+    "description": "The conventional newborn programmer greeting"
+  },
+  "login": "Login",
+  "tutorCategory_all": "ALL",
+  "tutorCategory_eng4kids": "English for kids",
+  "tutorCategory_eng4business": "English for business",
+  "tutorCategory_conversational": "Conversational",
+  "tutorCategory_starter": "STARTER",
+  "tutorCategory_mover": "MOVER",
+  "tutorCategory_ket": "KET",
+  "tutorCategory_pet": "PET",
+  "tutorCategory_flyer": "FLYER",
+  "tutorCategory_ielts": "IELTS",
+  "tutorCategory_toefl": "TOEFL",
+  "tutorCategory_toeic": "TOEIC",
+  "btn_book_tutor": "Book",
+  "StudyLevel_beginer": "Pre A1 (Beginner)",
+  "StudyLevel_higher_beginer": "A1 (Higher Beginner)",
+  "StudyLevel_pre_intermediate": "A2 (Pre-lntermediate)",
+  "StudyLevel_intermediate": "B1 (Intermediate)",
+  "StudyLevel_upper_intermediate": "B2 (Upper-Intermediate)",
+  "StudyLevel_advanced": "C1 (Advanced)",
+  "StudyLevel_proficiency": "C2 (Proficiency)"
+}

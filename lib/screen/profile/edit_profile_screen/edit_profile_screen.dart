@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:lettutor_flutter/data/model/user/User.dart';
 import 'package:lettutor_flutter/provider/auth_provider.dart';
 import 'package:lettutor_flutter/screen/profile/widget/basic_info_content.dart';
@@ -9,6 +12,7 @@ import 'package:lettutor_flutter/utils/widget_utils.dart';
 import 'package:lettutor_flutter/widgets/cache_image.dart';
 import 'package:lettutor_flutter/widgets/custom_app_bar.dart';
 import 'package:lettutor_flutter/widgets/custom_text.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 
 class EditProfileScreen extends StatefulWidget {
@@ -23,17 +27,36 @@ class _EditProfileScreenState extends State<EditProfileScreen>
   TabController? _tabController;
   late AuthProvider _authProvider;
   late User _userData;
+  XFile? _selectedAvatar;
 
   @override
   void initState() {
     _tabController = TabController(length: 2, vsync: this);
+
     super.initState();
   }
 
   @override
-  Widget build(BuildContext context) {
+  void didChangeDependencies() {
     _authProvider = Provider.of<AuthProvider>(context);
     _userData = _authProvider.getUserData()!;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    var avatarImage = _selectedAvatar?.path == null
+        ? CacheImage(
+            url: _userData.avatar!,
+            height: 100,
+            width: 100,
+          )
+        : Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Image.file(File(_selectedAvatar!.path),
+                width: 100, height: 100, fit: BoxFit.cover),
+          );
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(70.h),
@@ -51,15 +74,14 @@ class _EditProfileScreenState extends State<EditProfileScreen>
               Center(
                 child: Column(
                   children: [
-                    ClipRRect(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(10),
-                        ),
-                        child: CacheImage(
-                          url: _userData.avatar!,
-                          height: 100,
-                          width: 100,
-                        )),
+                    InkWell(
+                      onTap: _onChangeAvatar,
+                      child: ClipRRect(
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(10),
+                          ),
+                          child: avatarImage),
+                    ),
                     SizedBox(
                       height: 12.h,
                     ),
@@ -88,7 +110,7 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                   indicatorColor: AppColors.primary,
                   labelColor: AppColors.primary,
                   labelStyle:
-                      TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w700),
+                  TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w700),
                   tabs: const [
                     Tab(
                       text: 'Basic Info',
@@ -111,5 +133,17 @@ class _EditProfileScreenState extends State<EditProfileScreen>
         ),
       ),
     );
+  }
+
+  _onChangeAvatar() async {
+    final ImagePicker picker = ImagePicker();
+    // Pick an image.
+    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+    setState(() {
+      _selectedAvatar = image;
+    });
+    final Directory tempDir = await getTemporaryDirectory();
+    print(image?.path);
+    print(tempDir.path);
   }
 }

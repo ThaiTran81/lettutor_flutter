@@ -6,6 +6,7 @@ import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lettutor_flutter/di/components/service_locator.dart';
+import 'package:lettutor_flutter/l10n/l10nUtils.dart';
 import 'package:lettutor_flutter/provider/auth_provider.dart';
 import 'package:lettutor_flutter/screen/auth/login_screen/login_provider.dart';
 import 'package:lettutor_flutter/screen/auth/splash_screen.dart';
@@ -43,10 +44,11 @@ class MyApp extends StatelessWidget {
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
-          localizationsDelegates: [
+          localizationsDelegates: const [
             ...AppLocalizations.localizationsDelegates,
             LocaleNamesLocalizationsDelegate(),
             CountryLocalizations.delegate,
+            TranslateUtils.delegate
           ],
           supportedLocales: [
             Locale("af"),

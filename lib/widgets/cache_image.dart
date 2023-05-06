@@ -1,12 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 
+enum ImageType { network, local }
+
 class CacheImage extends StatelessWidget {
   String url;
   double? height;
   double? width;
+  ImageType? imageType;
 
-  CacheImage({Key? key, required this.url, this.height, this.width})
+  CacheImage(
+      {Key? key, required this.url, this.height, this.width, this.imageType})
       : super(key: key);
 
   @override

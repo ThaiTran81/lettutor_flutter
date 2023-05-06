@@ -64,7 +64,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         height: 30.h,
                       ),
                       ////Email/phone from field////
-                      FromField(
+                      FormTextField(
                         controller: emailController,
                         title: "Email",
                         hintText: 'Write your email',

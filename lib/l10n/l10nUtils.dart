@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:country_codes/country_codes.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:lettutor_flutter/data/model/mentor/TypeMentorCategory.dart';
 
@@ -23,8 +26,7 @@ class I10nUtils {
     return "";
   }
 
-  static String translateFrom(
-      TutorSpecialty typeMentorCategory, BuildContext context) {
+  static String translateFrom(TutorSpecialty typeMentorCategory, BuildContext context) {
     switch (typeMentorCategory) {
       case TutorSpecialty.ALL:
         return AppLocalizations.of(context).tutorCategory_all;
@@ -70,4 +72,63 @@ class I10nUtils {
         return "Advanced";
     }
   }
+}
+
+class TranslateUtils {
+  final Locale locale;
+
+  TranslateUtils(this.locale);
+
+  static TranslateUtils? of(BuildContext context) {
+    return Localizations.of<TranslateUtils>(
+      context,
+      TranslateUtils,
+    );
+  }
+
+  static const LocalizationsDelegate<TranslateUtils> delegate =
+  _TranslateUtilsDelegate();
+
+  late Map<String, String> _localizedStrings;
+
+  Future<bool> load() async {
+    String jsonString =
+    await rootBundle.loadString('bundle/app_${locale.languageCode}.arb');
+    Map<String, dynamic> jsonMap = json.decode(jsonString);
+
+    _localizedStrings = jsonMap.map((key, value) {
+      return MapEntry(key, value.toString());
+    });
+
+    return true;
+  }
+
+  String? translate(String? key) {
+    return _localizedStrings[key!];
+  }
+
+  String translateEnum<T extends Enum>(T? value) {
+    if (value == null) return '${value.runtimeType.toString()}_$value';
+    return _localizedStrings['${value.runtimeType.toString()}_${value.name}'] ??
+        '${value.runtimeType.toString()}_${value.name}';
+  }
+}
+
+class _TranslateUtilsDelegate extends LocalizationsDelegate<TranslateUtils> {
+  const _TranslateUtilsDelegate();
+
+  @override
+  bool isSupported(Locale locale) {
+    return ["en"].contains(locale.languageCode);
+  }
+
+  @override
+  Future<TranslateUtils> load(Locale locale) async {
+    TranslateUtils localizations = TranslateUtils(locale);
+    await localizations.load();
+    return localizations;
+  }
+
+  @override
+  bool shouldReload(_TranslateUtilsDelegate old) => false;
 }

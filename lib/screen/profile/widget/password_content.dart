@@ -23,7 +23,7 @@ class _PasswordContentState extends State<PasswordContent> {
         SizedBox(
           height: 24.h,
         ),
-        FromField(
+        FormTextField(
           title: "Current Password",
           hintText: "***********",
         ),
