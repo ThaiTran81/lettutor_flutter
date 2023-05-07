@@ -20,7 +20,7 @@ class _CountDownTimerState extends State<CountDownTimer> {
   void initState() {
     super.initState();
     _secondsRemaining = widget.seconds;
-    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
         if (_secondsRemaining > 0) {
           _secondsRemaining--;

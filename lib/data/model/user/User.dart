@@ -1,5 +1,5 @@
-import 'LearnTopics.dart';
-import 'TestPreparations.dart';
+import 'LearnTopic.dart';
+import 'TestPreparation.dart';
 import 'WalletInfo.dart';
 
 class User {
@@ -52,13 +52,13 @@ class User {
     if (json['learnTopics'] != null) {
       learnTopics = [];
       json['learnTopics'].forEach((v) {
-        learnTopics?.add(LearnTopics.fromJson(v));
+        learnTopics?.add(LearnTopic.fromJson(v));
       });
     }
     if (json['testPreparations'] != null) {
       testPreparations = [];
       json['testPreparations'].forEach((v) {
-        testPreparations?.add(TestPreparations.fromJson(v));
+        testPreparations?.add(TestPreparation.fromJson(v));
       });
     }
     isPhoneActivated = json['isPhoneActivated'];
@@ -81,11 +81,11 @@ class User {
   late List<dynamic>? courses;
   late String? requireNote;
   late String? level;
-  late List<LearnTopics>? learnTopics;
-  late List<TestPreparations>? testPreparations;
+  late List<LearnTopic>? learnTopics;
+  late List<TestPreparation>? testPreparations;
   late bool? isPhoneActivated;
   late int? timezone;
-  late dynamic? studySchedule;
+  late String? studySchedule;
   late bool? canSendMessage;
 
   Map<String, dynamic> toJson() {

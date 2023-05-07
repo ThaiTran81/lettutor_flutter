@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:lettutor_flutter/data/model/mentor/TypeMentorCategory.dart';
+import 'package:lettutor_flutter/data/model/user/StudyLevel.dart';
 import 'package:lettutor_flutter/data/model/user/User.dart';
 import 'package:lettutor_flutter/provider/auth_provider.dart';
 import 'package:lettutor_flutter/screen/profile/widget/basic_info_content.dart';
@@ -110,7 +112,7 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                   indicatorColor: AppColors.primary,
                   labelColor: AppColors.primary,
                   labelStyle:
-                  TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w700),
+                      TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w700),
                   tabs: const [
                     Tab(
                       text: 'Basic Info',
@@ -124,7 +126,7 @@ class _EditProfileScreenState extends State<EditProfileScreen>
               SizedBox(
                 height: 470.h,
                 child: TabBarView(controller: _tabController, children: [
-                  BasicInfoContent(),
+                  buildBasicInfoContent(),
                   PasswordContent(),
                 ]),
               )
@@ -133,6 +135,35 @@ class _EditProfileScreenState extends State<EditProfileScreen>
         ),
       ),
     );
+  }
+
+  BasicInfoContent buildBasicInfoContent() {
+    var learnTopic = _userData.learnTopics
+        ?.map((learnTopic) => TutorSpecialty.values
+            .where(
+                (tutorSpecialty) => tutorSpecialty.digitCode == learnTopic.id)
+            .first)
+        .where((element) => element != null)
+        .toSet();
+    var testPreparations = _userData.testPreparations
+        ?.map((testPreparation) => TutorSpecialty.values
+            .where((tutorSpecialty) =>
+                tutorSpecialty.digitCode == testPreparation.id)
+            .first)
+        .where((element) => element != null)
+        .toSet();
+    var infoFormData = BasicInfoFormData(
+        name: _userData.name,
+        dob: _userData.birthday != null
+            ? DateTime.parse(_userData.birthday!)
+            : null,
+        country: _userData.country,
+        phoneNumber: _userData.phone,
+        studyLevel: StudyLevel.codeStudyLevelMap[_userData.level],
+        specialities: learnTopic,
+        testPreparations: testPreparations,
+        studySchedule: _userData.studySchedule);
+    return BasicInfoContent(basicInfoFormData: infoFormData);
   }
 
   _onChangeAvatar() async {

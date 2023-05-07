@@ -1,11 +1,11 @@
-class TestPreparations {
-  TestPreparations({
+class LearnTopic {
+  LearnTopic({
     required this.id,
     required this.key,
     this.name,
   });
 
-  TestPreparations.fromJson(dynamic json) {
+  LearnTopic.fromJson(dynamic json) {
     id = json['id'];
     key = json['key'];
     name = json['name'];

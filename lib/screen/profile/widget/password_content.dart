@@ -24,6 +24,7 @@ class _PasswordContentState extends State<PasswordContent> {
           height: 24.h,
         ),
         FormTextField(
+          controller: TextEditingController(),
           title: "Current Password",
           hintText: "***********",
         ),

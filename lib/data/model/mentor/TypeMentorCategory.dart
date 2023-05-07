@@ -1,17 +1,21 @@
 enum TutorSpecialty {
-  NULL,
-  ALL,
-  E_4_KIDS,
-  E_4_BUSINESS,
-  CONVERSATIONAL,
-  STARTERS,
-  MOVERS,
-  FLYERS,
-  KET,
-  PET,
-  IELTS,
-  TOELF,
-  TOEIC;
+  NULL(null),
+  ALL(null),
+  E_4_KIDS(5),
+  E_4_BUSINESS(3),
+  CONVERSATIONAL(4),
+  STARTERS(1),
+  MOVERS(2),
+  FLYERS(3),
+  KET(4),
+  PET(5),
+  IELTS(6),
+  TOELF(7),
+  TOEIC(8);
+
+  final int? digitCode;
+
+  const TutorSpecialty(this.digitCode);
 
   static Map<String, TutorSpecialty> tutorSpecialtyOfCodeMap = {
     'business-english': TutorSpecialty.E_4_BUSINESS,

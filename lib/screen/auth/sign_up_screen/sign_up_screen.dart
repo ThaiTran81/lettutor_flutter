@@ -102,7 +102,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 hintText: 'Password',
                                 enabledBorder: const OutlineInputBorder(
                                   borderSide:
-                                  BorderSide(color: AppColors.border),
+                                      BorderSide(color: AppColors.border),
                                 ),
                                 suffixIcon: IconButton(
                                     icon: Icon(
@@ -156,7 +156,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 hintText: 'Confirm Password',
                                 enabledBorder: const OutlineInputBorder(
                                   borderSide:
-                                  BorderSide(color: AppColors.border),
+                                      BorderSide(color: AppColors.border),
                                 ),
                                 suffixIcon: IconButton(
                                     icon: Icon(
