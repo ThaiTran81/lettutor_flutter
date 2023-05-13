@@ -1,9 +1,9 @@
 enum TutorSpecialty {
   NULL(null),
   ALL(null),
-  E_4_KIDS(5),
-  E_4_BUSINESS(3),
-  CONVERSATIONAL(4),
+  E_4_KIDS(3),
+  E_4_BUSINESS(4),
+  CONVERSATIONAL(5),
   STARTERS(1),
   MOVERS(2),
   FLYERS(3),

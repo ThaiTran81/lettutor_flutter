@@ -28,7 +28,7 @@ class _MyProfileScreenState extends State<MyProfileScreen>
   TabController? _tabController;
   final String tabSpace = "\t\t";
   late AuthProvider _authProvider;
-  late User? _userData;
+  late UserData? _userData;
 
   @override
   void didChangeDependencies() {}

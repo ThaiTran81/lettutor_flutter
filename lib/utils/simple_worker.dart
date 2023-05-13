@@ -8,7 +8,7 @@ typedef Callback<T> = Function(T data);
 class SimpleWorker<T> {
   final Function() task;
   Callback<T>? onCompleted;
-  Function(Exception)? onError;
+  Function(dynamic)? onError;
 
   SimpleWorker({required this.task, this.onCompleted, this.onError});
 
@@ -22,10 +22,15 @@ class SimpleWorker<T> {
         onCompleted!(res);
       }
       EasyLoading.dismiss();
-    } on Exception catch (e) {
+    } catch (e) {
       EasyLoading.dismiss();
       // processLoginError(, e);
-      onError!(e);
+      print(e.toString());
+      EasyLoading.showError("Oops!! Something went wrong! please try again");
+      if (onError != null) {
+        onError!(e);
+      }
+      rethrow;
     }
   }
 

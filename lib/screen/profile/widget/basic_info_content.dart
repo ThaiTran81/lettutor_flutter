@@ -8,8 +8,10 @@ import 'package:lettutor_flutter/screen/auth/widgets/combobox_form_field.dart';
 import 'package:lettutor_flutter/screen/auth/widgets/country_picker_form_field.dart';
 import 'package:lettutor_flutter/screen/auth/widgets/multi_select_form_field.dart';
 import 'package:lettutor_flutter/screen/auth/widgets/text_form_field.dart';
+import 'package:lettutor_flutter/screen/profile/my_profile_provider.dart';
 import 'package:lettutor_flutter/utils/widget_utils.dart';
 import 'package:lettutor_flutter/widgets/elevated_button_widget.dart';
+import 'package:provider/provider.dart';
 
 class BasicInfoFormData {
   String? name;
@@ -17,8 +19,8 @@ class BasicInfoFormData {
   String? country;
   String? phoneNumber;
   StudyLevel? studyLevel;
-  Set<TutorSpecialty>? specialities;
-  Set<TutorSpecialty>? testPreparations;
+  Set<TutorSpecialty?>? specialities;
+  Set<TutorSpecialty?>? testPreparations;
   String? studySchedule;
 
   BasicInfoFormData(
@@ -30,6 +32,18 @@ class BasicInfoFormData {
       this.specialities,
       this.testPreparations,
       this.studySchedule});
+
+  BasicInfoFormData copy() {
+    return BasicInfoFormData(
+        name: name,
+        dob: dob,
+        country: country,
+        phoneNumber: phoneNumber,
+        studyLevel: studyLevel,
+        specialities: specialities?.toSet() ?? {},
+        testPreparations: testPreparations?.toSet() ?? {},
+        studySchedule: studySchedule);
+  }
 }
 
 class BasicInfoContent extends StatefulWidget {
@@ -43,36 +57,28 @@ class BasicInfoContent extends StatefulWidget {
 }
 
 class _BasicInfoContentState extends State<BasicInfoContent> {
-  String? name;
-  DateTime? selectedDob;
-  String? selectedCountry;
-  String? phoneNumber;
-  StudyLevel? studyLevel;
-  Set<TutorSpecialty> selectedSpecialities = {};
-  Set<TutorSpecialty> selectedTestPreparations = {};
-  String? studySchedule;
+  final _formKey = GlobalKey<FormState>();
+
+  late BasicInfoFormData _basicInfoFormData;
+  late MyProfileProvider _myProfileProvider;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _myProfileProvider = Provider.of<MyProfileProvider>(context);
+  }
 
   @override
   void initState() {
     super.initState();
-    var basicInfoFormData = widget.basicInfoFormData;
-
-    name = basicInfoFormData.name;
-    selectedDob = basicInfoFormData.dob;
-    selectedCountry = basicInfoFormData.country;
-    phoneNumber = basicInfoFormData.phoneNumber;
-    selectedSpecialities =
-        basicInfoFormData.specialities ?? selectedSpecialities;
-    selectedTestPreparations =
-        basicInfoFormData.testPreparations ?? selectedTestPreparations;
-    studyLevel = basicInfoFormData.studyLevel;
-    studySchedule = basicInfoFormData.studySchedule;
+    _basicInfoFormData = widget.basicInfoFormData.copy();
   }
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Form(
+        key: _formKey,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -82,15 +88,20 @@ class _BasicInfoContentState extends State<BasicInfoContent> {
               title: "Full Name",
               mandatory: true,
               hintText: "Write your full name",
-              initialValue: name,
+              initialValue: _basicInfoFormData.name,
+              onSave: (value) {
+                _basicInfoFormData.name = value;
+              },
             ),
             SpaceUtils.vSpace(24),
             CountryPickerFormField(
               title: "Country",
               hintText: "Select your country",
               mandatory: true,
-              initialCountryCode: selectedCountry,
-              onSelect: (CountryCode? selectedValue) {},
+              initialCountryCode: _basicInfoFormData.country,
+              onSelect: (CountryCode? selectedValue) {
+                _basicInfoFormData.country = selectedValue?.code;
+              },
             ),
             SpaceUtils.vSpace(24),
             FormTextField(
@@ -98,7 +109,7 @@ class _BasicInfoContentState extends State<BasicInfoContent> {
               title: "Phone Number",
               hintText: "+84 | 023-6894-523",
               enabled: false,
-              initialValue: phoneNumber,
+              initialValue: _basicInfoFormData.phoneNumber,
             ),
             SpaceUtils.vSpace(24),
             GestureDetector(
@@ -111,20 +122,24 @@ class _BasicInfoContentState extends State<BasicInfoContent> {
                     onPressed: () {},
                     icon: const Icon(Icons.calendar_today_outlined)),
                 enabled: false,
-                initialValue: DateFormat('yyyy-MM-dd').format(selectedDob!),
+                initialValue:
+                    DateFormat('yyyy-MM-dd').format(_basicInfoFormData.dob!),
               ),
               onTap: () => _selectDob(context),
             ),
             SpaceUtils.vSpace(24),
             ComboboxFormField<StudyLevel>(
-                title: "My level",
-                mandatory: true,
-                hintText: "Select your level",
-                items: StudyLevel.values,
-                initialValue: studyLevel,
-                onSelect: (selectedValue) {},
-                stringConverter: (item) => TranslateUtils.of(context)!
-                    .translateEnum<StudyLevel>(item)),
+              title: "My level",
+              mandatory: true,
+              hintText: "Select your level",
+              items: StudyLevel.values,
+              initialValue: _basicInfoFormData.studyLevel,
+              onSelect: (selectedValue) {
+                _basicInfoFormData.studyLevel = selectedValue;
+              },
+              stringConverter: (item) =>
+                  TranslateUtils.of(context)!.translateEnum<StudyLevel>(item),
+            ),
             SpaceUtils.vSpace(24),
             SelectFormField<TutorSpecialty>(
               title: "Subject want to learn",
@@ -138,15 +153,16 @@ class _BasicInfoContentState extends State<BasicInfoContent> {
               stringConverter: (item) =>
                   TranslateUtils.of(context)?.translateEnum(item) ?? '',
               onSelect: (selectedValue) {
-                if (selectedSpecialities.contains(selectedValue)) {
-                  selectedSpecialities.remove(selectedValue);
+                if (_basicInfoFormData.specialities?.contains(selectedValue) ??
+                    false) {
+                  _basicInfoFormData.specialities?.remove(selectedValue);
                 } else {
-                  selectedSpecialities.add(selectedValue!);
+                  _basicInfoFormData.specialities?.add(selectedValue!);
                 }
                 setState(() {});
               },
               selectedCondition: (value) =>
-                  selectedSpecialities.contains(value),
+                  _basicInfoFormData.specialities?.contains(value) ?? false,
             ),
             SpaceUtils.vSpace(24),
             SelectFormField<TutorSpecialty>(
@@ -166,27 +182,31 @@ class _BasicInfoContentState extends State<BasicInfoContent> {
               stringConverter: (item) =>
                   TranslateUtils.of(context)?.translateEnum(item) ?? '',
               onSelect: (selectedValue) {
-                if (selectedTestPreparations.contains(selectedValue)) {
-                  selectedTestPreparations.remove(selectedValue);
+                if (_basicInfoFormData.testPreparations!
+                    .contains(selectedValue)) {
+                  _basicInfoFormData.testPreparations!.remove(selectedValue);
                 } else {
-                  selectedTestPreparations.add(selectedValue!);
+                  _basicInfoFormData.testPreparations!.add(selectedValue!);
                 }
                 setState(() {});
               },
               selectedCondition: (value) =>
-                  selectedTestPreparations.contains(value),
+                  _basicInfoFormData.testPreparations!.contains(value),
             ),
             SpaceUtils.vSpace(24),
             FormTextField(
               controller: TextEditingController(),
               title: "Study shedule",
               hintText: "Note the time of week you want to study on LetTutor",
-              initialValue: studySchedule,
+              initialValue: _basicInfoFormData.studySchedule,
+              onSave: (value) {
+                _basicInfoFormData.studySchedule = value;
+              },
             ),
             SpaceUtils.vSpace(24),
             ElevatedButtonWidget(
               text: "Update",
-              onPressed: () {},
+              onPressed: _onUpdateInfo,
             ),
             SpaceUtils.vSpace(60),
           ],
@@ -198,7 +218,7 @@ class _BasicInfoContentState extends State<BasicInfoContent> {
   Future<void> _selectDob(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
         context: context,
-        initialDate: selectedDob!,
+        initialDate: _basicInfoFormData.dob!,
         firstDate: DateTime(1900, 1),
         lastDate: DateTime(2999, 12),
         helpText: 'Select a date',
@@ -207,10 +227,17 @@ class _BasicInfoContentState extends State<BasicInfoContent> {
         // optional
         confirmText: 'Ok' // optional
         );
-    if (picked != null && picked != selectedDob) {
+    if (picked != null && picked != _basicInfoFormData.dob) {
       setState(() {
-        selectedDob = picked;
+        _basicInfoFormData.dob = picked;
       });
+    }
+  }
+
+  _onUpdateInfo() {
+    if (_formKey.currentState?.validate() ?? false) {
+      _formKey.currentState?.save();
+      _myProfileProvider.updateUserInfo(_basicInfoFormData);
     }
   }
 }

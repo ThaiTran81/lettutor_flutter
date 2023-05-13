@@ -6,17 +6,18 @@ import '../../../utils/app_consts.dart';
 
 class FormTextField extends BaseFormField<String> {
   final Function()? onTap;
-  TextEditingController controller;
+  TextEditingController? controller;
   IconButton? suffixIcon;
   Icon? prefixIcon;
+  Function(String? value)? onSave;
 
   FormTextField(
       {Key? key,
       this.suffixIcon,
-      required this.controller,
+      this.controller,
       this.prefixIcon,
       this.onTap,
-      String? Function(String?)? validator,
+      this.onSave,
       String? title,
       String? hintText,
       bool? enabled,
@@ -26,38 +27,45 @@ class FormTextField extends BaseFormField<String> {
             title: title,
             hintText: hintText,
             mandatory: mandatory,
-            active: enabled,
-            buildField: (field) => TextFormField(
-                  style: TextStyle(color: Colors.black),
-                  controller: controller,
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor:
-                        enabled ?? true ? AppColors.white : AppColors.fillGrey,
-                    focusedBorder: const OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: AppColors.primary, width: 1.0),
-                    ),
-                    contentPadding:
-                        EdgeInsets.symmetric(vertical: 13.h, horizontal: 16.w),
-                    hintText: '$hintText',
-                    enabledBorder: const OutlineInputBorder(
-                      borderSide: BorderSide(color: AppColors.border),
-                    ),
-                    suffixIcon: suffixIcon,
-                    prefixIcon: prefixIcon,
-                    hintStyle: const TextStyle(
-                        fontSize: 14,
-                        color: AppColors.hintTextColor,
-                        fontWeight: FontWeight.w400),
-                    border: OutlineInputBorder(
-                        borderSide: BorderSide(color: AppColors.fillGrey),
-                        borderRadius: BorderRadius.all(Radius.circular(10))),
-                  ),
-                  enabled: enabled ?? true,
-                )) {
+            enabled: enabled) {
     if (initialValue != null) {
-      controller.text = initialValue;
+      controller = controller ?? TextEditingController();
+      controller?.text = initialValue!;
     }
+  }
+
+  @override
+  Widget buildField(BuildContext context) {
+    return TextFormField(
+      onSaved: (newValue) {
+        if (onSave != null) {
+          onSave!(newValue);
+        }
+      },
+      style: TextStyle(color: Colors.black),
+      controller: controller,
+      decoration: InputDecoration(
+        filled: true,
+        fillColor: enabled ?? true ? AppColors.white : AppColors.fillGrey,
+        focusedBorder: const OutlineInputBorder(
+          borderSide: BorderSide(color: AppColors.primary, width: 1.0),
+        ),
+        contentPadding: EdgeInsets.symmetric(vertical: 13.h, horizontal: 16.w),
+        hintText: '$hintText',
+        enabledBorder: const OutlineInputBorder(
+          borderSide: BorderSide(color: AppColors.border),
+        ),
+        suffixIcon: suffixIcon,
+        prefixIcon: prefixIcon,
+        hintStyle: const TextStyle(
+            fontSize: 14,
+            color: AppColors.hintTextColor,
+            fontWeight: FontWeight.w400),
+        border: OutlineInputBorder(
+            borderSide: BorderSide(color: AppColors.fillGrey),
+            borderRadius: BorderRadius.all(Radius.circular(10))),
+      ),
+      enabled: enabled ?? true,
+    );
   }
 }

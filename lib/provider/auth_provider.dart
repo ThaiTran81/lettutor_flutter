@@ -9,13 +9,13 @@ import 'package:lettutor_flutter/utils/dialog_utils.dart';
 import 'package:lettutor_flutter/utils/simple_worker.dart';
 
 class AuthProvider extends ChangeNotifier {
-  UserData? userData;
+  UserResponse? userData;
 
   final UserRepository _userRepository = getIt<UserRepository>();
 
   void loginApi(BuildContext context, String email, String password,
       Function()? callBack) async {
-    SimpleWorker<UserData>(
+    SimpleWorker<UserResponse>(
         task: () => _userRepository.login(email, password),
         onCompleted: (res) {
           onLoginCompleted(res);
@@ -26,8 +26,8 @@ class AuthProvider extends ChangeNotifier {
         }).start();
   }
 
-  void onLoginCompleted(UserData res) {
-    UserData? data = res;
+  void onLoginCompleted(UserResponse res) {
+    UserResponse? data = res;
     setUserData(data);
     if (data.tokens != null) {
       SecureStorageUtils.setValue(
@@ -63,7 +63,7 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
-  void setUserData(UserData? userData) {
+  void setUserData(UserResponse? userData) {
     this.userData = userData;
     notifyListeners();
   }
@@ -82,7 +82,7 @@ class AuthProvider extends ChangeNotifier {
     return null;
   }
 
-  User? getUserData() {
+  UserData? getUserData() {
     return userData?.user;
   }
 }

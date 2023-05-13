@@ -1,4 +1,6 @@
 import 'package:flutter/foundation.dart';
+import 'package:lettutor_flutter/data/model/user/UpdateUserRequest.dart';
+import 'package:lettutor_flutter/data/model/user/User.dart';
 import 'package:lettutor_flutter/data/model/user/UserData.dart';
 import 'package:lettutor_flutter/data/network/constants/endpoints.dart';
 
@@ -10,11 +12,11 @@ class AuthApi {
 
   AuthApi(this._dioClient);
 
-  Future<UserData> login(String email, String password) async {
+  Future<UserResponse> login(String email, String password) async {
     try {
       var data = {'email': email, 'password': password};
       final res = await _dioClient.post(Endpoints.login, data: data);
-      return UserData.fromJson(res);
+      return UserResponse.fromJson(res);
     } catch (e) {
       if (kDebugMode) {
         print(e.toString());
@@ -38,5 +40,12 @@ class AuthApi {
   Future<int> getTotalHour() async {
     var res = await _dioClient.get(Endpoints.getTotalHour);
     return res['total'] ?? 0;
+  }
+
+  Future<UserData> updateUser(UpdateUserRequest request) async {
+    print(request.toJson());
+    var res =
+        await _dioClient.put(Endpoints.updateUser, data: request.toJson());
+    return UserData.fromJson(res['user']);
   }
 }

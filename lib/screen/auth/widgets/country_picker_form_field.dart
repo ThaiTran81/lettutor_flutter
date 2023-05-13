@@ -16,26 +16,33 @@ class CountryPickerFormField extends BaseFormField<CountryCode> {
       bool? mandatory,
       bool? enabled})
       : super(
-            key: key,
-            title: title,
-            hintText: hintText,
-            mandatory: mandatory,
-            active: enabled,
-            buildField: (field) => Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                      border: Border.all(color: AppColors.fillGrey),
-                      color: AppColors.white),
-                  child: CountryCodePicker(
-                      showFlagMain: true,
-                      alignLeft: true,
-                      initialSelection: initialCountryCode,
-                      showDropDownButton: true,
-                      showCountryOnly: true,
-                      showOnlyCountryWhenClosed: true,
-                      padding: EdgeInsets.zero,
-                      onChanged: (value) {
-                        onSelect(value);
-                      }),
-                ));
+          key: key,
+          title: title,
+          hintText: hintText,
+          mandatory: mandatory,
+          enabled: enabled,
+        );
+
+  @override
+  Widget buildField(BuildContext context) {
+    return FormField<CountryCode>(
+      builder: (field) => Container(
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+            border: Border.all(color: AppColors.fillGrey),
+            color: AppColors.white),
+        child: CountryCodePicker(
+            showFlagMain: true,
+            alignLeft: true,
+            initialSelection: initialCountryCode,
+            showDropDownButton: true,
+            showCountryOnly: true,
+            showOnlyCountryWhenClosed: true,
+            padding: EdgeInsets.zero,
+            onChanged: (value) {
+              onSelect(value);
+            }),
+      ),
+    );
+  }
 }

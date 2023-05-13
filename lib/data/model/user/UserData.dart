@@ -1,17 +1,17 @@
 import 'Tokens.dart';
 import 'User.dart';
 
-class UserData {
-  late User? user;
+class UserResponse {
+  late UserData? user;
   late Tokens? tokens;
 
-  UserData({
+  UserResponse({
     this.user,
     this.tokens,
   });
 
-  UserData.fromJson(dynamic json) {
-    user = json['user'] != null ? User.fromJson(json['user']) : null;
+  UserResponse.fromJson(dynamic json) {
+    user = json['user'] != null ? UserData.fromJson(json['user']) : null;
     tokens = json['tokens'] != null ? Tokens.fromJson(json['tokens']) : null;
   }
 

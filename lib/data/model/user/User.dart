@@ -2,8 +2,8 @@ import 'LearnTopic.dart';
 import 'TestPreparation.dart';
 import 'WalletInfo.dart';
 
-class User {
-  User({
+class UserData {
+  UserData({
     this.id,
     this.email,
     this.name,
@@ -26,7 +26,7 @@ class User {
     this.canSendMessage,
   });
 
-  User.fromJson(dynamic json) {
+  UserData.fromJson(dynamic json) {
     id = json['id'];
     email = json['email'];
     name = json['name'];

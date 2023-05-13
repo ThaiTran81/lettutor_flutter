@@ -7,6 +7,7 @@ import 'package:lettutor_flutter/data/model/mentor/TypeMentorCategory.dart';
 import 'package:lettutor_flutter/data/model/user/StudyLevel.dart';
 import 'package:lettutor_flutter/data/model/user/User.dart';
 import 'package:lettutor_flutter/provider/auth_provider.dart';
+import 'package:lettutor_flutter/screen/profile/my_profile_provider.dart';
 import 'package:lettutor_flutter/screen/profile/widget/basic_info_content.dart';
 import 'package:lettutor_flutter/screen/profile/widget/password_content.dart';
 import 'package:lettutor_flutter/utils/app_consts.dart';
@@ -28,7 +29,7 @@ class _EditProfileScreenState extends State<EditProfileScreen>
     with SingleTickerProviderStateMixin {
   TabController? _tabController;
   late AuthProvider _authProvider;
-  late User _userData;
+  late UserData _userData;
   XFile? _selectedAvatar;
 
   @override
@@ -59,18 +60,20 @@ class _EditProfileScreenState extends State<EditProfileScreen>
             child: Image.file(File(_selectedAvatar!.path),
                 width: 100, height: 100, fit: BoxFit.cover),
           );
-    return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(70.h),
-        child: CustomAppBar(appBarName: 'Edit Profile'),
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 24.0.w, vertical: 10.h),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
+    return ChangeNotifierProvider(
+        create: (context) => MyProfileProvider(),
+        child: Scaffold(
+          appBar: PreferredSize(
+            preferredSize: Size.fromHeight(70.h),
+            child: CustomAppBar(appBarName: 'Edit Profile'),
+          ),
+          body: SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 24.0.w, vertical: 10.h),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
                 height: 24.h,
               ),
               Center(
@@ -108,49 +111,43 @@ class _EditProfileScreenState extends State<EditProfileScreen>
               ),
               TabBar(
                   isScrollable: true,
-                  unselectedLabelColor: AppColors.body,
-                  indicatorColor: AppColors.primary,
-                  labelColor: AppColors.primary,
-                  labelStyle:
-                      TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w700),
-                  tabs: const [
-                    Tab(
-                      text: 'Basic Info',
-                    ),
-                    Tab(
-                      text: 'Password',
-                    ),
-                  ],
-                  controller: _tabController,
-                  indicatorSize: TabBarIndicatorSize.tab),
+                      unselectedLabelColor: AppColors.body,
+                      indicatorColor: AppColors.primary,
+                      labelColor: AppColors.primary,
+                      labelStyle: TextStyle(
+                          fontSize: 14.sp, fontWeight: FontWeight.w700),
+                      tabs: const [
+                        Tab(
+                          text: 'Basic Info',
+                        ),
+                        Tab(
+                          text: 'Password',
+                        ),
+                      ],
+                      controller: _tabController,
+                      indicatorSize: TabBarIndicatorSize.tab),
               SizedBox(
-                height: 470.h,
-                child: TabBarView(controller: _tabController, children: [
-                  buildBasicInfoContent(),
-                  PasswordContent(),
-                ]),
-              )
-            ],
+                    height: 470.h,
+                    child: TabBarView(controller: _tabController, children: [
+                      buildBasicInfoContent(),
+                      PasswordContent(),
+                    ]),
+                  )
+                ],
+              ),
+            ),
           ),
-        ),
-      ),
-    );
+        ));
   }
 
   BasicInfoContent buildBasicInfoContent() {
     var learnTopic = _userData.learnTopics
-        ?.map((learnTopic) => TutorSpecialty.values
-            .where(
-                (tutorSpecialty) => tutorSpecialty.digitCode == learnTopic.id)
-            .first)
-        .where((element) => element != null)
+        ?.map((learnTopic) =>
+            TutorSpecialty.tutorSpecialtyOfCodeMap[learnTopic.key])
         .toSet();
     var testPreparations = _userData.testPreparations
-        ?.map((testPreparation) => TutorSpecialty.values
-            .where((tutorSpecialty) =>
-                tutorSpecialty.digitCode == testPreparation.id)
-            .first)
-        .where((element) => element != null)
+        ?.map((testPreparation) =>
+            TutorSpecialty.tutorSpecialtyOfCodeMap[testPreparation.key])
         .toSet();
     var infoFormData = BasicInfoFormData(
         name: _userData.name,

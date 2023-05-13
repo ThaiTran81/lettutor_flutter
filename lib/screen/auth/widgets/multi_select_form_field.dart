@@ -9,8 +9,9 @@ class SelectFormField<T> extends BaseFormField {
   String? hintText;
   List<T> items;
   StringConverter<T> stringConverter;
-  T? _selectedOption;
+  List<T?>? _selectedOptions;
   Function(T? selectedValue) onSelect;
+  Function()? onSave;
 
   // using for showing effect after selected
   Predicate<T>? selectedCondition;
@@ -23,38 +24,43 @@ class SelectFormField<T> extends BaseFormField {
       String? title,
       this.hintText,
       this.selectedCondition,
+      this.onSave,
       required this.items,
       required this.stringConverter,
       required this.onSelect})
-      : super(
-            key: key,
-            title: title,
-            hintText: hintText,
-            mandatory: mandatory,
-            active: enabled,
-            buildField: (field) => Wrap(
-                  children: items.map((item) {
-                    final isSelected = selectedCondition != null
-                        ? selectedCondition!(item)
-                        : false;
-                    return GestureDetector(
-                      onTap: () {
-                        onSelect(item);
-                      },
-                      child: Container(
-                        margin: const EdgeInsets.all(2),
-                        child: Chip(
-                          label: Text(stringConverter(item),
-                              style: AppConst.textTheme.titleSmall?.apply(
-                                  color: isSelected
-                                      ? AppColors.primary
-                                      : AppColors.non_select)),
-                          backgroundColor: isSelected
-                              ? AppColors.lightBleu
-                              : AppColors.fillGrey,
-                        ),
-                      ),
-                    );
-                  }).toList(),
-                ));
+      : super(key: key, title: title, hintText: hintText, mandatory: mandatory);
+
+  @override
+  Widget buildField(BuildContext context) {
+    return FormField<T>(
+        onSaved: (newValue) {
+          if (onSave != null) {
+            onSave!();
+          }
+        },
+        builder: (field) => Wrap(
+              children: items.map((item) {
+                final isSelected = selectedCondition != null
+                    ? selectedCondition!(item)
+                    : false;
+                return GestureDetector(
+                  onTap: () {
+                    onSelect(item);
+                  },
+                  child: Container(
+                    margin: const EdgeInsets.all(2),
+                    child: Chip(
+                      label: Text(stringConverter(item),
+                          style: AppConst.textTheme.titleSmall?.apply(
+                              color: isSelected
+                                  ? AppColors.primary
+                                  : AppColors.non_select)),
+                      backgroundColor:
+                          isSelected ? AppColors.lightBleu : AppColors.fillGrey,
+                    ),
+                  ),
+                );
+              }).toList(),
+            ));
+  }
 }

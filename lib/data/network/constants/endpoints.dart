@@ -21,6 +21,9 @@ class Endpoints {
 
   static const String getTotalHour = "$baseUrl/call/total";
 
+  // update user info
+  static const String updateUser = "$baseUrl/user/info";
+
   /**
    * tutor api
    */
