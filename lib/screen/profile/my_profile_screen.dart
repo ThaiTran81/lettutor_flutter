@@ -66,7 +66,7 @@ class _MyProfileScreenState extends State<MyProfileScreen>
                   leading: ProfileAvatar(
                       color: AppColors.primary,
                       image: _authProvider.getUserAvatarUrl()),
-                  title: Text(_authProvider.getUserFullname()!,
+                  title: Text(_authProvider.getUserFullname() ?? '',
                       style: GoogleFonts.lato(
                           color: AppColors.primary,
                           fontSize: 25.sp,

@@ -1,3 +1,4 @@
+import 'package:dio/src/form_data.dart';
 import 'package:flutter/foundation.dart';
 import 'package:lettutor_flutter/data/model/user/UpdateUserRequest.dart';
 import 'package:lettutor_flutter/data/model/user/User.dart';
@@ -43,9 +44,13 @@ class AuthApi {
   }
 
   Future<UserData> updateUser(UpdateUserRequest request) async {
-    print(request.toJson());
     var res =
         await _dioClient.put(Endpoints.updateUser, data: request.toJson());
     return UserData.fromJson(res['user']);
+  }
+
+  Future<UserData> uploadAvatar(FormData request) async {
+    var res = await _dioClient.post(Endpoints.uploadAvatar, data: request);
+    return UserData.fromJson(res);
   }
 }

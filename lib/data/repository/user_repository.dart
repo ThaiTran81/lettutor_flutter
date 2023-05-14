@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:lettutor_flutter/data/model/user/UpdateUserRequest.dart';
 import 'package:lettutor_flutter/data/model/user/User.dart';
 import 'package:lettutor_flutter/data/model/user/UserData.dart';
@@ -24,6 +25,14 @@ class UserRepository {
 
   Future<UserData> updateUser(UpdateUserRequest request) async {
     var res = await _authApi.updateUser(request);
+    return res;
+  }
+
+  Future<UserData> uploadAvatar(List<int> imageBytes, String filename) async {
+    var request = FormData.fromMap({
+      "avatar": MultipartFile.fromBytes(imageBytes, filename: 'avatar.jpg'),
+    });
+    var res = await _authApi.uploadAvatar(request);
     return res;
   }
 }

@@ -10,7 +10,7 @@ class SecureStorageUtils {
   static String keyEmail = "key_email";
 
   static FlutterSecureStorage? getInstanse() {
-    _flutterSecureStorage ??= FlutterSecureStorage();
+    _flutterSecureStorage ??= const FlutterSecureStorage();
 
     return _flutterSecureStorage;
   }

@@ -24,6 +24,9 @@ class Endpoints {
   // update user info
   static const String updateUser = "$baseUrl/user/info";
 
+  // upload avatar
+  static const String uploadAvatar = "$baseUrl/user/uploadAvatar";
+
   /**
    * tutor api
    */

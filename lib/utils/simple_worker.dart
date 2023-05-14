@@ -7,10 +7,16 @@ typedef Callback<T> = Function(T data);
 
 class SimpleWorker<T> {
   final Function() task;
+
+  String? messageOnSuccess;
   Callback<T>? onCompleted;
   Function(dynamic)? onError;
 
-  SimpleWorker({required this.task, this.onCompleted, this.onError});
+  SimpleWorker(
+      {required this.task,
+      this.onCompleted,
+      this.onError,
+      this.messageOnSuccess});
 
   void start() async {
     try {
@@ -22,6 +28,10 @@ class SimpleWorker<T> {
         onCompleted!(res);
       }
       EasyLoading.dismiss();
+
+      if (messageOnSuccess != null) {
+        EasyLoading.showSuccess(messageOnSuccess!);
+      }
     } catch (e) {
       EasyLoading.dismiss();
       // processLoginError(, e);

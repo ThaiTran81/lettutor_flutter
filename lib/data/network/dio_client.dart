@@ -13,13 +13,6 @@ class DioClient {
   Dio _getDio() {
     _dio.interceptors
         .add(InterceptorsWrapper(onRequest: (options, handler) async {
-      if (kDebugMode) {
-        print('Base Url : ${options.baseUrl}');
-        print('End Point : ${options.path}');
-        print('Method : ${options.method}');
-        print('Data : ${options.data}');
-      }
-
       var token =
           await SecureStorageUtils.getValue(SecureStorageUtils.keyAuthToken);
       if (token != null) {
@@ -32,6 +25,14 @@ class DioClient {
           'Authorization': "${AppConst.bearerToken} $token"
         };
       }
+
+      if (kDebugMode) {
+        print('Base Url : ${options.baseUrl}');
+        print('End Point : ${options.path}');
+        print('Method : ${options.method}');
+        print('Data : ${options.data}');
+      }
+
       return handler.next(options);
     }, onResponse: (response, handler) {
       if (kDebugMode) {

@@ -9,7 +9,7 @@ import 'package:lettutor_flutter/utils/dialog_utils.dart';
 import 'package:lettutor_flutter/utils/simple_worker.dart';
 
 class AuthProvider extends ChangeNotifier {
-  UserResponse? userData;
+  UserResponse? user;
 
   final UserRepository _userRepository = getIt<UserRepository>();
 
@@ -28,7 +28,7 @@ class AuthProvider extends ChangeNotifier {
 
   void onLoginCompleted(UserResponse res) {
     UserResponse? data = res;
-    setUserData(data);
+    setUser(data);
     if (data.tokens != null) {
       SecureStorageUtils.setValue(
           SecureStorageUtils.keyAuthToken, data.tokens?.access.token);
@@ -63,26 +63,36 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
-  void setUserData(UserResponse? userData) {
-    this.userData = userData;
+  void setUser(UserResponse? userData) {
+    this.user = userData;
     notifyListeners();
   }
 
   String? getUserAvatarUrl() {
-    if (userData != null) {
-      return userData?.user?.avatar;
+    if (user != null) {
+      return user?.userData?.avatar;
     }
     return null;
   }
 
   String? getUserFullname() {
-    if (userData != null) {
-      return userData?.user?.name;
+    if (user != null) {
+      return user?.userData?.name;
     }
     return null;
   }
 
   UserData? getUserData() {
-    return userData?.user;
+    return user?.userData;
+  }
+
+  void setUserData(UserData userData) {
+    user?.userData = userData;
+    notifyListeners();
+  }
+
+  void updateAvatarUrl(String url) {
+    user?.userData?.avatar = url;
+    notifyListeners();
   }
 }

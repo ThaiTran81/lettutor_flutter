@@ -2,22 +2,22 @@ import 'Tokens.dart';
 import 'User.dart';
 
 class UserResponse {
-  late UserData? user;
+  late UserData? userData;
   late Tokens? tokens;
 
   UserResponse({
-    this.user,
+    this.userData,
     this.tokens,
   });
 
   UserResponse.fromJson(dynamic json) {
-    user = json['user'] != null ? UserData.fromJson(json['user']) : null;
+    userData = json['user'] != null ? UserData.fromJson(json['user']) : null;
     tokens = json['tokens'] != null ? Tokens.fromJson(json['tokens']) : null;
   }
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    final user = this.user;
+    final user = this.userData;
     if (user != null) {
       map['user'] = user.toJson();
     }
