@@ -2,6 +2,7 @@ import 'package:flag/flag_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lettutor_flutter/data/model/schedule/ScheduleData.dart';
+import 'package:lettutor_flutter/l10n/l10nUtils.dart';
 import 'package:lettutor_flutter/screen/meeting_screen/meeting_screen.dart';
 import 'package:lettutor_flutter/utils/date_utils.dart';
 import 'package:lettutor_flutter/utils/nav_utils.dart';
@@ -72,7 +73,8 @@ class ScheduleCard extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           CustomText(
-                            text: 'Lesson date:',
+                            text: TranslateUtils.of(context)
+                                .translate("schedule_screen.card.lesson_date"),
                             fontSize: 14.sp,
                             color: AppColors.hintTextColor,
                             fontWeight: FontWeight.bold,
@@ -81,7 +83,8 @@ class ScheduleCard extends StatelessWidget {
                             height: 10,
                           ),
                           CustomText(
-                            text: 'Start time:',
+                            text: TranslateUtils.of(context)
+                                .translate("schedule_screen.card.start_time"),
                             fontSize: 14.sp,
                             color: AppColors.hintTextColor,
                             fontWeight: FontWeight.bold,
@@ -90,7 +93,8 @@ class ScheduleCard extends StatelessWidget {
                             height: 10,
                           ),
                           CustomText(
-                            text: 'End time:',
+                            text: TranslateUtils.of(context)
+                                .translate("schedule_screen.card.end_time"),
                             fontSize: 14.sp,
                             color: AppColors.hintTextColor,
                             fontWeight: FontWeight.bold,
@@ -146,7 +150,8 @@ class ScheduleCard extends StatelessWidget {
                       flex: 5,
                       child: CustomTextButton(
                           text: CustomText(
-                            text: "Go meeting",
+                            text: TranslateUtils.of(context).translate(
+                                "schedule_screen.card.btn_join_meeting"),
                           ),
                           alignment: Alignment.center,
                           onPressed: () => _goMeeting(context),

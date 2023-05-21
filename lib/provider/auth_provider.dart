@@ -1,3 +1,4 @@
+import 'package:country_code_picker/country_code_picker.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:lettutor_flutter/data/local/utils/SecureStorageUtils.dart';
@@ -12,6 +13,8 @@ class AuthProvider extends ChangeNotifier {
   UserResponse? user;
 
   final UserRepository _userRepository = getIt<UserRepository>();
+
+  CountryCode selectedLanguage = CountryCode.fromCountryCode("VN");
 
   void loginApi(BuildContext context, String email, String password,
       Function()? callBack) async {
@@ -94,5 +97,13 @@ class AuthProvider extends ChangeNotifier {
   void updateAvatarUrl(String url) {
     user?.userData?.avatar = url;
     notifyListeners();
+  }
+
+  void updateBalance(int value) {
+    var walletInfo = user?.userData?.walletInfo;
+    if (walletInfo != null) {
+      walletInfo.amount = value;
+      notifyListeners();
+    }
   }
 }

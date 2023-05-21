@@ -70,7 +70,7 @@ class _MentorCardListState extends State<MentorCardList> {
                   },
                 );
               } else if (_mentorsScreenProvider.tutors.length >=
-                  _mentorsScreenProvider.totalTutors!) {
+                  _mentorsScreenProvider.totalTutors) {
                 return Container(
                   height: 100,
                   alignment: Alignment.center,

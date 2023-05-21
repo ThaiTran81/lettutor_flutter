@@ -1,3 +1,5 @@
+import 'package:lettutor_flutter/data/model/mentor/TutorSchedule.dart';
+import 'package:lettutor_flutter/data/model/schedule/BookingScheduleReponse.dart';
 import 'package:lettutor_flutter/data/model/schedule/ScheduleResponse.dart';
 import 'package:lettutor_flutter/data/network/apis/authentication/schedule_api.dart';
 
@@ -16,8 +18,35 @@ class ScheduleRepository {
     return res;
   }
 
-  Future<ScheduleResponse> getScheduleByTutorId(String tutorId) async {
+  Future<List<TutorSchedule>> getScheduleByTutorId(String tutorId) async {
     final res = await _scheduleApi.getScheduleByTutorId(tutorId);
+    List<TutorSchedule> list = [];
+    var data = res["data"];
+    if (data != null) {
+      data.forEach((v) {
+        list.add(TutorSchedule.fromJson(v));
+      });
+    }
+    return list;
+  }
+
+  Future<List<TutorSchedule>> getScheduleByTutorIdAndDate(
+      String tutorId, DateTime dateTime) async {
+    final res =
+        await _scheduleApi.getScheduleByTutorIdAndDate(tutorId, dateTime);
+    List<TutorSchedule> list = [];
+    var data = res["scheduleOfTutor"];
+    if (data != null) {
+      data.forEach((v) {
+        list.add(TutorSchedule.fromJson(v));
+      });
+    }
+    return list;
+  }
+
+  Future<BookingScheduleReponse> bookSchedule(
+      String scheduleId, String? note) async {
+    final res = await _scheduleApi.bookSchedule(scheduleId, note);
     return res;
   }
 }

@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lettutor_flutter/data/model/user/User.dart';
+import 'package:lettutor_flutter/l10n/l10nUtils.dart';
 import 'package:lettutor_flutter/provider/auth_provider.dart';
 import 'package:lettutor_flutter/screen/auth/login_screen/login_screen.dart';
+import 'package:lettutor_flutter/screen/profile/change_language_screen/ChangeLanguageScreen.dart';
 import 'package:lettutor_flutter/screen/profile/edit_profile_screen/edit_profile_screen.dart';
 import 'package:lettutor_flutter/screen/profile/widget/profile_avatar.dart';
 import 'package:lettutor_flutter/screen/profile/widget/setting_item.dart';
@@ -83,7 +85,8 @@ class _MyProfileScreenState extends State<MyProfileScreen>
                   children: [
                     SpaceUtils.vSpace10(),
                     SettingItem(
-                      label: 'View Feedbacks',
+                      label: TranslateUtils.of(context)
+                          .translate("setting_view_feedbacks"),
                       icon: Icons.person_outline_rounded,
                       margin: 5.0,
                       onTap: () {
@@ -92,25 +95,39 @@ class _MyProfileScreenState extends State<MyProfileScreen>
                     ),
                     SpaceUtils.vSpace10(),
                     SettingItem(
-                      label: 'Booking History',
+                      label: TranslateUtils.of(context)
+                          .translate("setting_booking_history"),
                       icon: Icons.history_toggle_off_rounded,
                       margin: 5.0,
                     ),
                     SpaceUtils.vSpace10(),
                     SettingItem(
-                      label: 'Session History',
+                      label: TranslateUtils.of(context)
+                          .translate("setting_session_history"),
                       icon: Icons.history_rounded,
                       margin: 5.0,
                     ),
                     SpaceUtils.vSpace10(),
                     SettingItem(
-                      label: 'Advanced Setting',
+                      label: TranslateUtils.of(context)
+                          .translate("setting_change_language"),
+                      icon: Icons.abc_rounded,
+                      margin: 5.0,
+                      onTap: () {
+                        _onChangeLanguageClick(context);
+                      },
+                    ),
+                    SpaceUtils.vSpace10(),
+                    SettingItem(
+                      label: TranslateUtils.of(context)
+                          .translate("setting_advanced"),
                       icon: Icons.settings_outlined,
                       margin: 5.0,
                     ),
                     SpaceUtils.vSpace(40),
                     SettingItem(
-                      label: 'Our Website',
+                      label: TranslateUtils.of(context)
+                          .translate("setting_our_web"),
                       icon: Icons.language_rounded,
                       margin: 5.0,
                     ),
@@ -122,7 +139,8 @@ class _MyProfileScreenState extends State<MyProfileScreen>
                     ),
                     SpaceUtils.vSpace(20),
                     CustomTextButton.withText(
-                        text: "Log out",
+                        text: TranslateUtils.of(context)
+                            .translate("setting_btn_log_out"),
                         onPressed: () {
                           NavUtil.pushAndRemoveUntil(context, LogInScreen());
                         })
@@ -134,5 +152,9 @@ class _MyProfileScreenState extends State<MyProfileScreen>
         ),
       )),
     );
+  }
+
+  void _onChangeLanguageClick(BuildContext context) {
+    NavUtil.navigateScreen(context, ChangeLanguageScreen());
   }
 }

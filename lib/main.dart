@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lettutor_flutter/di/components/service_locator.dart';
 import 'package:lettutor_flutter/l10n/l10nUtils.dart';
+import 'package:lettutor_flutter/provider/app_provider.dart';
 import 'package:lettutor_flutter/provider/auth_provider.dart';
 import 'package:lettutor_flutter/screen/auth/login_screen/login_provider.dart';
 import 'package:lettutor_flutter/screen/auth/splash_screen.dart';
@@ -19,15 +20,25 @@ void main() async {
 
   await setupLocator();
   configLoading();
-  runApp(MyApp());
+  runApp(LetTutorApp());
 }
 
-class MyApp extends StatelessWidget {
-  MyApp({super.key});
+class LetTutorApp extends StatefulWidget {
+  LetTutorApp({super.key});
 
+  @override
+  State<LetTutorApp> createState() => _LetTutorAppState();
+
+  static _LetTutorAppState? of(BuildContext context) =>
+      context.findAncestorStateOfType<_LetTutorAppState>();
+}
+
+class _LetTutorAppState extends State<LetTutorApp> {
   final AuthProvider _authProvider = getIt.get<AuthProvider>();
+
   final MentorsScreenProvider _mentorsScreenProvider =
-  getIt.get<MentorsScreenProvider>();
+      getIt.get<MentorsScreenProvider>();
+  Locale locale = Locale.fromSubtags(languageCode: "VI");
 
   // This widget is the root of your application.
   @override
@@ -41,8 +52,10 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(create: (_) => LogInProvider()),
           ChangeNotifierProvider(create: (_) => _authProvider),
           ChangeNotifierProvider(create: (_) => _mentorsScreenProvider),
+          ChangeNotifierProvider(create: (_) => AppProvider()),
         ],
-        child: MaterialApp(
+            child: MaterialApp(
+              locale: locale,
           debugShowCheckedModeBanner: false,
           localizationsDelegates: const [
             ...AppLocalizations.localizationsDelegates,
@@ -51,80 +64,12 @@ class MyApp extends StatelessWidget {
             TranslateUtils.delegate
           ],
           supportedLocales: [
-            Locale("af"),
-            Locale("am"),
-            Locale("ar"),
-            Locale("az"),
-            Locale("be"),
-            Locale("bg"),
-            Locale("bn"),
-            Locale("bs"),
-            Locale("ca"),
-            Locale("cs"),
-            Locale("da"),
-            Locale("de"),
-            Locale("el"),
-            Locale("en"),
-            Locale("es"),
-            Locale("et"),
-            Locale("fa"),
-            Locale("fi"),
-            Locale("fr"),
-            Locale("gl"),
-            Locale("ha"),
-            Locale("he"),
-            Locale("hi"),
-            Locale("hr"),
-            Locale("hu"),
-            Locale("hy"),
-            Locale("id"),
-            Locale("is"),
-            Locale("it"),
-            Locale("ja"),
-            Locale("ka"),
-            Locale("kk"),
-            Locale("km"),
-            Locale("ko"),
-            Locale("ku"),
-            Locale("ky"),
-            Locale("lt"),
-            Locale("lv"),
-            Locale("mk"),
-            Locale("ml"),
-            Locale("mn"),
-            Locale("ms"),
-            Locale("nb"),
-            Locale("nl"),
-            Locale("nn"),
-            Locale("no"),
-            Locale("pl"),
-            Locale("ps"),
-            Locale("pt"),
-            Locale("ro"),
-            Locale("ru"),
-            Locale("sd"),
-            Locale("sk"),
-            Locale("sl"),
-            Locale("so"),
-            Locale("sq"),
-            Locale("sr"),
-            Locale("sv"),
-            Locale("ta"),
-            Locale("tg"),
-            Locale("th"),
-            Locale("tk"),
-            Locale("tr"),
-            Locale("tt"),
-            Locale("uk"),
-            Locale("ug"),
-            Locale("ur"),
-            Locale("uz"),
+            Locale('en', 'US'), // English (United States)
             Locale("vi"),
-            Locale("zh"),
             ...AppLocalizations.supportedLocales,
           ],
-          theme: ThemeData(
-            textTheme: GoogleFonts.interTextTheme(
+              theme: ThemeData(
+                textTheme: GoogleFonts.interTextTheme(
               Theme.of(context).textTheme,
             ),
             primarySwatch: Colors.blue,
@@ -134,6 +79,12 @@ class MyApp extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void setLocale(String language) {
+    setState(() {
+      locale = Locale(language);
+    });
   }
 }
 

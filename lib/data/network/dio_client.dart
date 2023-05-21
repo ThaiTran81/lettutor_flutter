@@ -13,6 +13,7 @@ class DioClient {
   Dio _getDio() {
     _dio.interceptors
         .add(InterceptorsWrapper(onRequest: (options, handler) async {
+      options.receiveTimeout = Duration(minutes: 1).inMilliseconds;
       var token =
           await SecureStorageUtils.getValue(SecureStorageUtils.keyAuthToken);
       if (token != null) {

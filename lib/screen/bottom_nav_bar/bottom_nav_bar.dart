@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:lettutor_flutter/l10n/l10nUtils.dart';
 import 'package:lettutor_flutter/screen/course/course_screen.dart';
 import 'package:lettutor_flutter/screen/history/history_screen.dart';
 import 'package:lettutor_flutter/screen/profile/my_profile_screen.dart';
@@ -45,19 +46,19 @@ class _BottomNavBarState extends State<BottomNavBar> {
   void appBarName(int radians) {
     switch (radians) {
       case 0:
-        barName = "All Courses";
+        barName = TranslateUtils.of(context).translate("course_screen.title");
         break;
       case 1:
-        barName = "Mentors";
+        barName = TranslateUtils.of(context).translate("tutor_screen.title");
         break;
       case 2:
-        barName = "Schedule";
+        barName = TranslateUtils.of(context).translate("schedule_screen.title");
         break;
       case 3:
-        barName = "History";
+        barName = TranslateUtils.of(context).translate("history_screen.title");
         break;
       case 4:
-        barName = "Profile";
+        barName = TranslateUtils.of(context).translate("profile_title");
         break;
     }
   }

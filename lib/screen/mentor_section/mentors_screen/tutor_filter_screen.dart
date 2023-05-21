@@ -46,11 +46,16 @@ class _TutorFilterScreenState extends State<TutorFilterScreen> {
                 children: [
                   Align(
                     alignment: Alignment.center,
-                    child: Text('Filter',
+                    child: Text(
+                        TranslateUtils.of(context)
+                            .translate("tutor_screen.filter.title"),
                         style: AppConst.textTheme.headlineMedium),
                   ),
                   SpaceUtils.vSpace(20),
-                  Text('Specialties', style: AppConst.textTheme.labelLarge),
+                  Text(
+                      TranslateUtils.of(context)
+                          .translate("tutor_screen.filter.type.specialties"),
+                      style: AppConst.textTheme.labelLarge),
                   SpaceUtils.vSpace10(),
                   Wrap(
                     children: buildSpecialtyFilterItem(context),
@@ -64,7 +69,8 @@ class _TutorFilterScreenState extends State<TutorFilterScreen> {
                         widget.onApplyFilter!();
                         Navigator.pop(context);
                       },
-                      text: 'Apply Filter'),
+                      text: TranslateUtils.of(context).translate(
+                          "tutor_screen.filter.type.specialties.btn_apply_filter")),
                   SpaceUtils.vSpace10(),
                   CustomTextButton.withText(
                       onPressed: () {
@@ -72,7 +78,8 @@ class _TutorFilterScreenState extends State<TutorFilterScreen> {
                         resetFilter();
                         Navigator.pop(context);
                       },
-                      text: 'Reset'),
+                      text: TranslateUtils.of(context).translate(
+                          "tutor_screen.filter.type.specialties.btn_reset")),
                 ],
               ),
             ],
@@ -96,7 +103,10 @@ class _TutorFilterScreenState extends State<TutorFilterScreen> {
               child: Container(
                 margin: EdgeInsets.all(2),
                 child: Chip(
-                  label: Text(I10nUtils.translateFrom(specialtyItem, context),
+                  label: Text(
+                      TranslateUtils.of(context)
+                              ?.translateEnum<TutorSpecialty>(specialtyItem) ??
+                          '',
                       style: AppConst.textTheme.titleSmall?.apply(
                           color: _tutorSpecialty == specialtyItem
                               ? AppColors.primary

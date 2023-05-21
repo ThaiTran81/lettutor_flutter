@@ -37,7 +37,7 @@ class MentorsScreenProvider extends ChangeNotifier {
 
   bool isLoadingMore = false;
 
-  int? totalTutors = null;
+  int totalTutors = 0;
   TutorSpecialty selectedSpecialtyFilter = TutorSpecialty.ALL;
 
   TextEditingController searchTextFieldController = TextEditingController();

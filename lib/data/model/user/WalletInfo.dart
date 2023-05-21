@@ -12,7 +12,7 @@ class WalletInfo {
   WalletInfo.fromJson(dynamic json) {
     id = json['id'];
     userId = json['userId'];
-    amount = json['amount'];
+    amount = int.parse(json['amount'] ?? '0');
     isBlocked = json['isBlocked'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
@@ -21,7 +21,7 @@ class WalletInfo {
 
   late String id;
   late String userId;
-  late String amount;
+  late int amount;
   late bool isBlocked;
   late String createdAt;
   late String updatedAt;

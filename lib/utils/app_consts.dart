@@ -1,3 +1,4 @@
+import 'package:flag/flag.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -56,3 +57,8 @@ class AppColors {
   static const Color productBackGroundColor = Color(0xffF6F6F6);
   static const Color fillGrey = Color(0xffE2EAF4);
 }
+
+Map<String, FlagsCode> languagesSupport = {
+  "vi": FlagsCode.VN,
+  "en": FlagsCode.GB
+};

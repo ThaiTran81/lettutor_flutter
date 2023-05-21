@@ -6,6 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:lettutor_flutter/data/model/mentor/TypeMentorCategory.dart';
 import 'package:lettutor_flutter/data/model/user/StudyLevel.dart';
 import 'package:lettutor_flutter/data/model/user/User.dart';
+import 'package:lettutor_flutter/l10n/l10nUtils.dart';
 import 'package:lettutor_flutter/provider/auth_provider.dart';
 import 'package:lettutor_flutter/screen/profile/my_profile_provider.dart';
 import 'package:lettutor_flutter/screen/profile/widget/basic_info_content.dart';
@@ -90,7 +91,9 @@ class _EditProfileScreenState extends State<EditProfileScreen>
           builder: (context, provider, child) => Scaffold(
             appBar: PreferredSize(
               preferredSize: Size.fromHeight(70.h),
-              child: CustomAppBar(appBarName: 'Edit Profile'),
+              child: CustomAppBar(
+                  appBarName: TranslateUtils.of(context)
+                      .translate("setting_edit_profile.title")),
             ),
             body: SingleChildScrollView(
               child: Padding(
@@ -138,12 +141,14 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                         labelColor: AppColors.primary,
                         labelStyle: TextStyle(
                             fontSize: 14.sp, fontWeight: FontWeight.w700),
-                        tabs: const [
+                        tabs: [
                           Tab(
-                            text: 'Basic Info',
+                            text: TranslateUtils.of(context).translate(
+                                "setting_edit_profile.tab.basic_info"),
                           ),
                           Tab(
-                            text: 'Password',
+                            text: TranslateUtils.of(context)
+                                .translate("setting_edit_profile.tab.password"),
                           ),
                         ],
                         controller: _tabController,

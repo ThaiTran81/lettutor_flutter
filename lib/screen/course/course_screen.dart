@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lettutor_flutter/l10n/l10nUtils.dart';
 import 'package:lettutor_flutter/screen/course/course_screen_provider.dart';
 import 'package:lettutor_flutter/screen/course/widget/course_list_view.dart';
 import 'package:lettutor_flutter/screen/course/widget/ebook_list_view.dart';
@@ -44,7 +45,8 @@ class _CourseScreenState extends State<CourseScreen>
                           decoration: InputDecoration(
                               contentPadding: EdgeInsets.symmetric(
                                   vertical: 13.h, horizontal: 16.w),
-                              hintText: "Enter course's name",
+                              hintText: TranslateUtils.of(context)
+                                  .translate("course_screen.search_field.hint"),
                               hintStyle: TextStyle(
                                   fontSize: 14,
                                   color: AppColors.title.withOpacity(0.3),
@@ -93,19 +95,22 @@ class _CourseScreenState extends State<CourseScreen>
                           Tab(
                             child: Container(
                               decoration: const BoxDecoration(),
-                              child: const Text("Course"),
+                              child: Text(TranslateUtils.of(context)
+                                  .translate("course_screen.tab.course")),
                             ),
                           ),
                           Tab(
                             child: Container(
                               decoration: const BoxDecoration(),
-                              child: const Text("E-Book"),
+                              child: Text(TranslateUtils.of(context)
+                                  .translate("course_screen.tab.ebook")),
                             ),
                           ),
                           Tab(
                             child: Container(
                               decoration: const BoxDecoration(),
-                              child: const Text("Interactive E-book"),
+                              child: Text(TranslateUtils.of(context).translate(
+                                  "course_screen.tab.interactive_book")),
                             ),
                           ),
                         ]),

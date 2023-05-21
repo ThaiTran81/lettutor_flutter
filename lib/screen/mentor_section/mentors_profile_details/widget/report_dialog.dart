@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lettutor_flutter/l10n/l10nUtils.dart';
 
 class ReportDialog extends StatelessWidget {
   final TextEditingController _textEditingController = TextEditingController();
@@ -13,7 +14,9 @@ class ReportDialog extends StatelessWidget {
       title: Text(title),
       content: TextField(
         controller: _textEditingController,
-        decoration: InputDecoration(hintText: 'Enter your report here'),
+        decoration: InputDecoration(
+            hintText: TranslateUtils.of(context)
+                .translate("tutor_detail_screen.report.report_field.hint")),
         maxLines: null,
       ),
       actions: [
@@ -21,7 +24,8 @@ class ReportDialog extends StatelessWidget {
           onPressed: () {
             Navigator.pop(context);
           },
-          child: Text('Cancel'),
+          child: Text(TranslateUtils.of(context)
+              .translate("tutor_detail_screen.report.btn_cancel")),
         ),
         ElevatedButton(
           onPressed: () {
@@ -29,7 +33,8 @@ class ReportDialog extends StatelessWidget {
             onSubmit(report);
             Navigator.pop(context);
           },
-          child: Text('Report'),
+          child: Text(TranslateUtils.of(context)
+              .translate("tutor_detail_screen.report.title")),
         ),
       ],
     );

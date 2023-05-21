@@ -79,11 +79,11 @@ class TranslateUtils {
 
   TranslateUtils(this.locale);
 
-  static TranslateUtils? of(BuildContext context) {
+  static TranslateUtils of(BuildContext context) {
     return Localizations.of<TranslateUtils>(
       context,
       TranslateUtils,
-    );
+    )!;
   }
 
   static const LocalizationsDelegate<TranslateUtils> delegate =
@@ -93,7 +93,7 @@ class TranslateUtils {
 
   Future<bool> load() async {
     String jsonString =
-    await rootBundle.loadString('bundle/app_${locale.languageCode}.arb');
+        await rootBundle.loadString('bundle/app_${locale.languageCode}.arb');
     Map<String, dynamic> jsonMap = json.decode(jsonString);
 
     _localizedStrings = jsonMap.map((key, value) {
@@ -103,8 +103,8 @@ class TranslateUtils {
     return true;
   }
 
-  String? translate(String? key) {
-    return _localizedStrings[key!];
+  String translate(String key) {
+    return _localizedStrings[key] ?? key;
   }
 
   String translateEnum<T extends Enum>(T? value) {
@@ -119,7 +119,7 @@ class _TranslateUtilsDelegate extends LocalizationsDelegate<TranslateUtils> {
 
   @override
   bool isSupported(Locale locale) {
-    return ["en"].contains(locale.languageCode);
+    return ["en", "vi"].contains(locale.languageCode);
   }
 
   @override

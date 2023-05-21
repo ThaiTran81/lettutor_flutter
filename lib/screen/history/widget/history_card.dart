@@ -1,14 +1,13 @@
-import 'package:chewie/chewie.dart';
 import 'package:flag/flag_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lettutor_flutter/data/model/schedule/ScheduleData.dart';
+import 'package:lettutor_flutter/l10n/l10nUtils.dart';
 import 'package:lettutor_flutter/utils/date_utils.dart';
 import 'package:lettutor_flutter/utils/widget_utils.dart';
 import 'package:lettutor_flutter/widgets/cache_image.dart';
 import 'package:lettutor_flutter/widgets/custom_button.dart';
-import 'package:video_player/video_player.dart';
 
 import '../../../utils/app_consts.dart';
 import '../../../widgets/custom_text.dart';
@@ -92,7 +91,8 @@ class HistoryCard extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           CustomText(
-                            text: 'Lesson date:',
+                            text: TranslateUtils.of(context)
+                                .translate("history_screen.card.lesson_date"),
                             fontSize: 14.sp,
                             color: AppColors.hintTextColor,
                             fontWeight: FontWeight.bold,
@@ -101,7 +101,8 @@ class HistoryCard extends StatelessWidget {
                             height: 10,
                           ),
                           CustomText(
-                            text: 'Start time:',
+                            text: TranslateUtils.of(context)
+                                .translate("history_screen.card.start_time"),
                             fontSize: 14.sp,
                             color: AppColors.hintTextColor,
                             fontWeight: FontWeight.bold,
@@ -110,7 +111,8 @@ class HistoryCard extends StatelessWidget {
                             height: 10,
                           ),
                           CustomText(
-                            text: 'End time:',
+                            text: TranslateUtils.of(context)
+                                .translate("history_screen.card.end_time"),
                             fontSize: 14.sp,
                             color: AppColors.hintTextColor,
                             fontWeight: FontWeight.bold,

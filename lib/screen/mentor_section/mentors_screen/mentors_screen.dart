@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lettutor_flutter/data/model/mentor/TypeMentorCategory.dart';
 import 'package:lettutor_flutter/di/components/service_locator.dart';
+import 'package:lettutor_flutter/l10n/l10nUtils.dart';
 import 'package:lettutor_flutter/screen/meeting_screen/meeting_screen.dart';
 import 'package:lettutor_flutter/screen/mentor_section/mentors_screen/tutor_filter_screen.dart';
-import 'package:lettutor_flutter/screen/mentor_section/utils/mentor_section_utils.dart';
 import 'package:lettutor_flutter/utils/date_utils.dart';
 import 'package:lettutor_flutter/utils/nav_utils.dart';
 import 'package:lettutor_flutter/utils/widget_utils.dart';
@@ -36,8 +37,8 @@ class _MentorsScreenState extends State<MentorsScreen>
 
   @override
   Widget build(BuildContext context) {
-    _tabController = TabController(
-        vsync: this, length: MentorSectionUtils.initCategories(context).length);
+    _tabController =
+        TabController(vsync: this, length: TutorSpecialty.values.length);
     return Scaffold(
       body: GestureDetector(
         onTapDown: (_) => FocusManager.instance.primaryFocus?.unfocus(),
@@ -60,45 +61,46 @@ class _MentorsScreenState extends State<MentorsScreen>
                       decoration: InputDecoration(
                           contentPadding: EdgeInsets.symmetric(
                               vertical: 13.h, horizontal: 16.w),
-                          hintText: "Enter tutor's name",
+                          hintText: TranslateUtils.of(context)
+                              .translate("tutor_screen.search_field.hint_text"),
                           hintStyle: TextStyle(
                               fontSize: 14,
                               color: AppColors.title.withOpacity(0.3),
                               fontWeight: FontWeight.w600),
-                                enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                  borderSide:
-                                      const BorderSide(color: AppColors.border),
-                                ),
-                                suffixIcon: Padding(
-                                  padding: const EdgeInsets.only(right: 12.0),
-                                  child: Image.asset(
-                                    'assets/home_page/payment/Vector.png',
-                                    scale: 1.5,
-                                  ),
-                                ),
-                                border: const OutlineInputBorder()),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide:
+                                const BorderSide(color: AppColors.border),
                           ),
-                        ),
-                        SizedBox(
-                          width: 10.w,
-                        ),
-                        InkWell(
-                          child: Image.asset(
-                            'assets/home_page/payment/filter_Icon.png',
-                            height: 47,
+                          suffixIcon: Padding(
+                            padding: const EdgeInsets.only(right: 12.0),
+                            child: Image.asset(
+                              'assets/home_page/payment/Vector.png',
+                              scale: 1.5,
+                            ),
                           ),
-                          onTap: () {
-                            showModalBottomSheet(
-                              context: context,
-                              builder: (context) => TutorFilterScreen(
-                                onApplyFilter: () {
+                          border: const OutlineInputBorder()),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 10.w,
+                  ),
+                  InkWell(
+                    child: Image.asset(
+                      'assets/home_page/payment/filter_Icon.png',
+                      height: 47,
+                    ),
+                    onTap: () {
+                      showModalBottomSheet(
+                        context: context,
+                        builder: (context) => TutorFilterScreen(
+                          onApplyFilter: () {
                             _mentorScreenProvider.getTutorListByCriteria();
                           },
                           mentorsScreenProvider: _mentorScreenProvider,
                         ),
-                              isScrollControlled: true,
-                              shape: const RoundedRectangleBorder(
+                        isScrollControlled: true,
+                        shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(30.0),
                               topRight: Radius.circular(30.0)),
@@ -121,91 +123,111 @@ class _MentorsScreenState extends State<MentorsScreen>
   Widget buildBanner() {
     _mentorScreenProvider.initializeData();
     return Consumer<MentorsScreenProvider>(
-      builder: (context, provider, child) => Container(
-        padding: EdgeInsets.all(10),
-        height: 150,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(25)),
-            color: AppColors.primaryBg),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
+      builder: (context, provider, child) {
+        var translateUtils = TranslateUtils.of(context);
+        return Container(
+          padding: EdgeInsets.all(10),
+          height: 150,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(25)),
+              color: AppColors.primaryBg),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              provider.upcomingMeeting == null
+                  ? Text(
+                      translateUtils
+                          .translate("tutor_screen.banner.no_upcoming_lesson"),
+                      style: AppConst.textTheme.titleLarge
+                          ?.apply(color: AppColors.white),
+                    )
+                  : buildUpcomingLessonShowInBanner(provider, context),
+              Text(
+                  "${translateUtils.translate("tutor_screen.banner.total_lesson_time")} ${formatTotalLessonHour(provider.totalLessonHour)}",
+                  style: AppConst.textTheme.labelLarge
+                      ?.apply(color: AppColors.white))
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Column buildUpcomingLessonShowInBanner(
+      MentorsScreenProvider provider, BuildContext context) {
+    return Column(
+      children: [
+        Text(
+          TranslateUtils.of(context)
+              .translate("tutor_screen.banner.upcoming_lesson"),
+          style: AppConst.textTheme.titleLarge?.apply(color: AppColors.white),
+        ),
+        Row(
+          mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              "Upcoming lesson",
+              "${DateTimeUtils.formatDateFrom(provider.upcomingMeeting?.scheduleDetailInfo?.startPeriodTimestamp)} | ",
               style:
-                  AppConst.textTheme.titleLarge?.apply(color: AppColors.white),
-            ),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  "${DateTimeUtils.formatDateFrom(provider.upcomingMeeting?.scheduleDetailInfo?.startPeriodTimestamp)} | ",
-                  style: AppConst.textTheme.bodyLarge
-                      ?.apply(color: AppColors.white),
-                ),
-                Text(
-                  "${DateTimeUtils.formatToHour(provider.upcomingMeeting?.scheduleDetailInfo?.startPeriodTimestamp)} "
-                  "- ${DateTimeUtils.formatToHour(provider.upcomingMeeting?.scheduleDetailInfo?.endPeriodTimestamp)}",
-                  style: AppConst.textTheme.bodyLarge
-                      ?.apply(color: AppColors.white),
-                ),
-              ],
-            ),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                SpaceUtils.hSpace5,
-                Text(
-                  "start in( ",
-                  style: AppConst.textTheme.labelLarge
-                      ?.apply(color: AppColors.warning),
-                ),
-                CountDownTimer(
-                  key: ValueKey(provider.upcomingMeeting),
-                  seconds: DateTime.fromMicrosecondsSinceEpoch(
-                          (provider.upcomingMeeting?.scheduleDetailInfo
-                                      ?.startPeriodTimestamp ??
-                                  0) *
-                              1000,
-                          isUtc: true)
-                      .toLocal()
-                      .difference(DateTime.now())
-                      .inSeconds,
-                  textStyle: AppConst.textTheme.labelLarge
-                      ?.apply(color: AppColors.warning),
-                ),
-                Text(
-                  " )",
-                  style: AppConst.textTheme.labelLarge
-                      ?.apply(color: AppColors.warning),
-                ),
-              ],
-            ),
-            CustomButton(
-              child: Text("Join meeting",
-                  style: TextStyle(fontSize: 14, color: AppColors.primary)),
-              styleButton:
-                  StyleButton(radius: 20, fillColor: AppColors.lightBleu),
-              onPressed: () => NavUtil.navigateScreen(
-                  context,
-                  VideoMeeting(
-                      studentMeetingLink:
-                          provider.upcomingMeeting?.studentMeetingLink ?? '')),
+                  AppConst.textTheme.bodyLarge?.apply(color: AppColors.white),
             ),
             Text(
-                "Total lesson time is ${formatTotalLessonHour(provider.totalLessonHour)}",
-                style: AppConst.textTheme.labelLarge
-                    ?.apply(color: AppColors.white))
+              "${DateTimeUtils.formatToHour(provider.upcomingMeeting?.scheduleDetailInfo?.startPeriodTimestamp)} "
+              "- ${DateTimeUtils.formatToHour(provider.upcomingMeeting?.scheduleDetailInfo?.endPeriodTimestamp)}",
+              style:
+                  AppConst.textTheme.bodyLarge?.apply(color: AppColors.white),
+            ),
           ],
         ),
-      ),
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SpaceUtils.hSpace5,
+            Text(
+              "start in( ",
+              style: AppConst.textTheme.labelLarge
+                  ?.apply(color: AppColors.warning),
+            ),
+            CountDownTimer(
+              key: ValueKey(provider.upcomingMeeting),
+              seconds: DateTime.fromMicrosecondsSinceEpoch(
+                      (provider.upcomingMeeting?.scheduleDetailInfo
+                                  ?.startPeriodTimestamp ??
+                              0) *
+                          1000,
+                      isUtc: true)
+                  .toLocal()
+                  .difference(DateTime.now())
+                  .inSeconds,
+              textStyle: AppConst.textTheme.labelLarge
+                  ?.apply(color: AppColors.warning),
+            ),
+            Text(
+              " )",
+              style: AppConst.textTheme.labelLarge
+                  ?.apply(color: AppColors.warning),
+            ),
+          ],
+        ),
+        CustomButton(
+          child: Text(
+              TranslateUtils.of(context)
+                  .translate("tutor_screen.banner.btn_join_meeting"),
+              style: TextStyle(fontSize: 14, color: AppColors.primary)),
+          styleButton: StyleButton(radius: 20, fillColor: AppColors.lightBleu),
+          onPressed: () => NavUtil.navigateScreen(
+              context,
+              VideoMeeting(
+                  studentMeetingLink:
+                      provider.upcomingMeeting?.studentMeetingLink ?? '')),
+        ),
+      ],
     );
   }
 
   String formatTotalLessonHour(int minutes) {
     int hour = minutes ~/ 60;
     int minute = minutes - hour * 60;
-    return "$hour hours $minute minutes";
+    return "$hour ${TranslateUtils.of(context).translate("tutor_screen.banner.total_lesson_time.hours")} $minute ${TranslateUtils.of(context).translate("tutor_screen.banner.total_lesson_time.minutes")}";
   }
 
   _onScrollListener(ScrollController scrollController) {}

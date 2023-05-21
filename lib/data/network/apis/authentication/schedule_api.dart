@@ -1,3 +1,4 @@
+import 'package:lettutor_flutter/data/model/schedule/BookingScheduleReponse.dart';
 import 'package:lettutor_flutter/data/model/schedule/ScheduleResponse.dart';
 import 'package:lettutor_flutter/data/network/constants/endpoints.dart';
 
@@ -22,9 +23,34 @@ class ScheduleApi {
     return ScheduleResponse.fromJson(res);
   }
 
-  Future<ScheduleResponse> getScheduleByTutorId(String tutorId) async {
+  Future<dynamic> getScheduleByTutorId(String tutorId) async {
     final res = await _dioClient
         .post(Endpoints.getScheduleByTutorId, data: {"tutorId": tutorId});
-    return ScheduleResponse.fromJson(res);
+    return res;
+  }
+
+  Future<dynamic> getScheduleByTutorIdAndDate(
+      String tutorId, DateTime dateTime) async {
+    DateTime endOfDay = DateTime(
+      dateTime.year,
+      dateTime.month,
+      dateTime.day,
+      23,
+      59,
+      59,
+      999,
+    );
+    final res = await _dioClient.get(
+        Endpoints.getScheduleByTutorIdAndTime(tutorId, dateTime, endOfDay));
+    return res;
+  }
+
+  Future<BookingScheduleReponse> bookSchedule(
+      String scheduleId, String? note) async {
+    final res = await _dioClient.post(Endpoints.booking, data: {
+      "scheduleDetailIds": [scheduleId],
+      "note": note
+    });
+    return BookingScheduleReponse.fromJson(res);
   }
 }

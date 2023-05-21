@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flag/flag_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lettutor_flutter/screen/mentor_section/widgets/tag.dart';
@@ -121,9 +120,9 @@ class MentorsDesignCard extends StatelessWidget {
                 alignment: WrapAlignment.start,
                 children: specialties
                     .map((e) => Tag(
-                          text: I10nUtils.translateFrom(
-                              TutorSpecialty.from(e) ?? TutorSpecialty.NULL,
-                              context),
+                          text: TranslateUtils.of(context)
+                              ?.translateEnum<TutorSpecialty>(
+                                  TutorSpecialty.from(e)),
                         ))
                     .toList(),
               ),
@@ -141,7 +140,9 @@ class MentorsDesignCard extends StatelessWidget {
                     icon: const Icon(
                       Icons.edit_calendar_outlined,
                     ),
-                    label: Text(AppLocalizations.of(context).btn_book_tutor),
+                    label: Text(TranslateUtils.of(context)
+                            ?.translate("btn_book_tutor") ??
+                        ''),
                     style: OutlinedButton.styleFrom(shape: StadiumBorder()),
                   )
                 ],

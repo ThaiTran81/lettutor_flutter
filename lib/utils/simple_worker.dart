@@ -1,7 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:lettutor_flutter/utils/dialog_utils.dart';
 
 typedef Callback<T> = Function(T data);
 
@@ -11,12 +9,16 @@ class SimpleWorker<T> {
   String? messageOnSuccess;
   Callback<T>? onCompleted;
   Function(dynamic)? onError;
+  Callback<DioError?>? onErrorResponse;
+  Map<int, String>? messageBasedOnStatutCode = {};
 
   SimpleWorker(
       {required this.task,
       this.onCompleted,
       this.onError,
-      this.messageOnSuccess});
+      this.messageOnSuccess,
+      this.messageBasedOnStatutCode,
+      this.onErrorResponse});
 
   void start() async {
     try {
@@ -36,7 +38,8 @@ class SimpleWorker<T> {
       EasyLoading.dismiss();
       // processLoginError(, e);
       print(e.toString());
-      EasyLoading.showError("Oops!! Something went wrong! please try again");
+
+      processLoginError(e);
       if (onError != null) {
         onError!(e);
       }
@@ -44,16 +47,26 @@ class SimpleWorker<T> {
     }
   }
 
-  void processLoginError(BuildContext context, Exception err) {
+  void processLoginError(dynamic err) {
     if (err is DioError) {
       DioError dioError = err;
+      if (onErrorResponse != null) {
+        onErrorResponse!(dioError);
+      }
       var res = dioError.response?.data;
 
-      if (res['statusCode'] == 400) {
-        DialogUtils.showInform(context: context, msgBody: res['message']);
+      final messageBasedOnStatutCode = this.messageBasedOnStatutCode;
+      if (messageBasedOnStatutCode != null) {
+        var statutCode = messageBasedOnStatutCode.keys
+            .where((key) => res['statusCode'] == key)
+            .first;
+        statutCode != null
+            ? EasyLoading.showError(messageBasedOnStatutCode[statutCode] ?? '')
+            : EasyLoading.showError(
+                "Oops!! Something went wrong! please try again");
       }
     } else {
-      DialogUtils.showInform(context: context, msgBody: err.toString());
+      EasyLoading.showError("Oops!! Something went wrong! please try again");
     }
   }
 }

@@ -147,7 +147,7 @@ class _MentorsProfileState extends State<MentorsProfile>
                                     );
                                   },
                                   child: Text(
-                                    "${provider.tutorInforDetail?.rating?.toStringAsFixed(2) ?? 'No ratings'} • ${provider.tutorInforDetail?.totalFeedback ?? 0} ratings",
+                                    "${provider.tutorInforDetail?.rating?.toStringAsFixed(2) ?? 'No ratings'} • ${provider.tutorInforDetail?.totalFeedback ?? 0} ${TranslateUtils.of(context).translate("tutor_detail_screen.rating_label")}",
                                     style: AppConst.textTheme.labelSmall
                                         ?.apply(color: AppColors.primary),
                                   ),
@@ -190,14 +190,15 @@ class _MentorsProfileState extends State<MentorsProfile>
                             SpaceUtils.vSpace10(),
                             CustomTextButton(
                               text: CustomText(
-                                text: "Book",
+                                text: TranslateUtils.of(context)
+                                    .translate("btn_book_tutor"),
                               ),
                               onPressed: () {
                                 NavUtil.navigateScreen(
                                     context,
                                     MentorBookingScreen(
-                                      name: "Teacher",
-                                      tutorId: "skjlhdkj",
+                                      name: widget.tutorInfo.name ?? '',
+                                      tutorId: widget.tutorInfo.userId!,
                                     ));
                               },
                               styleButton: StyleButton(
@@ -280,7 +281,10 @@ class _MentorsProfileState extends State<MentorsProfile>
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text("Interests", style: AppConst.textTheme.headlineMedium),
+        Text(
+            TranslateUtils.of(context)
+                .translate("tutor_detail_screen.interest_label"),
+            style: AppConst.textTheme.headlineMedium),
         Row(
           children: [
             SpaceUtils.hSpace5,
@@ -300,7 +304,10 @@ class _MentorsProfileState extends State<MentorsProfile>
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text("Specialties", style: AppConst.textTheme.headlineMedium),
+        Text(
+            TranslateUtils.of(context)
+                .translate("tutor_detail_screen.specialties_label"),
+            style: AppConst.textTheme.headlineMedium),
         buildSectionSpecialties(provider.tutor),
       ],
     );
@@ -311,7 +318,10 @@ class _MentorsProfileState extends State<MentorsProfile>
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text("Languages", style: AppConst.textTheme.headlineMedium),
+        Text(
+            TranslateUtils.of(context)
+                .translate("tutor_detail_screen.language_label"),
+            style: AppConst.textTheme.headlineMedium),
         Align(
           alignment: Alignment.centerLeft,
           child: Tag(
@@ -331,6 +341,8 @@ class _MentorsProfileState extends State<MentorsProfile>
   }
 
   Widget tagSpecialty(TutorSpecialty tutorSpecialty) {
-    return Tag(text: I10nUtils.translateFrom(tutorSpecialty, context));
+    return Tag(
+        text: TranslateUtils.of(context)
+            .translateEnum<TutorSpecialty>(tutorSpecialty));
   }
 }

@@ -76,4 +76,13 @@ class Endpoints {
   }
 
   static const String getScheduleByTutorId = "$baseUrl/schedule";
+
+  static String getScheduleByTutorIdAndTime(
+      String tutorId, DateTime startTime, DateTime endTime) {
+    var start = startTime.millisecondsSinceEpoch;
+    var end = endTime.millisecondsSinceEpoch;
+    return "$baseUrl/schedule?tutorId=$tutorId&startTimestamp=$start&endTimestamp=$end";
+  }
+
+  static const String booking = "$baseUrl/booking";
 }
