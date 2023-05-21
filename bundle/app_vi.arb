@@ -82,9 +82,18 @@
   "tutor_detail_screen.report.btn_cancel": "Hủy",
   "tutor_detail_screen.report.btn_report": "Báo cáo",
   "tutor_detail_screen.report.report_field.hint": "Nhập báo cáo của bạn tại đây",
-  "course_screen.title": "Tất cả các khóa học",
+  "course_screen.title": "Khóa học",
   "course_screen.search_field.hint": "Nhập tên khóa học bạn muốn tìm",
   "course_screen.tab.course": "Khóa học",
   "course_screen.tab.ebook": "Sách điện tử",
-  "course_screen.tab.interactive_book": "Sách điện tử tương tác"
+  "course_screen.tab.interactive_book": "Sách điện tử tương tác",
+  "CancelReason_reschedule": "Lên lịch lại vào lúc khác",
+  "CancelReason_busy": "Lúc đó đang bận",
+  "CancelReason_askedByTutor": "Được gia sư yêu cầu",
+  "CancelReason_other": " Khác",
+  "cancel_shedule_success": "Bạn đã hủy đặt lịch thành công.",
+  "SortByLevel_asc": "Độ khó tăng dần",
+  "SortByLevel_desc": "Độ khó giảm dần",
+  "course_screen.filter.type.level": "Cấp độ",
+  "course_screen.filter.type.level.sort": "Sắp xếp theo độ khó"
 }

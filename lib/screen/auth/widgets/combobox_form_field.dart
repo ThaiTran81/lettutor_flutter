@@ -1,7 +1,7 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
-import 'package:lettutor_flutter/screen/auth/widgets/base_form_field.dart';
-import 'package:lettutor_flutter/utils/app_consts.dart';
+import 'package:lettutor_thaitran81/screen/auth/widgets/base_form_field.dart';
+import 'package:lettutor_thaitran81/utils/app_consts.dart';
 
 typedef String StringConverter<T>(T? item);
 

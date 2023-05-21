@@ -1,4 +1,4 @@
-import 'package:lettutor_flutter/data/model/tutor/Feedback.dart';
+import 'package:lettutor_thaitran81/data/model/tutor/Feedback.dart';
 
 class Data {
   Data({

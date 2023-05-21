@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:lettutor_flutter/screen/auth/widgets/elevated_button_widget.dart';
+import 'package:lettutor_thaitran81/screen/auth/widgets/elevated_button_widget.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/otp_field_style.dart';
 import 'package:otp_text_field/style.dart';

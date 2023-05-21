@@ -48,7 +48,7 @@ class CourseInfo {
     if (json['categories'] != null) {
       categories = [];
       json['categories'].forEach((v) {
-        categories?.add(Categories.fromJson(v));
+        categories?.add(Categorie.fromJson(v));
       });
     }
   }
@@ -70,7 +70,7 @@ class CourseInfo {
   String? createdAt;
   String? updatedAt;
   List<CourseTopic>? topics;
-  List<Categories>? categories;
+  List<Categorie>? categories;
 
   Map<String?, dynamic> toJson() {
     final map = <String?, dynamic>{};

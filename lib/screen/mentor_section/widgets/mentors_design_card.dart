@@ -3,7 +3,7 @@ import 'package:flag/flag_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:lettutor_flutter/screen/mentor_section/widgets/tag.dart';
+import 'package:lettutor_thaitran81/screen/mentor_section/widgets/tag.dart';
 
 import '../../../data/model/mentor/TypeMentorCategory.dart';
 import '../../../l10n/l10nUtils.dart';

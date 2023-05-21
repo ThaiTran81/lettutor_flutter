@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:lettutor_flutter/data/network/constants/endpoints.dart';
+import 'package:lettutor_thaitran81/data/network/constants/endpoints.dart';
 
 abstract class NetworkModule {
   /// A singleton dio provider.

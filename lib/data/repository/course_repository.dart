@@ -1,6 +1,6 @@
-import 'package:lettutor_flutter/data/model/course/course/CourseResponse.dart';
-import 'package:lettutor_flutter/data/model/course/ebook/EbookResponse.dart';
-import 'package:lettutor_flutter/data/network/apis/authentication/course_api.dart';
+import 'package:lettutor_thaitran81/data/model/course/course/CourseResponse.dart';
+import 'package:lettutor_thaitran81/data/model/course/ebook/EbookResponse.dart';
+import 'package:lettutor_thaitran81/data/network/apis/general/course_api.dart';
 
 class CourseRepository {
   final CourseApi _courseApi;

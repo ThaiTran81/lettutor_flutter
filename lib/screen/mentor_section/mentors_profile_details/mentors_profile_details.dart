@@ -1,17 +1,18 @@
+import 'package:appinio_video_player/appinio_video_player.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flag/flag_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:lettutor_flutter/data/model/mentor/TypeMentorCategory.dart';
-import 'package:lettutor_flutter/data/model/tutor/Tutor.dart';
-import 'package:lettutor_flutter/l10n/l10nUtils.dart';
-import 'package:lettutor_flutter/screen/mentor_section/mentor_booking/mentor_booking_screen.dart';
-import 'package:lettutor_flutter/screen/mentor_section/mentors_profile_details/feedback_view.dart';
-import 'package:lettutor_flutter/screen/mentor_section/mentors_profile_details/widget/report_dialog.dart';
-import 'package:lettutor_flutter/screen/mentor_section/widgets/tag.dart';
-import 'package:lettutor_flutter/utils/nav_utils.dart';
-import 'package:lettutor_flutter/widgets/custom_button.dart';
+import 'package:lettutor_thaitran81/data/model/mentor/TypeMentorCategory.dart';
+import 'package:lettutor_thaitran81/data/model/tutor/Tutor.dart';
+import 'package:lettutor_thaitran81/l10n/l10nUtils.dart';
+import 'package:lettutor_thaitran81/screen/mentor_section/mentor_booking/mentor_booking_screen.dart';
+import 'package:lettutor_thaitran81/screen/mentor_section/mentors_profile_details/feedback_view.dart';
+import 'package:lettutor_thaitran81/screen/mentor_section/mentors_profile_details/widget/report_dialog.dart';
+import 'package:lettutor_thaitran81/screen/mentor_section/widgets/tag.dart';
+import 'package:lettutor_thaitran81/utils/nav_utils.dart';
+import 'package:lettutor_thaitran81/widgets/custom_button.dart';
 import 'package:provider/provider.dart';
 
 import '../../../utils/app_consts.dart';
@@ -32,12 +33,29 @@ class MentorsProfile extends StatefulWidget {
 
 class _MentorsProfileState extends State<MentorsProfile>
     with SingleTickerProviderStateMixin {
-  TabController? _tabController;
+  late VideoPlayerController videoPlayerController;
+  late CustomVideoPlayerController _customVideoPlayerController;
 
   @override
   void initState() {
-    _tabController = TabController(length: 4, vsync: this);
     super.initState();
+    videoPlayerController = VideoPlayerController.network(widget.tutorInfo.video ??
+        "https://cdn.dribbble.com/userupload/6271442/file/large-3d9079c31c8d1c15b79887579bacecc1.mp4")
+      ..initialize().then((_) {
+        // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
+        setState(() {});
+      });
+    _customVideoPlayerController = CustomVideoPlayerController(
+      context: context,
+      videoPlayerController: videoPlayerController,
+    );
+  }
+
+  @override
+  void dispose() {
+    videoPlayerController.dispose();
+    _customVideoPlayerController.dispose();
+    super.dispose();
   }
 
   @override
@@ -179,13 +197,13 @@ class _MentorsProfileState extends State<MentorsProfile>
                                     icon: const Icon(
                                         Icons.play_circle_outline_rounded,
                                         size: 30),
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      videoPlayerController.value.isPlaying
+                                          ? videoPlayerController.pause()
+                                          : videoPlayerController.play();
+                                    },
                                     color: AppColors.primary),
                               ],
-                            ),
-                            Text(
-                              provider.tutor?.bio ?? '',
-                              style: AppConst.textTheme.bodyMedium,
                             ),
                             SpaceUtils.vSpace10(),
                             CustomTextButton(
@@ -206,6 +224,27 @@ class _MentorsProfileState extends State<MentorsProfile>
                                   width: double.infinity),
                               alignment: Alignment.center,
                             ),
+                            Center(
+                              child: videoPlayerController.value.isInitialized
+                                  ? Container(
+                                      padding: EdgeInsets.all(10),
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          border: Border.all(
+                                              color: AppColors.primary)),
+                                      child:CustomVideoPlayer(
+                                          customVideoPlayerController: _customVideoPlayerController
+                                      ),)
+                                  : Container(),
+                            ),
+                            SpaceUtils.vSpace10(),
+                            Container(),
+                            Text(
+                              provider.tutor?.bio ?? '',
+                              style: AppConst.textTheme.bodyMedium,
+                            ),
+                            SpaceUtils.vSpace10(),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [

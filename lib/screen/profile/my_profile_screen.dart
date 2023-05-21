@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:lettutor_flutter/data/model/user/User.dart';
-import 'package:lettutor_flutter/l10n/l10nUtils.dart';
-import 'package:lettutor_flutter/provider/auth_provider.dart';
-import 'package:lettutor_flutter/screen/auth/login_screen/login_screen.dart';
-import 'package:lettutor_flutter/screen/profile/change_language_screen/ChangeLanguageScreen.dart';
-import 'package:lettutor_flutter/screen/profile/edit_profile_screen/edit_profile_screen.dart';
-import 'package:lettutor_flutter/screen/profile/widget/profile_avatar.dart';
-import 'package:lettutor_flutter/screen/profile/widget/setting_item.dart';
-import 'package:lettutor_flutter/utils/app_consts.dart';
-import 'package:lettutor_flutter/utils/nav_utils.dart';
-import 'package:lettutor_flutter/utils/widget_utils.dart';
-import 'package:lettutor_flutter/widgets/custom_app_bar.dart';
-import 'package:lettutor_flutter/widgets/custom_button.dart';
+import 'package:lettutor_thaitran81/data/model/user/User.dart';
+import 'package:lettutor_thaitran81/l10n/l10nUtils.dart';
+import 'package:lettutor_thaitran81/provider/auth_provider.dart';
+import 'package:lettutor_thaitran81/screen/auth/login_screen/login_screen.dart';
+import 'package:lettutor_thaitran81/screen/profile/change_language_screen/ChangeLanguageScreen.dart';
+import 'package:lettutor_thaitran81/screen/profile/edit_profile_screen/edit_profile_screen.dart';
+import 'package:lettutor_thaitran81/screen/profile/widget/profile_avatar.dart';
+import 'package:lettutor_thaitran81/screen/profile/widget/setting_item.dart';
+import 'package:lettutor_thaitran81/utils/app_consts.dart';
+import 'package:lettutor_thaitran81/utils/nav_utils.dart';
+import 'package:lettutor_thaitran81/utils/widget_utils.dart';
+import 'package:lettutor_thaitran81/widgets/custom_app_bar.dart';
+import 'package:lettutor_thaitran81/widgets/custom_button.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MyProfileScreen extends StatefulWidget {
   final bool? isBottomNav;
@@ -130,13 +131,25 @@ class _MyProfileScreenState extends State<MyProfileScreen>
                           .translate("setting_our_web"),
                       icon: Icons.language_rounded,
                       margin: 5.0,
+                      onTap: () async {
+                        final Uri _url = Uri.parse("https://lettutor.edu.vn/");
+                        if (!await launchUrl(_url)) {
+                          throw Exception('Could not launch $_url');
+                        }
+                      },
                     ),
                     SpaceUtils.vSpace10(),
                     SettingItem(
-                      label: 'Facebook',
-                      icon: Icons.facebook_rounded,
-                      margin: 5.0,
-                    ),
+                        label: 'Facebook',
+                        icon: Icons.facebook_rounded,
+                        margin: 5.0,
+                        onTap: () async {
+                          final Uri _url =
+                              Uri.parse("https://www.facebook.com/lettutorvn");
+                          if (!await launchUrl(_url)) {
+                            throw Exception('Could not launch $_url');
+                          }
+                        }),
                     SpaceUtils.vSpace(20),
                     CustomTextButton.withText(
                         text: TranslateUtils.of(context)

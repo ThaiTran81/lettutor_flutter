@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:lettutor_flutter/provider/auth_provider.dart';
-import 'package:lettutor_flutter/screen/auth/sign_up_screen/sign_up_provider.dart';
-import 'package:lettutor_flutter/utils/dialog_utils.dart';
-import 'package:lettutor_flutter/utils/nav_utils.dart';
+import 'package:lettutor_thaitran81/provider/auth_provider.dart';
+import 'package:lettutor_thaitran81/screen/auth/sign_up_screen/sign_up_provider.dart';
+import 'package:lettutor_thaitran81/utils/nav_utils.dart';
 import 'package:provider/provider.dart';
 
 import '../../../utils/app_consts.dart';
@@ -189,12 +189,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         text: 'SIGN UP',
                         onPressed: () {
                           _authProvider.signUp(context, emailController.text,
-                              passController.text, () {
-                            DialogUtils.showInform(
-                                context: context,
-                                msgBody:
-                                    'Your account was created successfully!');
-                            NavUtil.pushAndRemoveUntil(context, LogInScreen());
+                              passController.text, () async {
+                            await EasyLoading.showSuccess(
+                                'Your account was created successfully!');
                           });
                         },
                       ),

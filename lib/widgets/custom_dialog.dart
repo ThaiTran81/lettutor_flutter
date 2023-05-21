@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lettutor_flutter/utils/app_consts.dart';
+import 'package:lettutor_thaitran81/utils/app_consts.dart';
 
 class CustomDialog extends StatelessWidget {
   late String title;

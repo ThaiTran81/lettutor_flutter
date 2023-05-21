@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jitsi_meet_wrapper/jitsi_meet_wrapper.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
-import 'package:lettutor_flutter/screen/auth/widgets/elevated_button_widget.dart';
-import 'package:lettutor_flutter/widgets/custom_app_bar.dart';
+import 'package:lettutor_thaitran81/screen/auth/widgets/elevated_button_widget.dart';
+import 'package:lettutor_thaitran81/widgets/custom_app_bar.dart';
 
 class VideoMeeting extends StatelessWidget {
   final String studentMeetingLink;

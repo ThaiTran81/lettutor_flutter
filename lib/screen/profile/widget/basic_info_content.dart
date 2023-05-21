@@ -1,16 +1,16 @@
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:lettutor_flutter/data/model/mentor/TypeMentorCategory.dart';
-import 'package:lettutor_flutter/data/model/user/StudyLevel.dart';
-import 'package:lettutor_flutter/l10n/l10nUtils.dart';
-import 'package:lettutor_flutter/screen/auth/widgets/combobox_form_field.dart';
-import 'package:lettutor_flutter/screen/auth/widgets/country_picker_form_field.dart';
-import 'package:lettutor_flutter/screen/auth/widgets/multi_select_form_field.dart';
-import 'package:lettutor_flutter/screen/auth/widgets/text_form_field.dart';
-import 'package:lettutor_flutter/screen/profile/my_profile_provider.dart';
-import 'package:lettutor_flutter/utils/widget_utils.dart';
-import 'package:lettutor_flutter/widgets/elevated_button_widget.dart';
+import 'package:lettutor_thaitran81/data/model/mentor/TypeMentorCategory.dart';
+import 'package:lettutor_thaitran81/data/model/user/StudyLevel.dart';
+import 'package:lettutor_thaitran81/l10n/l10nUtils.dart';
+import 'package:lettutor_thaitran81/screen/auth/widgets/combobox_form_field.dart';
+import 'package:lettutor_thaitran81/screen/auth/widgets/country_picker_form_field.dart';
+import 'package:lettutor_thaitran81/screen/auth/widgets/multi_select_form_field.dart';
+import 'package:lettutor_thaitran81/screen/auth/widgets/text_form_field.dart';
+import 'package:lettutor_thaitran81/screen/profile/my_profile_provider.dart';
+import 'package:lettutor_thaitran81/utils/widget_utils.dart';
+import 'package:lettutor_thaitran81/widgets/elevated_button_widget.dart';
 import 'package:provider/provider.dart';
 
 class BasicInfoFormData {
@@ -123,7 +123,7 @@ class _BasicInfoContentState extends State<BasicInfoContent> {
                     icon: const Icon(Icons.calendar_today_outlined)),
                 enabled: false,
                 initialValue:
-                    DateFormat('yyyy-MM-dd').format(_basicInfoFormData.dob!),
+                _basicInfoFormData.dob != null ? DateFormat('yyyy-MM-dd').format(_basicInfoFormData.dob!) : null,
               ),
               onTap: () => _selectDob(context),
             ),
@@ -218,7 +218,7 @@ class _BasicInfoContentState extends State<BasicInfoContent> {
   Future<void> _selectDob(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
         context: context,
-        initialDate: _basicInfoFormData.dob!,
+        initialDate: _basicInfoFormData.dob ?? DateTime.now(),
         firstDate: DateTime(1900, 1),
         lastDate: DateTime(2999, 12),
         helpText: 'Select a date',

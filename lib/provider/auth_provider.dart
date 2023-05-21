@@ -1,13 +1,13 @@
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:lettutor_flutter/data/local/utils/SecureStorageUtils.dart';
-import 'package:lettutor_flutter/data/model/user/User.dart';
-import 'package:lettutor_flutter/data/model/user/UserData.dart';
-import 'package:lettutor_flutter/data/repository/user_repository.dart';
-import 'package:lettutor_flutter/di/components/service_locator.dart';
-import 'package:lettutor_flutter/utils/dialog_utils.dart';
-import 'package:lettutor_flutter/utils/simple_worker.dart';
+import 'package:lettutor_thaitran81/data/local/utils/SecureStorageUtils.dart';
+import 'package:lettutor_thaitran81/data/model/user/User.dart';
+import 'package:lettutor_thaitran81/data/model/user/UserData.dart';
+import 'package:lettutor_thaitran81/data/repository/user_repository.dart';
+import 'package:lettutor_thaitran81/di/components/service_locator.dart';
+import 'package:lettutor_thaitran81/utils/dialog_utils.dart';
+import 'package:lettutor_thaitran81/utils/simple_worker.dart';
 
 class AuthProvider extends ChangeNotifier {
   UserResponse? user;
@@ -26,7 +26,11 @@ class AuthProvider extends ChangeNotifier {
         },
         onError: (e) {
           processLoginError(context, e);
-        }).start();
+        },
+      messageBasedOnStatutCode: {
+          2: 'Your account has not activated'
+      }
+    ).start();
   }
 
   void onLoginCompleted(UserResponse res) {
@@ -42,8 +46,8 @@ class AuthProvider extends ChangeNotifier {
       Function()? callback) {
     SimpleWorker<Null>(
         task: () => _userRepository.signUp(email, password),
-        onCompleted: (data) {
-          callback!();
+        onCompleted: (data) async {
+          await callback!();
         },
         onError: (e) {
           processLoginError(context, e);

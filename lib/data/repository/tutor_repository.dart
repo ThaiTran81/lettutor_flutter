@@ -1,10 +1,10 @@
-import 'package:lettutor_flutter/data/model/tutor/CriteriaSearchRequest.dart';
-import 'package:lettutor_flutter/data/model/tutor/FavoriteTutorResponse.dart';
-import 'package:lettutor_flutter/data/model/tutor/ReportReponse.dart';
-import 'package:lettutor_flutter/data/model/tutor/TutorInforDetailResponse.dart';
-import 'package:lettutor_flutter/data/model/tutor/TutorResponse.dart';
-import 'package:lettutor_flutter/data/model/tutor/feedback/FeedbackResponse.dart';
-import 'package:lettutor_flutter/data/network/apis/authentication/tutor_api.dart';
+import 'package:lettutor_thaitran81/data/model/tutor/CriteriaSearchRequest.dart';
+import 'package:lettutor_thaitran81/data/model/tutor/FavoriteTutorResponse.dart';
+import 'package:lettutor_thaitran81/data/model/tutor/ReportReponse.dart';
+import 'package:lettutor_thaitran81/data/model/tutor/TutorInforDetailResponse.dart';
+import 'package:lettutor_thaitran81/data/model/tutor/TutorResponse.dart';
+import 'package:lettutor_thaitran81/data/model/tutor/feedback/FeedbackResponse.dart';
+import 'package:lettutor_thaitran81/data/network/apis/general/tutor_api.dart';
 
 class TutorRepository {
   final TutorApi _tutorApi;

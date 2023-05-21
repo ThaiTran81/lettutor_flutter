@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:lettutor_flutter/data/local/utils/SecureStorageUtils.dart';
-import 'package:lettutor_flutter/utils/app_consts.dart';
+import 'package:lettutor_thaitran81/data/local/utils/SecureStorageUtils.dart';
+import 'package:lettutor_thaitran81/utils/app_consts.dart';
 
 class DioClient {
   // dio instance

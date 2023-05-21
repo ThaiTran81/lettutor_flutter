@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:lettutor_flutter/data/model/tutor/Feedback.dart';
-import 'package:lettutor_flutter/utils/app_consts.dart';
-import 'package:lettutor_flutter/utils/widget_utils.dart';
-import 'package:lettutor_flutter/widgets/cache_image.dart';
+import 'package:lettutor_thaitran81/data/model/tutor/Feedback.dart';
+import 'package:lettutor_thaitran81/utils/app_consts.dart';
+import 'package:lettutor_thaitran81/utils/widget_utils.dart';
+import 'package:lettutor_thaitran81/widgets/cache_image.dart';
 
 class FeedbackCard extends StatelessWidget {
   FeedbackData feedback;

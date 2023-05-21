@@ -56,6 +56,9 @@ class AppColors {
   static const Color backgrounColor = Colors.white;
   static const Color productBackGroundColor = Color(0xffF6F6F6);
   static const Color fillGrey = Color(0xffE2EAF4);
+
+  static const Color scaffoldBackgroundColor = const Color(0xFF343541);
+  static const Color cardColor = const Color(0xFF444654);
 }
 
 Map<String, FlagsCode> languagesSupport = {

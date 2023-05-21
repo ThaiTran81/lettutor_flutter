@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:lettutor_flutter/l10n/l10nUtils.dart';
-import 'package:lettutor_flutter/screen/course/course_screen_provider.dart';
-import 'package:lettutor_flutter/screen/course/widget/course_list_view.dart';
-import 'package:lettutor_flutter/screen/course/widget/ebook_list_view.dart';
+import 'package:lettutor_thaitran81/l10n/l10nUtils.dart';
+import 'package:lettutor_thaitran81/screen/course/course_filter_screen.dart';
+import 'package:lettutor_thaitran81/screen/course/course_screen_provider.dart';
+import 'package:lettutor_thaitran81/screen/course/widget/course_list_view.dart';
+import 'package:lettutor_thaitran81/screen/course/widget/ebook_list_view.dart';
 import 'package:provider/provider.dart';
 
 import '../../utils/app_consts.dart';
@@ -41,7 +42,10 @@ class _CourseScreenState extends State<CourseScreen>
                     children: [
                       Expanded(
                         child: TextFormField(
-                          onChanged: (value) {},
+                          controller: provider.searchTextFieldController,
+                          onChanged: (value) {
+                            provider.getSearchValue();
+                          },
                           decoration: InputDecoration(
                               contentPadding: EdgeInsets.symmetric(
                                   vertical: 13.h, horizontal: 16.w),
@@ -69,9 +73,14 @@ class _CourseScreenState extends State<CourseScreen>
                       SizedBox(
                         width: 10.w,
                       ),
-                      Image.asset(
-                        'assets/home_page/payment/filter_Icon.png',
-                        height: 47,
+                      InkWell(
+                        onTap: () {
+                          _openFilter(context, provider);
+                        },
+                        child: Image.asset(
+                          'assets/home_page/payment/filter_Icon.png',
+                          height: 47,
+                        ),
                       )
                     ],
                   ),
@@ -134,6 +143,25 @@ class _CourseScreenState extends State<CourseScreen>
           );
         },
       ),
+    );
+  }
+
+  void _openFilter(BuildContext context, CourseScreenProvider provider) {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) => CourseFilterScreen(
+        onApplyFilter: () {
+          // .getTutorListByCriteria();
+        },
+        courseScreenProvider: provider,
+      ),
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(30.0),
+            topRight: Radius.circular(30.0)),
+      ),
+      backgroundColor: Colors.white,
     );
   }
 }

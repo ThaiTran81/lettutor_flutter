@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:lettutor_flutter/main.dart';
-import 'package:lettutor_flutter/provider/app_provider.dart';
-import 'package:lettutor_flutter/screen/profile/widget/LanguageSettingItem.dart';
-import 'package:lettutor_flutter/utils/app_consts.dart';
-import 'package:lettutor_flutter/utils/widget_utils.dart';
-import 'package:lettutor_flutter/widgets/custom_app_bar.dart';
+import 'package:lettutor_thaitran81/main.dart';
+import 'package:lettutor_thaitran81/provider/app_provider.dart';
+import 'package:lettutor_thaitran81/screen/profile/widget/LanguageSettingItem.dart';
+import 'package:lettutor_thaitran81/utils/app_consts.dart';
+import 'package:lettutor_thaitran81/utils/widget_utils.dart';
+import 'package:lettutor_thaitran81/widgets/custom_app_bar.dart';
 import 'package:provider/provider.dart';
 
 class ChangeLanguageScreen extends StatefulWidget {

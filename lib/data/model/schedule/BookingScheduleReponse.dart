@@ -1,4 +1,4 @@
-import 'package:lettutor_flutter/data/model/mentor/BookingInfo.dart';
+import 'package:lettutor_thaitran81/data/model/mentor/BookingInfo.dart';
 
 class BookingScheduleReponse {
   BookingScheduleReponse({

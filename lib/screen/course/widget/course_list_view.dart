@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:lettutor_flutter/l10n/l10nUtils.dart';
-import 'package:lettutor_flutter/screen/course/course_detail/course_detail_screen.dart';
-import 'package:lettutor_flutter/screen/course/course_screen_provider.dart';
+import 'package:lettutor_thaitran81/l10n/l10nUtils.dart';
+import 'package:lettutor_thaitran81/screen/course/course_detail/course_detail_screen.dart';
+import 'package:lettutor_thaitran81/screen/course/course_screen_provider.dart';
 import 'package:provider/provider.dart';
 
 import 'course_card.dart';
@@ -27,8 +27,7 @@ class _CourseTabContentState extends State<CourseTabContent> {
 
   @override
   Widget build(BuildContext context) {
-    var tabData = _courseScreenProvider.totalAndCourseTabData.second;
-    var dataList = tabData?.dataList;
+    var dataList = _courseScreenProvider.courseResultList;
     return GridView.builder(
       controller: _scrollController,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -36,9 +35,9 @@ class _CourseTabContentState extends State<CourseTabContent> {
           mainAxisExtent: 295.h,
           crossAxisSpacing: 5,
           mainAxisSpacing: 5),
-      itemCount: dataList?.length,
+      itemCount: dataList.length,
       itemBuilder: (context, index) {
-        final data = dataList![index];
+        final data = dataList[index];
         return CourseCard(
             title: data.name,
             description: data.description,

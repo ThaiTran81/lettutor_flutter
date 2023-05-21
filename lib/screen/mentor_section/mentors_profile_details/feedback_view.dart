@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:lettutor_flutter/screen/mentor_section/mentors_profile_details/widget/feedback_card.dart';
-import 'package:lettutor_flutter/utils/app_consts.dart';
+import 'package:lettutor_thaitran81/screen/mentor_section/mentors_profile_details/widget/feedback_card.dart';
+import 'package:lettutor_thaitran81/utils/app_consts.dart';
 import 'package:provider/provider.dart';
 
 import 'feedback_view_provider.dart';

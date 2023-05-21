@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lettutor_thaitran81/utils/app_consts.dart';
 
 class CustomAppBar extends StatelessWidget {
   final String? appBarName;
@@ -7,6 +8,7 @@ class CustomAppBar extends StatelessWidget {
   final bool? isBackButton;
   List<Widget>? trailingChildren;
   Color? backgroundColor;
+  Color? appBarNameColor;
 
   CustomAppBar(
       {Key? key,
@@ -14,7 +16,8 @@ class CustomAppBar extends StatelessWidget {
       this.onTap,
       this.isBackButton,
       this.trailingChildren,
-      this.backgroundColor})
+      this.backgroundColor,
+      this.appBarNameColor})
       : super(key: key);
 
   @override
@@ -33,8 +36,22 @@ class CustomAppBar extends StatelessWidget {
                   onTap: () {
                     Navigator.pop(context);
                   },
-                  child: Image.asset(
-                    'assets/app_bar_icon/back_vector.png',
+                  child: ClipOval(
+                    child: Container(
+                      padding: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(1),
+                            spreadRadius: 30,
+                            blurRadius: 10,
+                          ),
+                        ],
+                      ),
+                      child: Icon(Icons.arrow_back_ios_rounded, color: AppColors.primary,),
+                    ),
                   ),
                 ),
                 Spacer(),
@@ -54,7 +71,7 @@ class CustomAppBar extends StatelessWidget {
           '$appBarName',
           style: TextStyle(
               fontSize: 18.sp,
-              color: Colors.black,
+              color: appBarNameColor ?? Colors.black,
               fontWeight: FontWeight.w700),
         ),
       ),

@@ -5,14 +5,15 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:lettutor_flutter/di/components/service_locator.dart';
-import 'package:lettutor_flutter/l10n/l10nUtils.dart';
-import 'package:lettutor_flutter/provider/app_provider.dart';
-import 'package:lettutor_flutter/provider/auth_provider.dart';
-import 'package:lettutor_flutter/screen/auth/login_screen/login_provider.dart';
-import 'package:lettutor_flutter/screen/auth/splash_screen.dart';
-import 'package:lettutor_flutter/screen/mentor_section/mentors_screen/mentors_screen_provider.dart';
-import 'package:lettutor_flutter/utils/app_consts.dart';
+import 'package:intl/intl.dart';
+import 'package:lettutor_thaitran81/di/components/service_locator.dart';
+import 'package:lettutor_thaitran81/l10n/l10nUtils.dart';
+import 'package:lettutor_thaitran81/provider/app_provider.dart';
+import 'package:lettutor_thaitran81/provider/auth_provider.dart';
+import 'package:lettutor_thaitran81/screen/auth/login_screen/login_provider.dart';
+import 'package:lettutor_thaitran81/screen/auth/splash_screen.dart';
+import 'package:lettutor_thaitran81/screen/mentor_section/mentors_screen/mentors_screen_provider.dart';
+import 'package:lettutor_thaitran81/utils/app_consts.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -38,11 +39,12 @@ class _LetTutorAppState extends State<LetTutorApp> {
 
   final MentorsScreenProvider _mentorsScreenProvider =
       getIt.get<MentorsScreenProvider>();
-  Locale locale = Locale.fromSubtags(languageCode: "VI");
+  Locale locale = Locale("en");
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    Intl.defaultLocale = locale.toString();
     return ScreenUtilInit(
       designSize: const Size(375, 812),
       minTextAdapt: true,

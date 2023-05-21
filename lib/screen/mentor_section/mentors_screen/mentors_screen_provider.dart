@@ -2,21 +2,21 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:lettutor_flutter/data/model/mentor/MentorSummary.dart';
-import 'package:lettutor_flutter/data/model/mentor/TypeMentorCategory.dart';
-import 'package:lettutor_flutter/data/model/schedule/ScheduleData.dart';
-import 'package:lettutor_flutter/data/model/schedule/ScheduleResponse.dart';
-import 'package:lettutor_flutter/data/model/tutor/CriteriaSearchRequest.dart';
-import 'package:lettutor_flutter/data/model/tutor/Filters.dart';
-import 'package:lettutor_flutter/data/model/tutor/Tutor.dart';
-import 'package:lettutor_flutter/data/model/tutor/TutorResponse.dart';
-import 'package:lettutor_flutter/data/repository/schedule_repository.dart';
-import 'package:lettutor_flutter/data/repository/tutor_repository.dart';
-import 'package:lettutor_flutter/data/repository/user_repository.dart';
-import 'package:lettutor_flutter/di/components/service_locator.dart';
-import 'package:lettutor_flutter/mock/userData.dart';
-import 'package:lettutor_flutter/utils/dialog_utils.dart';
-import 'package:lettutor_flutter/utils/simple_worker.dart';
+import 'package:lettutor_thaitran81/data/model/mentor/MentorSummary.dart';
+import 'package:lettutor_thaitran81/data/model/mentor/TypeMentorCategory.dart';
+import 'package:lettutor_thaitran81/data/model/schedule/ScheduleData.dart';
+import 'package:lettutor_thaitran81/data/model/schedule/ScheduleResponse.dart';
+import 'package:lettutor_thaitran81/data/model/tutor/CriteriaSearchRequest.dart';
+import 'package:lettutor_thaitran81/data/model/tutor/Filters.dart';
+import 'package:lettutor_thaitran81/data/model/tutor/Tutor.dart';
+import 'package:lettutor_thaitran81/data/model/tutor/TutorResponse.dart';
+import 'package:lettutor_thaitran81/data/repository/schedule_repository.dart';
+import 'package:lettutor_thaitran81/data/repository/tutor_repository.dart';
+import 'package:lettutor_thaitran81/data/repository/user_repository.dart';
+import 'package:lettutor_thaitran81/di/components/service_locator.dart';
+import 'package:lettutor_thaitran81/mock/userData.dart';
+import 'package:lettutor_thaitran81/utils/dialog_utils.dart';
+import 'package:lettutor_thaitran81/utils/simple_worker.dart';
 
 class MentorsScreenProvider extends ChangeNotifier {
   static const int LIMIT_PER_PAGE = 10;
@@ -161,7 +161,7 @@ class MentorsScreenProvider extends ChangeNotifier {
     SimpleWorker<ScheduleResponse?>(
         task: () => _scheduleRepository.getBookedClass(1, 1),
         onCompleted: (res) {
-          if (res != null) {
+          if (res != null && (res.data?.count ?? 0) > 0) {
             ScheduleData? scheduleData = res.data?.rows?.first;
             if (scheduleData != null) setUpcomingMeeting(scheduleData);
           }

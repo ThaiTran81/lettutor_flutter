@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
-import 'package:lettutor_flutter/widgets/calendar_timeline/util/string_extension.dart';
-import 'package:lettutor_flutter/widgets/calendar_timeline/year_item.dart';
+import 'package:lettutor_thaitran81/widgets/calendar_timeline/util/string_extension.dart';
+import 'package:lettutor_thaitran81/widgets/calendar_timeline/year_item.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import 'day_item.dart';

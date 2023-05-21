@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:lettutor_flutter/data/model/mentor/TutorSchedule.dart';
-import 'package:lettutor_flutter/data/model/schedule/BookingScheduleReponse.dart';
-import 'package:lettutor_flutter/data/repository/schedule_repository.dart';
-import 'package:lettutor_flutter/data/repository/tutor_repository.dart';
-import 'package:lettutor_flutter/di/components/service_locator.dart';
-import 'package:lettutor_flutter/provider/auth_provider.dart';
-import 'package:lettutor_flutter/utils/simple_worker.dart';
+import 'package:lettutor_thaitran81/data/model/mentor/TutorSchedule.dart';
+import 'package:lettutor_thaitran81/data/model/schedule/BookingScheduleReponse.dart';
+import 'package:lettutor_thaitran81/data/repository/schedule_repository.dart';
+import 'package:lettutor_thaitran81/data/repository/tutor_repository.dart';
+import 'package:lettutor_thaitran81/di/components/service_locator.dart';
+import 'package:lettutor_thaitran81/provider/auth_provider.dart';
+import 'package:lettutor_thaitran81/utils/simple_worker.dart';
 
 class MentorBookingScreenProvider extends ChangeNotifier {
   TutorRepository _tutorRepository = getIt.get<TutorRepository>();
@@ -71,10 +71,9 @@ class MentorBookingScreenProvider extends ChangeNotifier {
           notifyListeners();
         }
       },
-      messageBasedOnStatutCode: {400: "Booking has already exists"},
       onErrorResponse: (error) {
         if (error?.response?.statusCode == 400) {
-          tutorSchedules.remove(tutorSchedule);
+          EasyLoading.showError(error?.response?.data["message"] ?? "");
           notifyListeners();
         }
       },

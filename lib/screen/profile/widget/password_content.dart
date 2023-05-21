@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:lettutor_flutter/screen/auth/widgets/text_form_field.dart';
-import 'package:lettutor_flutter/utils/app_consts.dart';
-import 'package:lettutor_flutter/widgets/elevated_button_widget.dart';
+import 'package:lettutor_thaitran81/screen/auth/widgets/text_form_field.dart';
+import 'package:lettutor_thaitran81/utils/app_consts.dart';
+import 'package:lettutor_thaitran81/widgets/elevated_button_widget.dart';
 
 class PasswordContent extends StatefulWidget {
   const PasswordContent({

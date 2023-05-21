@@ -24,7 +24,8 @@ class SimpleWorker<T> {
     try {
       EasyLoading.show(status: 'loading...');
       if (T == Null) {
-        await task();
+        var res = await task();
+        onCompleted != null ? onCompleted!(res) : null;
       } else {
         var res = await task();
         onCompleted!(res);

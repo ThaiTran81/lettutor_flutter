@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lettutor_flutter/widgets/custom_dialog.dart';
+import 'package:lettutor_thaitran81/widgets/custom_dialog.dart';
 
 class DialogUtils {
   static void showInform(

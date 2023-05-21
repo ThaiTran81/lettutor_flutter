@@ -1,5 +1,5 @@
-class Categories {
-  Categories({
+class Categorie {
+  Categorie({
     this.id,
     this.title,
     this.description,
@@ -9,7 +9,7 @@ class Categories {
     this.updatedAt,
   });
 
-  Categories.fromJson(dynamic json) {
+  Categorie.fromJson(dynamic json) {
     id = json['id'];
     title = json['title'];
     description = json['description'];

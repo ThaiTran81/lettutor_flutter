@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:lettutor_flutter/data/model/tutor/Feedback.dart';
-import 'package:lettutor_flutter/data/model/tutor/Tutor.dart';
-import 'package:lettutor_flutter/data/model/tutor/TutorInforDetailResponse.dart';
-import 'package:lettutor_flutter/data/model/tutor/feedback/FeedbackResponse.dart';
-import 'package:lettutor_flutter/data/repository/tutor_repository.dart';
-import 'package:lettutor_flutter/di/components/service_locator.dart';
-import 'package:lettutor_flutter/utils/simple_worker.dart';
+import 'package:lettutor_thaitran81/data/model/tutor/Feedback.dart';
+import 'package:lettutor_thaitran81/data/model/tutor/Tutor.dart';
+import 'package:lettutor_thaitran81/data/model/tutor/TutorInforDetailResponse.dart';
+import 'package:lettutor_thaitran81/data/model/tutor/feedback/FeedbackResponse.dart';
+import 'package:lettutor_thaitran81/data/repository/tutor_repository.dart';
+import 'package:lettutor_thaitran81/di/components/service_locator.dart';
+import 'package:lettutor_thaitran81/utils/simple_worker.dart';
 
 class FeedbackViewProvider extends ChangeNotifier {
   int LIMIT_PER_PAGE = 10;

@@ -3,19 +3,19 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:lettutor_flutter/data/model/mentor/TypeMentorCategory.dart';
-import 'package:lettutor_flutter/data/model/user/StudyLevel.dart';
-import 'package:lettutor_flutter/data/model/user/User.dart';
-import 'package:lettutor_flutter/l10n/l10nUtils.dart';
-import 'package:lettutor_flutter/provider/auth_provider.dart';
-import 'package:lettutor_flutter/screen/profile/my_profile_provider.dart';
-import 'package:lettutor_flutter/screen/profile/widget/basic_info_content.dart';
-import 'package:lettutor_flutter/screen/profile/widget/password_content.dart';
-import 'package:lettutor_flutter/utils/app_consts.dart';
-import 'package:lettutor_flutter/utils/widget_utils.dart';
-import 'package:lettutor_flutter/widgets/cache_image.dart';
-import 'package:lettutor_flutter/widgets/custom_app_bar.dart';
-import 'package:lettutor_flutter/widgets/custom_text.dart';
+import 'package:lettutor_thaitran81/data/model/mentor/TypeMentorCategory.dart';
+import 'package:lettutor_thaitran81/data/model/user/StudyLevel.dart';
+import 'package:lettutor_thaitran81/data/model/user/User.dart';
+import 'package:lettutor_thaitran81/l10n/l10nUtils.dart';
+import 'package:lettutor_thaitran81/provider/auth_provider.dart';
+import 'package:lettutor_thaitran81/screen/profile/my_profile_provider.dart';
+import 'package:lettutor_thaitran81/screen/profile/widget/basic_info_content.dart';
+import 'package:lettutor_thaitran81/screen/profile/widget/password_content.dart';
+import 'package:lettutor_thaitran81/utils/app_consts.dart';
+import 'package:lettutor_thaitran81/utils/widget_utils.dart';
+import 'package:lettutor_thaitran81/widgets/cache_image.dart';
+import 'package:lettutor_thaitran81/widgets/custom_app_bar.dart';
+import 'package:lettutor_thaitran81/widgets/custom_text.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -179,7 +179,7 @@ class _EditProfileScreenState extends State<EditProfileScreen>
         .toSet();
     var infoFormData = BasicInfoFormData(
         name: _userData.name,
-        dob: _userData.birthday != null
+        dob: _userData.birthday != null && _userData.birthday !='null'
             ? DateTime.parse(_userData.birthday!)
             : null,
         country: _userData.country,

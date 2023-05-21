@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:lettutor_flutter/di/components/service_locator.dart';
-import 'package:lettutor_flutter/screen/mentor_section/mentors_screen/mentors_screen_provider.dart';
+import 'package:lettutor_thaitran81/di/components/service_locator.dart';
+import 'package:lettutor_thaitran81/screen/mentor_section/mentors_screen/mentors_screen_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../mentors_profile_details/mentors_profile_details.dart';

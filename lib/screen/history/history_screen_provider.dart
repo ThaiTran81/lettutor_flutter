@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
-import 'package:lettutor_flutter/data/model/schedule/ScheduleData.dart';
-import 'package:lettutor_flutter/data/model/schedule/ScheduleResponse.dart';
-import 'package:lettutor_flutter/data/repository/schedule_repository.dart';
-import 'package:lettutor_flutter/di/components/service_locator.dart';
-import 'package:lettutor_flutter/utils/simple_worker.dart';
+import 'package:lettutor_thaitran81/data/model/schedule/ScheduleData.dart';
+import 'package:lettutor_thaitran81/data/model/schedule/ScheduleResponse.dart';
+import 'package:lettutor_thaitran81/data/repository/schedule_repository.dart';
+import 'package:lettutor_thaitran81/di/components/service_locator.dart';
+import 'package:lettutor_thaitran81/utils/simple_worker.dart';
 
 class HistoryScreenProvider extends ChangeNotifier {
   static const int LIMIT_PER_PAGE = 100;

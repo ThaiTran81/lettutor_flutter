@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:lettutor_flutter/provider/auth_provider.dart';
-import 'package:lettutor_flutter/screen/bottom_nav_bar/bottom_nav_bar.dart';
-import 'package:lettutor_flutter/utils/nav_utils.dart';
+import 'package:lettutor_thaitran81/provider/auth_provider.dart';
+import 'package:lettutor_thaitran81/screen/bottom_nav_bar/bottom_nav_bar.dart';
+import 'package:lettutor_thaitran81/utils/nav_utils.dart';
 import 'package:provider/provider.dart';
 
 import '../../../utils/app_consts.dart';
@@ -26,12 +26,17 @@ class _LogInScreenState extends State<LogInScreen> {
   TextEditingController nameController = TextEditingController();
   TextEditingController passController = TextEditingController();
 
+
+  @override
+  void initState() {
+    nameController.text = 'phhai@ymail.com';
+    passController.text = '123456';
+  }
+
   @override
   Widget build(BuildContext context) {
     _authProvider = Provider.of<AuthProvider>(context);
 
-    nameController.text = 'phhai@ymail.com';
-    passController.text = '123456';
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SafeArea(

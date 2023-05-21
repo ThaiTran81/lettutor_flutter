@@ -1,28 +1,34 @@
 import 'package:flag/flag_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:lettutor_flutter/data/model/schedule/ScheduleData.dart';
-import 'package:lettutor_flutter/l10n/l10nUtils.dart';
-import 'package:lettutor_flutter/screen/meeting_screen/meeting_screen.dart';
-import 'package:lettutor_flutter/utils/date_utils.dart';
-import 'package:lettutor_flutter/utils/nav_utils.dart';
-import 'package:lettutor_flutter/utils/widget_utils.dart';
-import 'package:lettutor_flutter/widgets/cache_image.dart';
-import 'package:lettutor_flutter/widgets/custom_button.dart';
+import 'package:lettutor_thaitran81/data/model/schedule/ScheduleData.dart';
+import 'package:lettutor_thaitran81/l10n/l10nUtils.dart';
+import 'package:lettutor_thaitran81/screen/meeting_screen/meeting_screen.dart';
+import 'package:lettutor_thaitran81/screen/schedule/schedule_provider.dart';
+import 'package:lettutor_thaitran81/screen/schedule/widget/cancel_booking_layout.dart';
+import 'package:lettutor_thaitran81/utils/date_utils.dart';
+import 'package:lettutor_thaitran81/utils/nav_utils.dart';
+import 'package:lettutor_thaitran81/utils/widget_utils.dart';
+import 'package:lettutor_thaitran81/widgets/cache_image.dart';
+import 'package:lettutor_thaitran81/widgets/custom_button.dart';
+import 'package:provider/provider.dart';
 
 import '../../../utils/app_consts.dart';
 import '../../../widgets/custom_text.dart';
 import '../schedule_screen.dart';
 
 class ScheduleCard extends StatelessWidget {
-  ScheduleData bookedClass;
+  String bookingId;
+  ScheduleData scheduleData;
 
-  ScheduleCard(this.bookedClass, {super.key});
+  ScheduleCard(this.bookingId, this.scheduleData, {super.key});
 
   @override
   Widget build(BuildContext context) {
-    var scheduleDetailInfo = bookedClass.scheduleDetailInfo;
+    var scheduleDetailInfo = scheduleData.scheduleDetailInfo;
     var tutor = scheduleDetailInfo?.scheduleInfo?.tutorInfo;
+
+    var scheduleProvider = Provider.of<ScheduleProvider>(context);
     return Card(
       elevation: 0,
       shape: RoundedRectangleBorder(
@@ -161,7 +167,18 @@ class ScheduleCard extends StatelessWidget {
                   Flexible(
                       flex: 1,
                       child: OutlinedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          if (scheduleDetailInfo != null) {
+                            showDialog(
+                              context: context,
+                              builder: (context) => BookingCancelPanel(
+                                scheduleDetailInfo: scheduleDetailInfo,
+                                scheduleProvider: scheduleProvider,
+                                bookingId: bookingId,
+                              ),
+                            );
+                          }
+                        },
                         style: OutlinedButton.styleFrom(
                             side: const BorderSide(color: AppColors.danger),
                             shape: RoundedRectangleBorder(
@@ -195,7 +212,7 @@ class ScheduleCard extends StatelessWidget {
   }
 
   _goMeeting(BuildContext context) async {
-    var meetingLink = bookedClass.studentMeetingLink;
+    var meetingLink = scheduleData.studentMeetingLink;
     NavUtil.navigateScreen(
         context,
         VideoMeeting(

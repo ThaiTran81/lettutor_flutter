@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lettutor_flutter/widgets/base_screen.dart';
+import 'package:lettutor_thaitran81/widgets/base_screen.dart';
 
 class NavUtil {
   static navigateScreen(BuildContext context, Widget screen) {

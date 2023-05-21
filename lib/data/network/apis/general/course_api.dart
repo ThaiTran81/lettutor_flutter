@@ -1,7 +1,7 @@
-import 'package:lettutor_flutter/data/model/course/course/CourseResponse.dart';
-import 'package:lettutor_flutter/data/model/course/ebook/EbookResponse.dart';
-import 'package:lettutor_flutter/data/network/constants/endpoints.dart';
-import 'package:lettutor_flutter/data/network/dio_client.dart';
+import 'package:lettutor_thaitran81/data/model/course/course/CourseResponse.dart';
+import 'package:lettutor_thaitran81/data/model/course/ebook/EbookResponse.dart';
+import 'package:lettutor_thaitran81/data/network/constants/endpoints.dart';
+import 'package:lettutor_thaitran81/data/network/dio_client.dart';
 
 class CourseApi {
   // dio instance

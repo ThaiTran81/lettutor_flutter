@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:lettutor_flutter/data/model/mentor/TypeMentorCategory.dart';
-import 'package:lettutor_flutter/screen/mentor_section/view_model/mentor_category.dart';
+import 'package:lettutor_thaitran81/data/model/mentor/TypeMentorCategory.dart';
+import 'package:lettutor_thaitran81/screen/mentor_section/view_model/mentor_category.dart';
 
 class MentorSectionUtils {
   List<Tab> getCategoriesTab(BuildContext context) {

@@ -1,7 +1,8 @@
-import 'package:lettutor_flutter/data/model/mentor/TutorSchedule.dart';
-import 'package:lettutor_flutter/data/model/schedule/BookingScheduleReponse.dart';
-import 'package:lettutor_flutter/data/model/schedule/ScheduleResponse.dart';
-import 'package:lettutor_flutter/data/network/apis/authentication/schedule_api.dart';
+import 'package:lettutor_thaitran81/data/model/mentor/TutorSchedule.dart';
+import 'package:lettutor_thaitran81/data/model/schedule/BookingScheduleReponse.dart';
+import 'package:lettutor_thaitran81/data/model/schedule/ScheduleResponse.dart';
+import 'package:lettutor_thaitran81/data/model/schedule/cancel_reason.dart';
+import 'package:lettutor_thaitran81/data/network/apis/general/schedule_api.dart';
 
 class ScheduleRepository {
   final ScheduleApi _scheduleApi;
@@ -47,6 +48,11 @@ class ScheduleRepository {
   Future<BookingScheduleReponse> bookSchedule(
       String scheduleId, String? note) async {
     final res = await _scheduleApi.bookSchedule(scheduleId, note);
+    return res;
+  }
+
+  Future<dynamic> cancelSchedule(String scheduleDetailId, CancelReason cancelReason, String note) async{
+    final res = await _scheduleApi.cancelSchedule(scheduleDetailId, cancelReason.cancelId, note);
     return res;
   }
 }

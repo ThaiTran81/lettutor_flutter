@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:lettutor_flutter/screen/schedule/schedule_provider.dart';
-import 'package:lettutor_flutter/screen/schedule/widget/schedule_card.dart';
+import 'package:lettutor_thaitran81/screen/schedule/schedule_provider.dart';
+import 'package:lettutor_thaitran81/screen/schedule/widget/schedule_card.dart';
 import 'package:provider/provider.dart';
 
 enum SampleItem { itemOne, itemTwo, itemThree }
@@ -26,7 +26,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                     child: Column(
                   children: [
                     ...provider.bookedClasses
-                        .map((bookedClass) => ScheduleCard(bookedClass))
+                        .map((bookedClass) => ScheduleCard(bookedClass.id!, bookedClass))
                         .toList()
                   ],
                 )),

@@ -1,4 +1,4 @@
-import 'package:lettutor_flutter/data/model/tutor/Tutor.dart';
+import 'package:lettutor_thaitran81/data/model/tutor/Tutor.dart';
 
 class ScheduleInfo {
   ScheduleInfo({

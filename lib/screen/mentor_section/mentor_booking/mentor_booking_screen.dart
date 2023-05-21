@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
-import 'package:lettutor_flutter/screen/mentor_section/mentor_booking/mentor_booking_screen_provider.dart';
-import 'package:lettutor_flutter/screen/mentor_section/mentor_booking/widget/ScheduleBookingItem.dart';
-import 'package:lettutor_flutter/utils/app_consts.dart';
-import 'package:lettutor_flutter/widgets/custom_app_bar.dart';
+import 'package:lettutor_thaitran81/screen/mentor_section/mentor_booking/mentor_booking_screen_provider.dart';
+import 'package:lettutor_thaitran81/screen/mentor_section/mentor_booking/widget/ScheduleBookingItem.dart';
+import 'package:lettutor_thaitran81/utils/app_consts.dart';
+import 'package:lettutor_thaitran81/widgets/custom_app_bar.dart';
 import 'package:provider/provider.dart';
 
 class MentorBookingScreen extends StatefulWidget {

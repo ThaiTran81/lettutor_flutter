@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:lettutor_flutter/utils/app_consts.dart';
+import 'package:lettutor_thaitran81/utils/app_consts.dart';
 
 class AppProvider extends ChangeNotifier {
   String selectedLanguage = "en";

@@ -1,9 +1,9 @@
 import 'package:dio/src/form_data.dart';
 import 'package:flutter/foundation.dart';
-import 'package:lettutor_flutter/data/model/user/UpdateUserRequest.dart';
-import 'package:lettutor_flutter/data/model/user/User.dart';
-import 'package:lettutor_flutter/data/model/user/UserData.dart';
-import 'package:lettutor_flutter/data/network/constants/endpoints.dart';
+import 'package:lettutor_thaitran81/data/model/user/UpdateUserRequest.dart';
+import 'package:lettutor_thaitran81/data/model/user/User.dart';
+import 'package:lettutor_thaitran81/data/model/user/UserData.dart';
+import 'package:lettutor_thaitran81/data/network/constants/endpoints.dart';
 
 import '../../dio_client.dart';
 

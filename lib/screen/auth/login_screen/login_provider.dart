@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:lettutor_flutter/data/repository/user_repository.dart';
-import 'package:lettutor_flutter/di/components/service_locator.dart';
-import 'package:lettutor_flutter/utils/dialog_utils.dart';
-import 'package:lettutor_flutter/utils/simple_worker.dart';
+import 'package:lettutor_thaitran81/data/repository/user_repository.dart';
+import 'package:lettutor_thaitran81/di/components/service_locator.dart';
+import 'package:lettutor_thaitran81/utils/dialog_utils.dart';
+import 'package:lettutor_thaitran81/utils/simple_worker.dart';
 
 // import 'package:lms/data/body_response/auth_body/body_login.dart';
 // import 'package:lms/data/repository/auth_repository/auth_repository.dart';

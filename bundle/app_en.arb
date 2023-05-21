@@ -82,9 +82,18 @@
   "tutor_detail_screen.report.btn_cancel": "Cancel",
   "tutor_detail_screen.report.btn_report": "Report",
   "tutor_detail_screen.report.report_field.hint": "Enter your report here",
-  "course_screen.title": "All Courses",
+  "course_screen.title": "Courses",
   "course_screen.search_field.hint": "Enter course's name you want to find",
   "course_screen.tab.course": "Course",
   "course_screen.tab.ebook": "Ebook",
-  "course_screen.tab.interactive_book": "Interactive E-book"
+  "course_screen.tab.interactive_book": "Interactive E-book",
+  "CancelReason_reschedule": "Reschedule at another time",
+  "CancelReason_busy": "Busy at that time",
+  "CancelReason_askedByTutor": "Asked by the tutor",
+  "CancelReason_other": " Other",
+  "cancel_shedule_success": "You have successfully canceled the booking.",
+  "SortByLevel_asc": "Level ascending",
+  "SortByLevel_desc": "Level descending",
+  "course_screen.filter.type.level": "Level",
+  "course_screen.filter.type.level.sort": "Sort by level"
 }

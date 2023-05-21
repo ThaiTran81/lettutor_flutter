@@ -72,7 +72,7 @@ class Endpoints {
   }
 
   static String getHistoryBookedClass(int perPage, int page, int datetimeGte) {
-    return "$baseUrl/booking/list/student?page=$page&perPage=$perPage&dateTimeGte=$datetimeGte&orderBy=meeting&sortBy=desc";
+    return "$baseUrl/booking/list/student?page=$page&perPage=$perPage&dateTimeLte=$datetimeGte&orderBy=meeting&sortBy=desc";
   }
 
   static const String getScheduleByTutorId = "$baseUrl/schedule";
@@ -85,4 +85,6 @@ class Endpoints {
   }
 
   static const String booking = "$baseUrl/booking";
+
+  static const String cancelSchedule = "$baseUrl/booking/schedule-detail";
 }

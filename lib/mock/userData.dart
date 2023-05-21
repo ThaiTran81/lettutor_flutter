@@ -1,5 +1,5 @@
-import 'package:lettutor_flutter/data/model/mentor/MentorSummary.dart';
-import 'package:lettutor_flutter/data/model/mentor/TypeMentorCategory.dart';
+import 'package:lettutor_thaitran81/data/model/mentor/MentorSummary.dart';
+import 'package:lettutor_thaitran81/data/model/mentor/TypeMentorCategory.dart';
 
 class UserMock {
   static List<Mentor> users = [

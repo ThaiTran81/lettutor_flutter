@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:lettutor_flutter/data/model/mentor/TutorSchedule.dart';
-import 'package:lettutor_flutter/screen/mentor_section/mentor_booking/mentor_booking_screen_provider.dart';
-import 'package:lettutor_flutter/utils/app_consts.dart';
-import 'package:lettutor_flutter/utils/widget_utils.dart';
+import 'package:lettutor_thaitran81/data/model/mentor/TutorSchedule.dart';
+import 'package:lettutor_thaitran81/screen/mentor_section/mentor_booking/mentor_booking_screen_provider.dart';
+import 'package:lettutor_thaitran81/utils/app_consts.dart';
+import 'package:lettutor_thaitran81/utils/widget_utils.dart';
 
 class BookingPopup extends StatelessWidget {
   final TextEditingController _noteController = TextEditingController();
@@ -25,7 +25,7 @@ class BookingPopup extends StatelessWidget {
         DateTime.fromMillisecondsSinceEpoch(tutorSchedule.endTimestamp!);
 
     String formattedDate =
-        DateFormat('EEEE, d MMMM yyyy').format(startDateTime);
+        DateFormat.yMMMMEEEEd().format(startDateTime);
     return AlertDialog(
       title: Text('Booking detail'),
       content: LimitedBox(

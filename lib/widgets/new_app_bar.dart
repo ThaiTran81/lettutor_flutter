@@ -35,11 +35,13 @@ class NewAppBar extends StatelessWidget {
         ),
         actions: [
           Padding(
-            padding: const EdgeInsets.all(17),
+            padding: const EdgeInsets.all(10),
             child: InkWell(
               onTap: onTap,
               child: Image.asset(
-                'assets/home_page/new_notification.png',
+                'assets/chat/chat_icon.gif',
+                width: 30,
+                height: 30,
               ),
             ),
           ),

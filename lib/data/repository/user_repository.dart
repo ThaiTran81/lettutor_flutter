@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
-import 'package:lettutor_flutter/data/model/user/UpdateUserRequest.dart';
-import 'package:lettutor_flutter/data/model/user/User.dart';
-import 'package:lettutor_flutter/data/model/user/UserData.dart';
-import 'package:lettutor_flutter/data/network/apis/authentication/auth_api.dart';
+import 'package:lettutor_thaitran81/data/model/user/UpdateUserRequest.dart';
+import 'package:lettutor_thaitran81/data/model/user/User.dart';
+import 'package:lettutor_thaitran81/data/model/user/UserData.dart';
+import 'package:lettutor_thaitran81/data/network/apis/general/auth_api.dart';
 
 class UserRepository {
   final AuthApi _authApi;

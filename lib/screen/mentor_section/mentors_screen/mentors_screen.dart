@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:lettutor_flutter/data/model/mentor/TypeMentorCategory.dart';
-import 'package:lettutor_flutter/di/components/service_locator.dart';
-import 'package:lettutor_flutter/l10n/l10nUtils.dart';
-import 'package:lettutor_flutter/screen/meeting_screen/meeting_screen.dart';
-import 'package:lettutor_flutter/screen/mentor_section/mentors_screen/tutor_filter_screen.dart';
-import 'package:lettutor_flutter/utils/date_utils.dart';
-import 'package:lettutor_flutter/utils/nav_utils.dart';
-import 'package:lettutor_flutter/utils/widget_utils.dart';
-import 'package:lettutor_flutter/widgets/CountDownTimer.dart';
-import 'package:lettutor_flutter/widgets/custom_button.dart';
+import 'package:lettutor_thaitran81/data/model/mentor/TypeMentorCategory.dart';
+import 'package:lettutor_thaitran81/di/components/service_locator.dart';
+import 'package:lettutor_thaitran81/l10n/l10nUtils.dart';
+import 'package:lettutor_thaitran81/screen/meeting_screen/meeting_screen.dart';
+import 'package:lettutor_thaitran81/screen/mentor_section/mentors_screen/tutor_filter_screen.dart';
+import 'package:lettutor_thaitran81/utils/date_utils.dart';
+import 'package:lettutor_thaitran81/utils/nav_utils.dart';
+import 'package:lettutor_thaitran81/utils/widget_utils.dart';
+import 'package:lettutor_thaitran81/widgets/CountDownTimer.dart';
+import 'package:lettutor_thaitran81/widgets/custom_button.dart';
 import 'package:provider/provider.dart';
 
 import '../../../utils/app_consts.dart';
@@ -127,8 +127,7 @@ class _MentorsScreenState extends State<MentorsScreen>
         var translateUtils = TranslateUtils.of(context);
         return Container(
           padding: EdgeInsets.all(10),
-          height: 150,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(25)),
               color: AppColors.primaryBg),
           child: Column(

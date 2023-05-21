@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:lettutor_flutter/l10n/l10nUtils.dart';
-import 'package:lettutor_flutter/screen/course/course_screen.dart';
-import 'package:lettutor_flutter/screen/history/history_screen.dart';
-import 'package:lettutor_flutter/screen/profile/my_profile_screen.dart';
-import 'package:lettutor_flutter/screen/schedule/schedule_screen.dart';
+import 'package:lettutor_thaitran81/l10n/l10nUtils.dart';
+import 'package:lettutor_thaitran81/screen/course/course_screen.dart';
+import 'package:lettutor_thaitran81/screen/history/history_screen.dart';
+import 'package:lettutor_thaitran81/screen/profile/my_profile_screen.dart';
+import 'package:lettutor_thaitran81/screen/schedule/schedule_screen.dart';
 
 import '../../utils/app_consts.dart';
 import '../../widgets/new_app_bar.dart';
-import '../home/notification/notification_screen.dart';
+import '../home/notification/chat_gpt_screen.dart';
 import '../mentor_section/mentors_screen/mentors_screen.dart';
 
 class BottomNavBar extends StatefulWidget {
@@ -94,7 +94,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const NotificationScreen(),
+                    builder: (context) => const ChatGptScreen(),
                   ));
             },
             onPressed: () {},
@@ -133,20 +133,20 @@ class _BottomNavBarState extends State<BottomNavBar> {
                         color: AppColors.primary,
                       )
                     : Icon(Icons.class_outlined, color: AppColors.non_select),
-                label: 'Courses',
+                label: TranslateUtils.of(context).translate("course_screen.title"),
               ),
               BottomNavigationBarItem(
                 icon: selectedIndex == 1
                     ? Icon(Icons.groups, color: AppColors.primary)
                     : Icon(Icons.groups_outlined, color: AppColors.non_select),
-                label: 'Mentors',
+                label: TranslateUtils.of(context).translate("tutor_screen.title"),
               ),
               BottomNavigationBarItem(
                 icon: selectedIndex == 2
                     ? Icon(Icons.event_note, color: AppColors.primary)
                     : Icon(Icons.event_note_outlined,
                         color: AppColors.non_select),
-                label: 'Schedule',
+                label: TranslateUtils.of(context).translate("schedule_screen.title"),
               ),
               BottomNavigationBarItem(
                 icon: selectedIndex == 3
@@ -156,7 +156,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
                       )
                     : Icon(Icons.watch_later_outlined,
                         color: AppColors.non_select),
-                label: 'History',
+                label: TranslateUtils.of(context).translate("history_screen.title"),
               ),
               BottomNavigationBarItem(
                 icon: selectedIndex == 4
@@ -170,7 +170,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
                         height: 24.h,
                         width: 24.w,
                       ),
-                label: 'Profile',
+                label: TranslateUtils.of(context).translate("profile_title"),
               ),
             ],
             currentIndex: selectedIndex,

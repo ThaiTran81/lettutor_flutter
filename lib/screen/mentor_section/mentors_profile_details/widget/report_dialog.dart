@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lettutor_flutter/l10n/l10nUtils.dart';
+import 'package:lettutor_thaitran81/l10n/l10nUtils.dart';
 
 class ReportDialog extends StatelessWidget {
   final TextEditingController _textEditingController = TextEditingController();

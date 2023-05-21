@@ -1,6 +1,6 @@
 // Create a new StatefulWidget for the GridView
 import 'package:flutter/material.dart';
-import 'package:lettutor_flutter/utils/app_consts.dart';
+import 'package:lettutor_thaitran81/utils/app_consts.dart';
 
 class CalendarGrid extends StatelessWidget {
   final List<int> listOfDates;

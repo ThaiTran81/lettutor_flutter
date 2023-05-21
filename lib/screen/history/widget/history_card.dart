@@ -2,12 +2,12 @@ import 'package:flag/flag_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:lettutor_flutter/data/model/schedule/ScheduleData.dart';
-import 'package:lettutor_flutter/l10n/l10nUtils.dart';
-import 'package:lettutor_flutter/utils/date_utils.dart';
-import 'package:lettutor_flutter/utils/widget_utils.dart';
-import 'package:lettutor_flutter/widgets/cache_image.dart';
-import 'package:lettutor_flutter/widgets/custom_button.dart';
+import 'package:lettutor_thaitran81/data/model/schedule/ScheduleData.dart';
+import 'package:lettutor_thaitran81/l10n/l10nUtils.dart';
+import 'package:lettutor_thaitran81/utils/date_utils.dart';
+import 'package:lettutor_thaitran81/utils/widget_utils.dart';
+import 'package:lettutor_thaitran81/widgets/cache_image.dart';
+import 'package:lettutor_thaitran81/widgets/custom_button.dart';
 
 import '../../../utils/app_consts.dart';
 import '../../../widgets/custom_text.dart';

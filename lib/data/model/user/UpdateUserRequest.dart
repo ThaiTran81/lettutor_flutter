@@ -1,5 +1,5 @@
-import 'package:lettutor_flutter/data/model/mentor/TypeMentorCategory.dart';
-import 'package:lettutor_flutter/data/model/user/StudyLevel.dart';
+import 'package:lettutor_thaitran81/data/model/mentor/TypeMentorCategory.dart';
+import 'package:lettutor_thaitran81/data/model/user/StudyLevel.dart';
 
 class UpdateUserRequest {
   String? name;

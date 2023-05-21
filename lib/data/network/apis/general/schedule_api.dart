@@ -1,6 +1,6 @@
-import 'package:lettutor_flutter/data/model/schedule/BookingScheduleReponse.dart';
-import 'package:lettutor_flutter/data/model/schedule/ScheduleResponse.dart';
-import 'package:lettutor_flutter/data/network/constants/endpoints.dart';
+import 'package:lettutor_thaitran81/data/model/schedule/BookingScheduleReponse.dart';
+import 'package:lettutor_thaitran81/data/model/schedule/ScheduleResponse.dart';
+import 'package:lettutor_thaitran81/data/network/constants/endpoints.dart';
 
 import '../../dio_client.dart';
 
@@ -12,14 +12,14 @@ class ScheduleApi {
 
   Future<ScheduleResponse> getBookedClass(int perPage, int page) async {
     final res = await _dioClient.get(Endpoints.getBookedClass(perPage, page,
-        (DateTime.now().microsecondsSinceEpoch ~/ 1000).toInt()));
+        (DateTime.now().millisecondsSinceEpoch).toInt()));
 
     return ScheduleResponse.fromJson(res);
   }
 
   Future<ScheduleResponse> getHistoryBookedClass(int perPage, int page) async {
     final res = await _dioClient.get(Endpoints.getHistoryBookedClass(perPage,
-        page, (DateTime.now().microsecondsSinceEpoch ~/ 1000000).toInt()));
+        page, (DateTime.now().millisecondsSinceEpoch).toInt()));
     return ScheduleResponse.fromJson(res);
   }
 
@@ -52,5 +52,18 @@ class ScheduleApi {
       "note": note
     });
     return BookingScheduleReponse.fromJson(res);
+  }
+
+  Future<dynamic> cancelSchedule(String scheduleDetailId, int cancelId, String note) async{
+    var data = {
+      "cancelInfo": {
+        "cancelReasonId": cancelId,
+        "note": note
+      },
+      "scheduleDetailId": scheduleDetailId
+    };
+
+    final res = await _dioClient.delete(Endpoints.cancelSchedule, data: data);
+    return res;
   }
 }

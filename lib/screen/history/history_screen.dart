@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lettutor_flutter/screen/history/widget/history_card.dart';
+import 'package:lettutor_thaitran81/screen/history/widget/history_card.dart';
 import 'package:provider/provider.dart';
 
 import 'history_screen_provider.dart';

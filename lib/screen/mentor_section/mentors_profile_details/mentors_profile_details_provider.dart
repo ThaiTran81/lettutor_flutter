@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:lettutor_flutter/data/model/tutor/Tutor.dart';
-import 'package:lettutor_flutter/data/model/tutor/TutorInforDetailResponse.dart';
-import 'package:lettutor_flutter/data/repository/tutor_repository.dart';
-import 'package:lettutor_flutter/di/components/service_locator.dart';
-import 'package:lettutor_flutter/screen/mentor_section/mentors_screen/mentors_screen_provider.dart';
-import 'package:lettutor_flutter/utils/dialog_utils.dart';
-import 'package:lettutor_flutter/utils/simple_worker.dart';
+import 'package:lettutor_thaitran81/data/model/tutor/Tutor.dart';
+import 'package:lettutor_thaitran81/data/model/tutor/TutorInforDetailResponse.dart';
+import 'package:lettutor_thaitran81/data/repository/tutor_repository.dart';
+import 'package:lettutor_thaitran81/di/components/service_locator.dart';
+import 'package:lettutor_thaitran81/screen/mentor_section/mentors_screen/mentors_screen_provider.dart';
+import 'package:lettutor_thaitran81/utils/dialog_utils.dart';
+import 'package:lettutor_thaitran81/utils/simple_worker.dart';
 
 class MentorsProfileDetailsProvider extends ChangeNotifier {
   TutorRepository _tutorRepository = getIt.get<TutorRepository>();

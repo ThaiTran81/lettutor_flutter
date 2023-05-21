@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:lettutor_flutter/data/model/user/UpdateUserRequest.dart';
-import 'package:lettutor_flutter/data/model/user/User.dart';
-import 'package:lettutor_flutter/data/repository/user_repository.dart';
-import 'package:lettutor_flutter/di/components/service_locator.dart';
-import 'package:lettutor_flutter/provider/auth_provider.dart';
-import 'package:lettutor_flutter/screen/profile/widget/basic_info_content.dart';
-import 'package:lettutor_flutter/utils/simple_worker.dart';
+import 'package:lettutor_thaitran81/data/model/user/UpdateUserRequest.dart';
+import 'package:lettutor_thaitran81/data/model/user/User.dart';
+import 'package:lettutor_thaitran81/data/repository/user_repository.dart';
+import 'package:lettutor_thaitran81/di/components/service_locator.dart';
+import 'package:lettutor_thaitran81/provider/auth_provider.dart';
+import 'package:lettutor_thaitran81/screen/profile/widget/basic_info_content.dart';
+import 'package:lettutor_thaitran81/utils/simple_worker.dart';
 
 class MyProfileProvider extends ChangeNotifier {
   final UserRepository _userRepository = getIt.get<UserRepository>();

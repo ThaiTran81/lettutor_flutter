@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:lettutor_flutter/screen/course/pdfScreen/pdf_screen_provider.dart';
+import 'package:lettutor_thaitran81/screen/course/pdfScreen/pdf_screen_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
